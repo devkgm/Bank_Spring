@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-<mapper namespace="com.devkgm.app.products.ProductDAO">
-
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		    
+<mapper namespace="com.devkgm.app.product.ProductDAO">
+	<select id="getList" resultType="ProductDTO" parameterType="Pager">
+		SELECT * FROM
+		(
+			SELECT ROWNUM R, RG.* FROM
+				(
+					SELECT *
+					FROM PRODUCT
+					ORDER BY ID DESC
+				) RG
+		)
+		WHERE R BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="getDetail" resultType="ProductDTO" parameterType="ProductDTO">
+		SELECT * FROM PRODUCT WHERE ID = #{id}
+	</select>
+	<insert id="add" parameterType="ProductDTO">
+		INSERT INTO PRODUCT VALUES (PRODUCT_SEQ.NEXTVAL, #{name}, #{description}, #{rate})
+	</insert>
+	<update id="update" parameterType="ProductDTO">
+		UPDATE PRODUCT SET NAME=#{name}, DESCRIPTION=#{description}, RATE=#{rate} WHERE ID = #{id}
+	</update>
+	<delete id="delete" parameterType="ProductDTO">
+		DELETE FROM PRODUCT WHERE ID = #{id}
+	</delete>
 </mapper>

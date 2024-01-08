@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+		    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		    
+<mapper namespace="com.devkgm.app.notice.NoticeDAO">
+	<select id="getList" resultType="NoticeDTO">
+		SELECT * FROM NOTICE
+	</select>
+	<select id="getDetail" resultType="NoticeDTO" parameterType="NoticeDTO">
+		SELECT * FROM NOTICE WHERE ID = #{id}
+	</select>
+	<insert id="add" parameterType="NoticeDTO">
+		INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, #{title}, #{description}, SYSDATE, 1)
+	</insert>
+	<update id="update" parameterType="NoticeDTO">
+		UPDATE NOTICE SET TITLE=#{title}, DESCRIPTION=#{description} WHERE ID=#{id}
+	</update>
+	<delete id="delete" parameterType="NoticeDTO">
+		DELETE FROM NOTICE WHERE ID=#{id}
+	</delete>
+	<update id="updateHit" parameterType="NoticeDTO">
+		UPDATE NOTICE SET HIT=(SELECT HIT FROM NOTICE WHERE ID=#{id})+1 WHERE ID=#{id}
+	</update>
+</mapper>
