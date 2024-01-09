@@ -20,7 +20,9 @@ public class ProductController {
 	@RequestMapping(value="list", method=RequestMethod.GET)
 	public String list(Model model, Pager pager) throws Exception{
 		List<ProductDTO> list = productService.getList(pager);
+				
 		model.addAttribute("list", list);
+		model.addAttribute("pager", pager);
 		return "products/list";
 	}
 	@RequestMapping(value="detail", method=RequestMethod.GET)

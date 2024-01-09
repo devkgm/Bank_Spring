@@ -5,6 +5,23 @@
 		    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 		    
 <mapper namespace="com.devkgm.app.product.ProductDAO">
+
+	<sql id="search">
+		WHERE
+		<if test="kind==1">
+			NAME LIKE '%'||#{search}||'%'
+		</if>
+		<if test="kind==2">
+			ID LIKE '%'||#{search}||'%'
+		</if>
+		<if test="kind==3">
+			RATE LIKE '%'||#{search}||'%'
+		</if>
+	</sql>
+	
+	<!-- <sql id="search">
+		WHERE NAME LIKE '%'||#{search}||'%'
+	</sql> -->
 	<select id="getList" resultType="ProductDTO" parameterType="Pager">
 		SELECT * FROM
 		(
@@ -12,6 +29,7 @@
 				(
 					SELECT *
 					FROM PRODUCT
+					<include refid="search"></include>
 					ORDER BY ID DESC
 				) RG
 		)
@@ -19,6 +37,10 @@
 	</select>
 	<select id="getDetail" resultType="ProductDTO" parameterType="ProductDTO">
 		SELECT * FROM PRODUCT WHERE ID = #{id}
+	</select>
+	<select id="getTotalPage" resultType="Long" parameterType="Pager">
+		SELECT COUNT(*) FROM PRODUCT
+		<include refid="search"></include>
 	</select>
 	<insert id="add" parameterType="ProductDTO">
 		INSERT INTO PRODUCT VALUES (PRODUCT_SEQ.NEXTVAL, #{name}, #{description}, #{rate})

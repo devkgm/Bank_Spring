@@ -30,4 +30,7 @@ public class ProductDAO {
 	public int delete(ProductDTO productDTO) throws Exception{
 		return sqlSession.delete(namespace+"delete", productDTO);
 	}
+	public Long getTotalPage(Pager pager) throws Exception {
+		return sqlSession.selectOne(namespace+"getTotalPage", pager);
+	}
 }
