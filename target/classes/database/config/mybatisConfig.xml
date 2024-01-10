@@ -12,5 +12,6 @@
 		<typeAlias type="com.devkgm.app.util.Pager"/>
 		<typeAlias type="com.devkgm.app.product.ProductFileDTO"/>
 		<typeAlias type="com.devkgm.app.files.FileDTO"/>
+		<typeAlias type="com.devkgm.app.notice.NoticeFileDTO"/>
 	</typeAliases>
 </configuration>

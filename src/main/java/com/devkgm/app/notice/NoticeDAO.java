@@ -15,6 +15,7 @@ public class NoticeDAO {
 		return sqlSession.selectList(namespace+"getList");
 	}
 	public NoticeDTO getDetail(NoticeDTO noticeDTO) {
+		System.out.println(noticeDTO.getId());
 		return sqlSession.selectOne(namespace+"getDetail",noticeDTO);
 	}
 	public int add(NoticeDTO noticeDTO) {
@@ -28,5 +29,11 @@ public class NoticeDAO {
 	}
 	public int updateHit(NoticeDTO noticeDTO) {
 		return sqlSession.update(namespace+"updateHit",noticeDTO);
+	}
+	public int addFile(NoticeFileDTO noticeFileDTO) {
+		return sqlSession.insert(namespace+"addFile", noticeFileDTO);
+	}
+	public int addNoticeFile(NoticeFileDTO noticeFileDTO) {
+		return sqlSession.insert(namespace+"addNoticeFile", noticeFileDTO);
 	}
 }

@@ -9,6 +9,17 @@ public class NoticeDTO {
 	private String description;
 	private Date create_dt;
 	private int hit;
+	private String image;
+	
+	
+	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
 	public Long getId() {
 		return id;
 	}

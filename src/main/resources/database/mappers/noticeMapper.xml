@@ -7,12 +7,21 @@
 <mapper namespace="com.devkgm.app.notice.NoticeDAO">
 	<select id="getList" resultType="NoticeDTO">
 		SELECT * FROM NOTICE
+		ORDER BY ID DESC
 	</select>
 	<select id="getDetail" resultType="NoticeDTO" parameterType="NoticeDTO">
-		SELECT * FROM NOTICE WHERE ID = #{id}
+		SELECT N.*, F.NAME IMAGE FROM NOTICE N 
+		LEFT JOIN NOTICE_FILE NF 
+		ON N.ID = NF.NOTICE_ID
+		LEFT JOIN N_FILE F
+		ON F.ID = NF.FILE_ID
+		WHERE N.ID = #{id}
 	</select>
 	<insert id="add" parameterType="NoticeDTO">
-		INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, #{title}, #{description}, SYSDATE, 1)
+		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
+			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO NOTICE VALUES (#{id}, #{title}, #{description}, SYSDATE, 1)
 	</insert>
 	<update id="update" parameterType="NoticeDTO">
 		UPDATE NOTICE SET TITLE=#{title}, DESCRIPTION=#{description} WHERE ID=#{id}
@@ -23,4 +32,13 @@
 	<update id="updateHit" parameterType="NoticeDTO">
 		UPDATE NOTICE SET HIT=(SELECT HIT FROM NOTICE WHERE ID=#{id})+1 WHERE ID=#{id}
 	</update>
+	<insert id="addFile" parameterType="NoticeFileDTO">
+		<selectKey keyProperty="file_id" order="BEFORE" resultType="Long">
+			SELECT N_FILE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO N_FILE VALUES (#{file_id}, #{name}, #{origin_nm})
+	</insert>
+	<insert id="addNoticeFile" parameterType="NoticeFileDTO">
+		INSERT INTO NOTICE_FILE VALUES (NOTICE_FILE_SEQ.NEXTVAL, #{notice_id}, #{file_id})
+	</insert>
 </mapper>

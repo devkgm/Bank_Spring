@@ -17,15 +17,21 @@
 			<input type="hidden" name="id" value="${dto.id }">
 		  <div class="mb-3">
 		    <label for="title" class="form-label">제목</label>
-		    <input type="text" readonly class="form-control" id="title" name="title" value="${dto.title }" aria-describedby="nameHelp">
+		    <br>
+		    ${dto.title }
 		  </div>
 		  <div class="mb-3">
 		    <label for="desciprtion" class="form-label">본문</label>
-		    <textarea style="height: 500px;"  readonly class="form-control" id="desciprtion" name="description" value="${dto.description }">${dto.description }</textarea>
+		    <br>
+		    ${dto.description }
+		    <c:if test="${dto.image != null }">
+		    	<img src="./file/${dto.image}" alt="img">
+		    </c:if>
 		  </div>
 		  <div class="mb-3">
 		    <label for="hit" class="form-label">조회수</label>
-		    <input type="text" readonly class="form-control" id="hit" name="hit" value="${dto.hit }">
+		    <br>
+		    ${dto.hit }
 		  </div>
 		</form>
 		<button class="btn btn-danger" id="deleteBtn">삭제</button>
