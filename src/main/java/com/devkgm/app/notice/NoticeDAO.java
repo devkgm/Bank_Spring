@@ -15,7 +15,6 @@ public class NoticeDAO {
 		return sqlSession.selectList(namespace+"getList");
 	}
 	public NoticeDTO getDetail(NoticeDTO noticeDTO) {
-		System.out.println(noticeDTO.getId());
 		return sqlSession.selectOne(namespace+"getDetail",noticeDTO);
 	}
 	public int add(NoticeDTO noticeDTO) {

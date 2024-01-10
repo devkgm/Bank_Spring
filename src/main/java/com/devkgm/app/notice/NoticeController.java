@@ -64,9 +64,8 @@ public class NoticeController {
 	}
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public void getDetail(Model model, NoticeDTO noticeDTO) throws Exception{
-		System.out.println(noticeDTO.getId());
 		noticeDTO = noticeService.getDetail(noticeDTO);
-		//int result = noticeService.updateHit(noticeDTO);
+		int result = noticeService.updateHit(noticeDTO);
 		model.addAttribute("dto", noticeDTO);
 	}
 	@RequestMapping(value = "add", method = RequestMethod.GET)
@@ -74,6 +73,7 @@ public class NoticeController {
 	}
 	@RequestMapping(value = "update", method = RequestMethod.GET)
 	public void update(Model model, NoticeDTO noticeDTO) throws Exception{
+		noticeDTO = noticeService.getDetail(noticeDTO);
 		model.addAttribute("dto", noticeDTO);
 	}
 	@RequestMapping(value = "add", method = RequestMethod.POST)

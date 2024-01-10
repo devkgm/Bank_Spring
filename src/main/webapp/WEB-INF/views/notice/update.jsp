@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <c:import url="../commons/bootstrap_css.jsp"></c:import>
+<c:import url="../commons/summernote.jsp"></c:import>
 </head>
 <body>
 	<c:import url="../commons/navigation.jsp"></c:import>
@@ -21,12 +22,29 @@
 		  </div>
 		  <div class="mb-3">
 		    <label for="desciprtion" class="form-label">본문</label>
-		    <textarea type="text" style="height: 500px;" class="form-control" id="desciprtion" name="description" value="${dto.description }">${dto.description }</textarea>
+		    <textarea class="form-control" id="summernote" name="description"></textarea>
 		  </div>
 		  <button class="btn btn-primary">업로드</button>
 		</form>
 	</div>
 	
 	<c:import url="../commons/bootstrap_js.jsp"></c:import>
+	<script type="text/javascript">
+		$('#summernote').summernote({
+	        placeholder: 'Hello stand alone ui',
+	        tabsize: 2,
+	        height: 500,
+	        toolbar: [
+	          ['style', ['style']],
+	          ['font', ['bold', 'underline', 'clear']],
+	          ['color', ['color']],
+	          ['para', ['ul', 'ol', 'paragraph']],
+	          ['table', ['table']],
+	          ['insert', ['link', 'picture', 'video']],
+	          ['view', ['fullscreen', 'codeview', 'help']]
+	        ]
+	      });
+		$('#summernote').summernote('code', `${dto.description }`);
+	</script>
 </body>
 </html>
