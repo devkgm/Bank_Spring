@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.core.io.Resource; 
@@ -35,7 +36,7 @@ public class NoticeController {
 	@Autowired
 	private ServletContext servletContext;
 	
-	@RequestMapping(value = "file/{imageUrl}")
+	@RequestMapping(value = "file/{imageUrl}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getImage(@PathVariable String imageUrl) {
         try {
         	String path = "file:"+servletContext.getRealPath("/resources/upload/notices")+File.separator+imageUrl+".jpeg";
@@ -54,6 +55,15 @@ public class NoticeController {
             e.printStackTrace();
             return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    
+    
+    @RequestMapping(value="addImage", method = RequestMethod.POST)
+    @ResponseBody
+    public NoticeFileDTO addImage(MultipartFile image,HttpServletResponse response) throws Exception {
+ 
+    	NoticeFileDTO noticeFileDTO = noticeService.addImage(image, null);
+    	return noticeFileDTO;
     }
 	
 	
@@ -78,6 +88,7 @@ public class NoticeController {
 	}
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public String add(Model model, NoticeDTO noticeDTO, MultipartFile photo) throws Exception{
+		System.out.println(noticeDTO.getImage()+"Control");
 		int result = noticeService.add(noticeDTO, photo);
 		String message = "추가 성공";
 		if(result == 0) {

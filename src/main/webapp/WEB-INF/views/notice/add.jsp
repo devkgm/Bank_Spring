@@ -13,7 +13,7 @@
 	<c:import url="../commons/navigation.jsp"></c:import>
 	
 	<div class="container-sm">
-		<h1>공추가</h1>
+		<h1>공지추가</h1>
 		<form action="./add" method="POST" enctype="multipart/form-data">
 		  <div class="mb-3">
 		    <label for="title" class="form-label">제목</label>
@@ -44,8 +44,28 @@
 	          ['table', ['table']],
 	          ['insert', ['link', 'picture', 'video']],
 	          ['view', ['fullscreen', 'codeview', 'help']]
-	        ]
+	        ],
+	        callbacks: {
+			    onImageUpload: function(files) {
+			      const send_data = new FormData();
+			      send_data.append("image", files[0]);
+			      fetch('./addImage', {
+			    	  method:"POST",
+			    	  headers:{
+			    		  
+			    	  },
+			    	  body:send_data,
+			      })
+			      .then(res => res.json())
+			      .then(data => {
+			    	  console.log(data.name);
+			    	  $('#summernote').summernote('insertImage',"./file/"+data.name, data.origin_nm);
+			      })
+			      
+			    }
+			  }
 	      });
+		
 	</script>
 </body>
 </html>
