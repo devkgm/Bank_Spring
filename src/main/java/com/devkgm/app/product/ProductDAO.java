@@ -33,4 +33,10 @@ public class ProductDAO {
 	public Long getTotalPage(Pager pager) throws Exception {
 		return sqlSession.selectOne(namespace+"getTotalPage", pager);
 	}
+	public int addFile(ProductFileDTO productFileDTO) throws Exception{
+		return sqlSession.insert(namespace+"addFile", productFileDTO);
+	}
+	public int addProductFile(ProductFileDTO productFileDTO) throws Exception{
+		return sqlSession.insert(namespace+"addProductFile", productFileDTO);
+	}
 }

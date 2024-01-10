@@ -43,7 +43,10 @@
 		<include refid="search"></include>
 	</select>
 	<insert id="add" parameterType="ProductDTO">
-		INSERT INTO PRODUCT VALUES (PRODUCT_SEQ.NEXTVAL, #{name}, #{description}, #{rate})
+		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
+			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PRODUCT VALUES (#{id}, #{name}, #{description}, #{rate})
 	</insert>
 	<update id="update" parameterType="ProductDTO">
 		UPDATE PRODUCT SET NAME=#{name}, DESCRIPTION=#{description}, RATE=#{rate} WHERE ID = #{id}
@@ -51,4 +54,17 @@
 	<delete id="delete" parameterType="ProductDTO">
 		DELETE FROM PRODUCT WHERE ID = #{id}
 	</delete>
+	
+	<insert id="addFile" parameterType="ProductFileDTO">
+		<selectKey keyProperty="file_id" order="BEFORE" resultType="Long">
+			SELECT FILE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO FILES
+		VALUES(#{file_id}, #{name}, #{origin_nm})
+	</insert>
+	
+	<insert id="addProductFile" parameterType="ProductFileDTO">
+		INSERT INTO PRODUCT_FILE
+		VALUES(PRODUCT_FILE_SEQ.NEXTVAL, #{product_id}, #{file_id})
+	</insert>
 </mapper>

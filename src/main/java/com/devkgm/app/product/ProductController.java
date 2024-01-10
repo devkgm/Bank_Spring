@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.devkgm.app.util.Pager;
@@ -41,14 +42,21 @@ public class ProductController {
 	
 	@RequestMapping(value="update", method=RequestMethod.GET)
 	public ModelAndView update(ModelAndView modelAndView, ProductDTO productDTO) throws Exception{
+		productDTO = productService.getDetail(productDTO);
 		modelAndView.addObject("dto",productDTO);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="add", method=RequestMethod.POST)
-	public String add( Model model, ProductDTO productDTO) throws Exception{
-		int result = productService.add(productDTO);
+	public String add( Model model, ProductDTO productDTO, MultipartFile photo) throws Exception{
+		int result = productService.add(productDTO, photo);
+		
+		System.out.println(photo.getName());
+		System.out.println(photo.getOriginalFilename());
+		
 		String resultString = "추가 성공";
+		
+		
 		if(result == 0) {
 			resultString = "추가 실패";
 		}

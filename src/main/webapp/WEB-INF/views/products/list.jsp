@@ -37,7 +37,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         <tr>
                             <th>ID</th>
                             <th>NAME</th>
-                            <th>DESCRIPTION</th>
                             <th>RATE</th>
                         </tr>
                     </thead>
@@ -46,7 +45,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             <tr onclick="handleClick(${item.id })">
                                 <td>${item.id }</td>
                                 <td>${item.name }</td>
-                                <td>${item.description }</td>
                                 <td>${item.rate }%</td>
                             </tr>
                         </c:forEach>

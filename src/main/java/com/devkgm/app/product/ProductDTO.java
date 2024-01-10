@@ -12,18 +12,21 @@ public class ProductDTO {
 		this.id = id;
 	}
 	public String getName() {
+		if(this.name==null) return "";
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
 	public String getDescription() {
+		if(this.description==null) return "";
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	public Double getRate() {
+		if(this.rate == null) return 0.0;
 		return rate;
 	}
 	public void setRate(Double rate) {

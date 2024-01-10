@@ -17,15 +17,18 @@
 			<input type="hidden" name="id" value="${dto.id }">
 		  <div class="mb-3">
 		    <label for="name" class="form-label">상품명</label>
-		    <input type="text" readonly class="form-control" id="name" name="name" value="${dto.name }" aria-describedby="nameHelp">
+		    <br>
+		    ${dto.name }
 		  </div>
 		  <div class="mb-3">
 		    <label for="desciprtion" class="form-label">상품설명</label>
-		    <input type="text" readonly class="form-control" id="desciprtion" name="description" value="${dto.description }">
+		    <br>
+		    ${dto.description }
 		  </div>
 		  <div class="mb-3">
 		    <label for="rate" class="form-label">이자율</label>
-		    <input type="text" readonly class="form-control" id="rate" name="rate" value="${dto.rate }">
+		    <br>
+		    ${dto.rate }
 		  </div>
 		</form>
 		<button class="btn btn-danger" id="deleteBtn">삭제</button>
