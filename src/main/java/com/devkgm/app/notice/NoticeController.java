@@ -36,36 +36,34 @@ public class NoticeController {
 	@Autowired
 	private ServletContext servletContext;
 	
-	@RequestMapping(value = "file/{imageUrl}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getImage(@PathVariable String imageUrl) {
-        try {
-        	String path = "file:"+servletContext.getRealPath("/resources/upload/notices")+File.separator+imageUrl+".jpeg";
-            URL url = new URL(path);
-            BufferedImage image = ImageIO.read(url);
-            
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(image, "jpg", byteArrayOutputStream);
-            byte[] imageBytes = byteArrayOutputStream.toByteArray();
-            
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_JPEG); 
-            
-            return new ResponseEntity<byte[]>(imageBytes, headers, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//	@RequestMapping(value = "file/{imageUrl}", method = RequestMethod.GET)
+//    public ResponseEntity<byte[]> getImage(@PathVariable String imageUrl) {
+//        try {
+//        	String path = "file:"+servletContext.getRealPath("/resources/upload/notices")+File.separator+imageUrl+".jpeg";
+//            URL url = new URL(path);
+//            BufferedImage image = ImageIO.read(url);
+//            
+//            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//            ImageIO.write(image, "jpg", byteArrayOutputStream);
+//            byte[] imageBytes = byteArrayOutputStream.toByteArray();
+//            
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.setContentType(MediaType.IMAGE_JPEG); 
+//            
+//            return new ResponseEntity<byte[]>(imageBytes, headers, HttpStatus.OK);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<byte[]>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
     
     
     @RequestMapping(value="addImage", method = RequestMethod.POST)
     @ResponseBody
     public NoticeFileDTO addImage(MultipartFile image,HttpServletResponse response) throws Exception {
- 
-    	NoticeFileDTO noticeFileDTO = noticeService.addImage(image, null);
+    	NoticeFileDTO noticeFileDTO = noticeService.addImage(image);
     	return noticeFileDTO;
     }
-	
 	
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public void getList(Model model) throws Exception{
@@ -75,6 +73,10 @@ public class NoticeController {
 	@RequestMapping(value = "detail", method = RequestMethod.GET)
 	public void getDetail(Model model, NoticeDTO noticeDTO) throws Exception{
 		noticeDTO = noticeService.getDetail(noticeDTO);
+		List<NoticeFileDTO> list = noticeDTO.getNoticeFileDTOs();
+		for(NoticeFileDTO iDto : list) {
+			System.out.println(iDto.getName());
+		}
 		int result = noticeService.updateHit(noticeDTO);
 		model.addAttribute("dto", noticeDTO);
 	}
@@ -87,8 +89,7 @@ public class NoticeController {
 		model.addAttribute("dto", noticeDTO);
 	}
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String add(Model model, NoticeDTO noticeDTO, MultipartFile photo) throws Exception{
-		System.out.println(noticeDTO.getImage()+"Control");
+	public String add(Model model, NoticeDTO noticeDTO, MultipartFile[] photo) throws Exception{
 		int result = noticeService.add(noticeDTO, photo);
 		String message = "추가 성공";
 		if(result == 0) {

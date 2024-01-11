@@ -26,6 +26,17 @@
 		  </div>
 		  <button class="btn btn-primary">업로드</button>
 		</form>
+		<c:if test="${dto.noticeFileDTOs != null }">
+	    	<c:forEach items="${dto.noticeFileDTOs }" var="f">
+	    	<div class="card" style="width: 10rem;">
+			  <img src="/resources/upload/notices/${f.name}" class="card-img-top" alt="${f.origin_nm}">
+			  <div class="card-body">
+			    <h5 class="card-title">${f.origin_nm}</h5>
+			    <a href="/resources/upload/notices/${f.name}" class="btn btn-danger">삭제하기</a>
+			  </div>
+			</div>
+	    	</c:forEach>
+	    </c:if>
 	</div>
 	
 	<c:import url="../commons/bootstrap_js.jsp"></c:import>

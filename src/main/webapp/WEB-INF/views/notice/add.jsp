@@ -24,7 +24,7 @@
 		    <textarea class="form-control" id="summernote" name="description"></textarea>
 		  </div>
 		  <div class="mb-3">
-		  	<input type="file" name="photo">
+		  	<input class="form-control" type="file" id="formFile" name="photo">
 		  </div>
 		  <button class="btn btn-primary mb-3">업로드</button>
 		</form>
@@ -59,7 +59,7 @@
 			      .then(res => res.json())
 			      .then(data => {
 			    	  console.log(data.name);
-			    	  $('#summernote').summernote('insertImage',"./file/"+data.name, data.origin_nm);
+			    	  $('#summernote').summernote('insertImage',"/resources/upload/notices/"+data.name,);
 			      })
 			      
 			    }

@@ -11,7 +11,7 @@
 <body>
 	<c:import url="../commons/navigation.jsp"></c:import>
 	
-	<div class="container-sm">
+	<div class="container-sm mb-3">
 		<h1>상품</h1>
 		<form action="./update" method="GET" id="frm">
 			<input type="hidden" name="id" value="${dto.id }">
@@ -24,8 +24,16 @@
 		    <label for="desciprtion" class="form-label">본문</label>
 		    <br>
 		    ${dto.description }
-		    <c:if test="${dto.image != null }">
-		    	<img src="./file/${dto.image}" alt="img">
+		    <c:if test="${dto.noticeFileDTOs != null }">
+		    	<c:forEach items="${dto.noticeFileDTOs }" var="f">
+		    	<div class="card" style="width: 10rem;">
+				  <img src="/resources/upload/notices/${f.name}" class="card-img-top" alt="${f.origin_nm}">
+				  <div class="card-body">
+				    <h5 class="card-title">${f.origin_nm}</h5>
+				    <a href="/resources/upload/notices/${f.name}" class="btn btn-primary" download>다운로드</a>
+				  </div>
+				</div>
+		    	</c:forEach>
 		    </c:if>
 		  </div>
 		  <div class="mb-3">

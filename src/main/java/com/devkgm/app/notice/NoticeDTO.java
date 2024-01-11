@@ -1,6 +1,7 @@
 package com.devkgm.app.notice;
 
 import java.sql.Date;
+import java.util.List;
 
 
 public class NoticeDTO {
@@ -10,9 +11,18 @@ public class NoticeDTO {
 	private Date create_dt;
 	private int hit;
 	private String image;
+	private List<NoticeFileDTO> noticeFileDTOs;
 	
 	
 	
+	
+
+	public List<NoticeFileDTO> getNoticeFileDTOs() {
+		return noticeFileDTOs;
+	}
+	public void setNoticeFileDTOs(List<NoticeFileDTO> noticeFileDTOs) {
+		this.noticeFileDTOs = noticeFileDTOs;
+	}
 	public String getImage() {
 		return image;
 	}

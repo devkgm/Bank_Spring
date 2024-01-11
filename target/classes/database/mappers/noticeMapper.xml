@@ -9,14 +9,27 @@
 		SELECT * FROM NOTICE
 		ORDER BY ID DESC
 	</select>
-	<select id="getDetail" resultType="NoticeDTO" parameterType="NoticeDTO">
-		SELECT N.*, F.NAME IMAGE FROM NOTICE N 
-		LEFT JOIN NOTICE_FILE NF 
-		ON N.ID = NF.NOTICE_ID
-		LEFT JOIN N_FILE F
-		ON F.ID = NF.FILE_ID
+	<select id="getDetail" resultMap="getDetailResult" parameterType="NoticeDTO">
+		SELECT N.*, F.NAME IMAGE
+		FROM NOTICE N 
+			LEFT JOIN NOTICE_FILE NF 
+			ON N.ID = NF.NOTICE_ID
+				LEFT JOIN N_FILE F
+				ON F.ID = NF.FILE_ID
 		WHERE N.ID = #{id}
 	</select>
+	
+	<resultMap type="NoticeDTO" id="getDetailResult">
+		<id column="ID" property="id"/>
+		<result column="TITLE" property="title"/>
+		<result column="DESCRIPTION" property="description"/>
+		<result column="CREATE_DT" property="create_dt"/>
+		<result column="HIT" property="hit"/>
+		<collection property="noticeFileDTOs" javaType="List" ofType="NoticeFileDTO">
+			<result column="IMAGE" property="name"/>
+		</collection>
+	</resultMap>
+	
 	<insert id="add" parameterType="NoticeDTO">
 		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
 			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
@@ -28,6 +41,9 @@
 	</update>
 	<delete id="delete" parameterType="NoticeDTO">
 		DELETE FROM NOTICE WHERE ID=#{id}
+	</delete>		
+	<delete id="deleteFile" parameterType="NoticeFileDTO">
+		DELETE FROM N_FILE WHERE ID = #{file_id}
 	</delete>
 	<update id="updateHit" parameterType="NoticeDTO">
 		UPDATE NOTICE SET HIT=(SELECT HIT FROM NOTICE WHERE ID=#{id})+1 WHERE ID=#{id}
@@ -41,4 +57,13 @@
 	<insert id="addNoticeFile" parameterType="NoticeFileDTO">
 		INSERT INTO NOTICE_FILE VALUES (NOTICE_FILE_SEQ.NEXTVAL, #{notice_id}, #{file_id})
 	</insert>
+	
+	<select id="getFileList" resultType="NoticeFileDTO" parameterType="NoticeDTO">
+		SELECT nf.*, nf2.NAME , nf2.ORIGIN_NM 
+		FROM NOTICE_FILE nf
+			LEFT JOIN N_FILE nf2
+			ON nf.FILE_ID = nf2.ID 
+		WHERE nf.NOTICE_ID  = #{id}
+	</select>
+	
 </mapper>
