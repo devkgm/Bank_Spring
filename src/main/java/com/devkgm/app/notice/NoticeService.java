@@ -41,10 +41,9 @@ public class NoticeService {
 				NoticeFileDTO noticeFileDTO = new NoticeFileDTO();
 				noticeFileDTO.setName(fileName);
 				noticeFileDTO.setOrigin_nm(f.getOriginalFilename());
+				noticeFileDTO.setNotice_id(noticeDTO.getId());
 				result = noticeDAO.addFile(noticeFileDTO);
 				
-				noticeFileDTO.setNotice_id(noticeDTO.getId());
-				result = noticeDAO.addNoticeFile(noticeFileDTO);
 			}
 			
 		}

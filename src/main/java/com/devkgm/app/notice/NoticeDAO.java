@@ -15,6 +15,7 @@ public class NoticeDAO {
 		return sqlSession.selectList(namespace+"getList");
 	}
 	public NoticeDTO getDetail(NoticeDTO noticeDTO) throws Exception{
+		System.out.println(noticeDTO);
 		return sqlSession.selectOne(namespace+"getDetail",noticeDTO);
 	}
 	public int add(NoticeDTO noticeDTO) throws Exception{
@@ -34,9 +35,6 @@ public class NoticeDAO {
 	}
 	public int addFile(NoticeFileDTO noticeFileDTO) throws Exception{
 		return sqlSession.insert(namespace+"addFile", noticeFileDTO);
-	}
-	public int addNoticeFile(NoticeFileDTO noticeFileDTO) throws Exception{
-		return sqlSession.insert(namespace+"addNoticeFile", noticeFileDTO);
 	}
 	
 	public List<NoticeFileDTO> getFileList(NoticeDTO noticeDTO) throws Exception {
