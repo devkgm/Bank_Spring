@@ -13,17 +13,18 @@ public class BoardDTO<T> {
 	private Date create_dt;
 	private Long views;
 	private BoardPager pager;
-	private List<T> fileDTO;
+	private List<T> fileDTOs;
 	
 	
 	
 	
 	
-	public List<T> getFiles() {
-		return fileDTO;
+
+	public List<T> getFileDTOs() {
+		return fileDTOs;
 	}
-	public void setFiles(List<T> fileDTO) {
-		this.fileDTO = fileDTO;
+	public void setFileDTOs(List<T> fileDTOs) {
+		this.fileDTOs = fileDTOs;
 	}
 	public BoardPager getPager() {
 		return pager;

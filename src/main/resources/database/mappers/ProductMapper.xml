@@ -19,9 +19,25 @@
 		WHERE R BETWEEN #{startPage} AND #{lastPage}
 	</select>
 	
-	<select id="getDetail" resultType="ProductDTO" parameterType="ProductDTO">
-		SELECT * FROM PRODUCT WHERE ID = #{id}
+	<select id="getDetail" resultMap="getDetailResult" parameterType="ProductDTO">
+		SELECT  p.*, pf.NAME as fileName
+		FROM PRODUCT p
+		LEFT JOIN PRODUCT_FILE pf 
+		ON pf.PRODUCT_ID = p.ID 
+		WHERE P.ID = #{id}
 	</select>
+	<resultMap type="ProductDTO" id="getDetailResult">
+		<id property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="content" column="CONTENT"/>
+		<result property="create_dt" column="CREATE_DT"/>
+		<result column="RATE" property="rate"/>
+		<result column="IS_SALE" property="is_sale"/>
+		<result column="COUNTS" property="counts"/>
+		<collection property="fileDTOs" javaType="List" ofType="ProductFileDTO">
+			<result column="fileName" property="name"/>
+		</collection>
+	</resultMap>
 	<insert id="add" parameterType="ProductDTO">
 		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
 			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL

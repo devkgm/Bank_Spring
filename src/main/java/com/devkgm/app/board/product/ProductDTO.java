@@ -2,7 +2,7 @@ package com.devkgm.app.board.product;
 
 import com.devkgm.app.board.BoardDTO;
 
-public class ProductDTO extends BoardDTO{
+public class ProductDTO extends BoardDTO<ProductFileDTO>{
 	private String name;
 	private Long is_sale;
 	private Double rate;

@@ -33,6 +33,7 @@ public class ProductController {
 		productDTO.setId(id);
 		productDTO = productService.getDetail(productDTO);
 		model.addAttribute("dto", productDTO);
+		model.addAttribute("thumbnail", productDTO.getFileDTOs().get(0).getName());
 		return "product/detail";
 	}
 	@RequestMapping(value = "add", method = RequestMethod.GET)
