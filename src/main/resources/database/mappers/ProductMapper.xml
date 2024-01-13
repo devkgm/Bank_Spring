@@ -23,7 +23,13 @@
 		SELECT * FROM PRODUCT WHERE ID = #{id}
 	</select>
 	<insert id="add" parameterType="ProductDTO">
-		INSERT INTO PRODUCT (ID,NAME,CONTENT,RATE,IS_SALE) VALUES (PRODUCT_SEQ.NEXTVAL, #{name}, #{content}, #{rate}, #{is_sale})
+		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
+			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO PRODUCT (ID,NAME,CONTENT,RATE,IS_SALE) VALUES (#{id}, #{name}, #{content}, #{rate}, #{is_sale})
+	</insert>
+	<insert id="addFile" parameterType="ProductFileDTO">
+		INSERT INTO PRODUCT_FILE (ID, NAME,ORIGIN_NM, PRODUCT_ID) VALUES (PRODUCT_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm}, #{product_id})
 	</insert>
 	
 	<select id="getTotalPage" resultType="Long">

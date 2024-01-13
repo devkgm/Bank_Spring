@@ -11,7 +11,7 @@ import com.devkgm.app.board.BoardPager;
 
 
 @Repository
-public class ProductDAO implements BoardDAO<ProductDTO>{
+public class ProductDAO implements BoardDAO<ProductDTO, ProductFileDTO>{
 	@Autowired
 	private SqlSession sqlSession;
 	private String namespace = "com.devkgm.app.board.product.ProductDAO.";
@@ -29,6 +29,10 @@ public class ProductDAO implements BoardDAO<ProductDTO>{
 	@Override
 	public int add(ProductDTO productDTO) throws Exception {
 		return sqlSession.insert(namespace+"add", productDTO);
+	}
+	@Override
+	public int addFile(ProductFileDTO productFileDTO) throws Exception {
+		return sqlSession.insert(namespace+"addFile", productFileDTO);
 	}
 
 	@Override

@@ -6,8 +6,10 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+@Component
 public class FileManager {
 	@Autowired
 	private ServletContext servletContext;
@@ -28,6 +30,7 @@ public class FileManager {
 		f = new File(f, fileName);
 		
 		file.transferTo(f);
+		System.out.println(path+"/"+fileName);
 		return fileName;
 	}
 }

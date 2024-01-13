@@ -2,7 +2,9 @@ package com.devkgm.app.board;
 
 import java.util.List;
 
-public interface BoardDAO<T> {
+import com.devkgm.app.board.product.ProductFileDTO;
+
+public interface BoardDAO<T, E> {
 	public List<T> getList(BoardPager boardPager)throws Exception;
 	
 	public T getDetail(T t) throws Exception;
@@ -14,4 +16,6 @@ public interface BoardDAO<T> {
 	public int delete(T t) throws Exception;
 	
 	public Long getTotalPage() throws Exception;
+
+	int addFile(E e) throws Exception;
 }

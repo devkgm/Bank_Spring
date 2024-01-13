@@ -3,7 +3,9 @@ package com.devkgm.app.board;
 import java.sql.Date;
 import java.util.List;
 
-public class BoardDTO {
+import org.springframework.web.multipart.MultipartFile;
+
+public class BoardDTO<T> {
 	private Long id;
 	private String title;
 	private String writer;
@@ -11,10 +13,18 @@ public class BoardDTO {
 	private Date create_dt;
 	private Long views;
 	private BoardPager pager;
+	private List<T> fileDTO;
 	
 	
 	
 	
+	
+	public List<T> getFiles() {
+		return fileDTO;
+	}
+	public void setFiles(List<T> fileDTO) {
+		this.fileDTO = fileDTO;
+	}
 	public BoardPager getPager() {
 		return pager;
 	}

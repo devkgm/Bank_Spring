@@ -4,15 +4,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.devkgm.app.board.BoardDTO;
 import com.devkgm.app.board.BoardPager;
 import com.devkgm.app.board.BoardService;
+import com.devkgm.app.util.FileManager;
 
 @Service
 public class ProductService implements BoardService<ProductDTO>{
 	@Autowired
 	private ProductDAO productDAO;
+	@Autowired
+	private FileManager fileManager;
 
 	@Override
 	public List<ProductDTO> getList(BoardPager boardPager) throws Exception {
@@ -27,8 +31,23 @@ public class ProductService implements BoardService<ProductDTO>{
 	}
 
 	@Override
-	public int add(ProductDTO productDTO) throws Exception {
-		return productDAO.add(productDTO);
+	public int add(ProductDTO productDTO, MultipartFile[] files) throws Exception {
+		int result = productDAO.add(productDTO);
+		
+		for(MultipartFile file: files) {
+			if(file.isEmpty()) continue;
+			ProductFileDTO productFileDTO = new ProductFileDTO();
+			String fileName = fileManager.saveFile("/resources/upload/products", file);
+			String originName = file.getOriginalFilename();
+			
+			productFileDTO.setProduct_id(productDTO.getId());
+			productFileDTO.setName(fileName);
+			productFileDTO.setOrigin_nm(originName);
+			
+			result = productDAO.addFile(productFileDTO);
+		}
+		
+		return result;
 	}
 
 	@Override
