@@ -38,10 +38,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                <h5 class="fw-bolder">${item.name }</h5>
                <!-- Product reviews-->
                <div class="d-flex justify-content-center small text-warning mb-2">
-               		${item.rate }
-              			
-             				<!-- <div class="bi-star-fill"></div> -->
-               			
+              			<c:forEach begin="1" end="${item.rate }">
+              				<div class="bi-star-fill"></div>
+              			</c:forEach>
                </div>
                <!-- Product price-->
                

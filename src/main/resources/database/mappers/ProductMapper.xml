@@ -34,7 +34,7 @@
 	</resultMap>
 	
 	<select id="getDetail" resultMap="getDetailResult" parameterType="ProductDTO">
-		SELECT  p.*, pf.NAME as fileName
+		SELECT  p.*, pf.NAME as fileName, pf.ORIGIN_NM
 		FROM PRODUCT p
 		LEFT JOIN PRODUCT_FILE pf 
 		ON pf.PRODUCT_ID = p.ID 
@@ -50,6 +50,7 @@
 		<result column="COUNTS" property="counts"/>
 		<collection property="fileDTOs" javaType="List" ofType="ProductFileDTO">
 			<result column="fileName" property="name"/>
+			<result column="ORIGIN_NM" property="origin_nm"/>
 		</collection>
 	</resultMap>
 	<insert id="add" parameterType="ProductDTO">
@@ -61,6 +62,13 @@
 	<insert id="addFile" parameterType="ProductFileDTO">
 		INSERT INTO PRODUCT_FILE (ID, NAME,ORIGIN_NM, PRODUCT_ID) VALUES (PRODUCT_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm}, #{product_id})
 	</insert>
+	
+	<update id="update" parameterType="ProductDTO">
+		UPDATE PRODUCT SET NAME=#{name},CONTENT=#{content},RATE=#{rate},IS_SALE=#{is_sale}
+	</update>
+	<delete id="deleteFile" parameterType="ProductFileDTO">
+		DELETE FROM PRODUCT_FILE WHERE NAME = #{name}
+	</delete>
 	
 	<select id="getTotalPage" resultType="Long">
 		SELECT COUNT(*) FROM PRODUCT

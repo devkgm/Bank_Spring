@@ -66,6 +66,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         </div>
                     </div>
                 </div>
+                <a type="button" class="btn btn-primary" href="../update?id=${dto.id }">수정하기</a>
             </div>
         </section>
         <!-- 컨텐 -->

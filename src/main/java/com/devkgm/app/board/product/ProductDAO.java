@@ -37,8 +37,11 @@ public class ProductDAO implements BoardDAO<ProductDTO, ProductFileDTO>{
 
 	@Override
 	public int update(ProductDTO productDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(namespace+"update", productDTO);
+	}	
+	
+	public int deleteFile(ProductFileDTO productFileDTO) throws Exception {
+		return sqlSession.delete(namespace+"deleteFile", productFileDTO);
 	}
 
 	@Override

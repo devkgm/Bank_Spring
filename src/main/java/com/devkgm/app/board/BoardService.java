@@ -14,7 +14,7 @@ public interface BoardService<T> {
 	
 	public int add(T t, MultipartFile[] file) throws Exception;
 	
-	public int update(T t) throws Exception;
+	public int update(T t, MultipartFile[] file) throws Exception;
 	
 	public int delete(T t) throws Exception;
 	

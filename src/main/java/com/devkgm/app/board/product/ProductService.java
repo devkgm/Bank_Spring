@@ -51,9 +51,29 @@ public class ProductService implements BoardService<ProductDTO>{
 	}
 
 	@Override
-	public int update(ProductDTO productDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(ProductDTO productDTO, MultipartFile[] files) throws Exception {
+		int result = productDAO.update(productDTO);
+		
+		for(MultipartFile file: files) {
+			if(file.isEmpty()) continue;
+			ProductFileDTO productFileDTO = new ProductFileDTO();
+			String fileName = fileManager.saveFile("/resources/upload/products", file);
+			String originName = file.getOriginalFilename();
+			
+			productFileDTO.setProduct_id(productDTO.getId());
+			productFileDTO.setName(fileName);
+			productFileDTO.setOrigin_nm(originName);
+			
+			result = productDAO.addFile(productFileDTO);
+		}
+		
+		return result;
+	}
+	
+	public boolean deleteFile(ProductFileDTO productFileDTO) throws Exception {
+		boolean result = fileManager.deleteFile("/resources/upload/products", productFileDTO.getName());
+		if(result) productDAO.deleteFile(productFileDTO);
+		return result;
 	}
 
 	@Override
