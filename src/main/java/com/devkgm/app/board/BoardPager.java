@@ -28,7 +28,7 @@ public class BoardPager {
 		this.lastPage = this.page * this.perPage;
 		this.startPage = this.lastPage - this.perPage +1;
 		
-		this.totalBock = this.totalPage / this.perPage + (this.totalPage*this.perPage > 0? 1:0);
+		this.totalBock = this.totalPage / this.perPage + (this.totalPage%this.perPage > 0? 1:0);
 		this.curBlock = this.page / this.perPage + (this.page%this.perPage > 0 ? 1 : 0);
 		this.startBlock =  this.page / this.perBlock * (this.page % this.perBlock > 0 ? this.perBlock : 0) + 1;
 		this.lastBlock = this.startBlock + (this.totalBock - this.startBlock < 10 ? this.totalBock - this.startBlock : this.perBlock-1);

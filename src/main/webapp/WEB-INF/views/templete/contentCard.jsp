@@ -35,7 +35,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
        <div class="card-body p-4">
            <div class="text-center">
                <!-- Product name-->
-               <h5 class="fw-bolder">${item.title }</h5>
+               <h5 class="fw-bolder">${item.name }</h5>
                <!-- Product reviews-->
                <div class="d-flex justify-content-center small text-warning mb-2">
                		${item.rate }

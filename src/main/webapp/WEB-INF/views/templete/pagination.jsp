@@ -5,7 +5,7 @@
   <ul class="pagination">
   	<c:if test="${!pager.start }">
   		<li class="page-item">
-	      <a class="page-link" href="./list?page=${pager.lastBlock-1 }" aria-label="Previous">
+	      <a class="page-link" href="./list?page=${pager.startBlock-1 }" aria-label="Previous">
 	        <span aria-hidden="true">&laquo;</span>
 	      </a>
 	    </li>
