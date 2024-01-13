@@ -67,6 +67,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                             class="form-control"
                                             id="name"
                                             type="text"
+                                            name="name"
                                             data-sb-validations="required"
                                         />
                                         <label for="name">상품명 입력</label>
@@ -80,10 +81,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                     <!-- 컨텐츠 -->
                                     <div class="form-floating mb-3">
                                         <input
+                                        	type="hidden"
                                             class="form-control"
-                                            id="summernote"
+                                            id="content"
                                             name="content"
                                         />
+                                        <div id="summernote"></div>
                                     </div>
                                     
                                     <!-- Rate input-->
@@ -92,9 +95,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                             class="form-control"
                                             id="rate"
                                             type="text"
+                                            name="rate"
                                             data-sb-validations="required"
                                         ></input>
-                                        <label for="message">이율</label>
+                                        <label for="rate">이율</label>
                                         <div
                                             class="invalid-feedback"
                                             data-sb-feedback="message:required"
@@ -109,7 +113,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                     <!-- Rate input-->
                                     <div class="form-floating mb-3">
                                         <div class="form-check form-switch">
-										  <input class="form-check-input" type="checkbox" role="switch" id="is_sale" checked>
+										  <input class="form-check-input" type="checkbox" role="switch" onchange="updateValue(this)" checked>
+										  <input type="hidden" name="is_sale" id="is_sale" value="1">
 										  <label class="form-check-label" for="flexSwitchCheckChecked">판매</label>
 										</div>
                                     </div>
@@ -137,5 +142,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
         <script src="/resources/js/summernote.js"></script>
+        <script>
+			function updateValue(checkbox) {
+			    var hiddenInput = document.getElementById("is_sale");
+			    if (checkbox.checked) {
+			        hiddenInput.value = 1;
+			    } else {
+			        hiddenInput.value = 0;
+			    }
+			}
+		</script>
     </body>
 </html>

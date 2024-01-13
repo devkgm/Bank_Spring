@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.devkgm.app.board.BoardDTO;
 import com.devkgm.app.board.BoardPager;
@@ -34,7 +35,20 @@ public class ProductController {
 		return "product/detail";
 	}
 	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public void add() {
+	public void add() throws Exception{
 		
+	}
+	
+	@RequestMapping(value = "add", method = RequestMethod.POST)
+	public String add(ProductDTO productDTO,MultipartFile[] attach, Model model) throws Exception{
+		int result = productService.add(productDTO);
+		String path = "product/list";
+		String message = "추가 실패.";
+		if(result == 1) {
+			message = "추가 성공.";
+		}
+		model.addAttribute("message",message);
+		model.addAttribute("path",path);
+		return "commons/result";
 	}
 }

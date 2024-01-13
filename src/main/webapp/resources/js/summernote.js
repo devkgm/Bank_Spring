@@ -11,5 +11,11 @@ $('#summernote').summernote({
           ['table', ['table']],
           ['insert', ['link', 'picture', 'video']],
           ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
+        ],
+        callbacks: {
+		    onChange: function(contents, $editable) {
+		      $('#content').val($('#summernote').summernote('code'));
+		    }
+	  }
+        
+  });
