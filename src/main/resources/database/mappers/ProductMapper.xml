@@ -5,19 +5,33 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.devkgm.app.board.product.ProductDAO">
-	<select id="getList" resultType="ProductDTO" parameterType="BoardPager">
-		SELECT * FROM
+	<select id="getList" resultMap="getListResult" parameterType="BoardPager">
+		SELECT origin.*, pf.name as fileName
+		FROM
 		(
-			SELECT ROWNUM AS R,  P.*
+			SELECT ROWNUM AS R,  p.*
 			FROM 
 			(
 				SELECT *
-				FROM PRODUCT P
+				FROM PRODUCT p
 				ORDER BY ID DESC
-			) P
-		)
+			) p
+		) origin
+		LEFT JOIN PRODUCT_FILE pf 
+		ON pf.PRODUCT_ID = origin.ID
 		WHERE R BETWEEN #{startPage} AND #{lastPage}
 	</select>
+	<resultMap type="ProductDTO" id="getListResult">
+		<id property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="create_dt" column="CREATE_DT"/>
+		<result column="RATE" property="rate"/>
+		<result column="IS_SALE" property="is_sale"/>
+		<result column="COUNTS" property="counts"/>
+		<collection property="fileDTOs" javaType="List" ofType="ProductFileDTO">
+			<result column="fileName" property="name"/>
+		</collection>
+	</resultMap>
 	
 	<select id="getDetail" resultMap="getDetailResult" parameterType="ProductDTO">
 		SELECT  p.*, pf.NAME as fileName

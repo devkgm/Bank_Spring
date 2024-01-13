@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@taglib prefix="c"
+pageEncoding="UTF-8"%>
+<%@taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,17 +53,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	            	<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 		            	<c:forEach items="${list }" var="item">
 		            		<div onclick="location.href = './detail/${item.id }'">
-		            		
-		            		
-				            	<c:import url="../templete/contentCard.jsp">
-				            		<c:param name="id" value="${item.id }"></c:param>
-				            		<c:param name="title" value="${item.name }"></c:param>
-				            		<c:param name="rate" value="${item.rate }"></c:param>
-				            		<c:param name="is_sale" value="${item.is_sale }"></c:param>
-				            		<c:param name="create_dt" value="${item.create_dt }"></c:param>
-				            		<c:param name="content" value="${item.content }"></c:param>
-				            		<c:param name="thumbnail" value="${item.content }"></c:param>
-				            	</c:import>
+		            
+		            				<%@ include file="../templete/contentCard.jsp" %>
+		            			
 			            	</div>
 	           			 </c:forEach>
 	            	</div>
