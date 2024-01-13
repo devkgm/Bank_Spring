@@ -68,6 +68,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 	            		<jsp:include page="../templete/pagination.jsp"></jsp:include>
 	            	</div>
 	            	
+            		<a type="button" class="btn btn-success" href="./add">글쓰기</a>
             	</div>
             </section>
             
