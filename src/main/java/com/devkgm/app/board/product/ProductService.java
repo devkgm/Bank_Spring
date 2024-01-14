@@ -96,8 +96,11 @@ public class ProductService implements BoardService<ProductDTO>{
 
 	@Override
 	public int delete(ProductDTO productDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		List<ProductFileDTO> fileList = productDAO.getTotalImage(productDTO);
+		for(ProductFileDTO fileDTO : fileList) {
+			fileManager.deleteFile("/resources/upload/products", fileDTO.getName());
+		}
+		return productDAO.delete(productDTO);
 	}
 
 	@Override

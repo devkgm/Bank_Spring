@@ -50,11 +50,13 @@ public class ProductDAO implements BoardDAO<ProductDTO, ProductFileDTO>{
 	public int deleteThumbnail(ProductFileDTO productFileDTO) throws Exception {
 		return sqlSession.delete(namespace+"deleteThumbnail", productFileDTO);
 	}
+	public List<ProductFileDTO> getTotalImage(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectList(namespace+"getTotalImage", productDTO);
+	}
 
 	@Override
 	public int delete(ProductDTO productDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(namespace+"delete",productDTO);
 	}
 
 	@Override

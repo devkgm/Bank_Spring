@@ -77,12 +77,28 @@
 	<update id="update" parameterType="ProductDTO">
 		UPDATE PRODUCT SET NAME=#{name},CONTENT=#{content},RATE=#{rate},IS_SALE=#{is_sale},IS_TEMP=0,CREATE_DT=SYSDATE WHERE ID = #{id}
 	</update>
+	<update id="delete" parameterType="ProductDTO">
+		DELETE FROM PRODUCT WHERE ID = #{id}
+	</update>
 	<delete id="deleteFile" parameterType="ProductFileDTO">
 		DELETE FROM PRODUCT_FILE WHERE NAME = #{name}
 	</delete>
 	<delete id="deleteThumbnail" parameterType="ProductFileDTO">
 		DELETE FROM PRODUCT_THUMBNAIL WHERE NAME = #{name}
 	</delete>
+	<select id="getTotalImage" parameterType="ProductDTO" resultType="ProductFileDTO" >
+		SELECT pf.*
+		FROM PRODUCT p
+		LEFT JOIN PRODUCT_FILE pf ON p.ID = pf.PRODUCT_ID 
+		WHERE p.ID = #{id}
+		
+		UNION ALL
+		
+		SELECT pt.* 
+		FROM PRODUCT p
+		LEFT JOIN PRODUCT_THUMBNAIL pt ON p.ID = pt.PRODUCT_ID
+		WHERE p.ID = #{id}
+	</select>
 	
 	<select id="getTotalPage" resultType="Long">
 		SELECT COUNT(*) FROM PRODUCT WHERE IS_TEMP = 0
