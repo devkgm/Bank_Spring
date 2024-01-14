@@ -34,6 +34,9 @@ public class ProductDAO implements BoardDAO<ProductDTO, ProductFileDTO>{
 	public int addFile(ProductFileDTO productFileDTO) throws Exception {
 		return sqlSession.insert(namespace+"addFile", productFileDTO);
 	}
+	public int addThumbnail(ProductFileDTO productFileDTO) throws Exception {
+		return sqlSession.insert(namespace+"addThumbnail", productFileDTO);
+	}
 
 	@Override
 	public int update(ProductDTO productDTO) throws Exception {
@@ -42,6 +45,9 @@ public class ProductDAO implements BoardDAO<ProductDTO, ProductFileDTO>{
 	
 	public int deleteFile(ProductFileDTO productFileDTO) throws Exception {
 		return sqlSession.delete(namespace+"deleteFile", productFileDTO);
+	}
+	public int deleteThumbnail(ProductFileDTO productFileDTO) throws Exception {
+		return sqlSession.delete(namespace+"deleteThumbnail", productFileDTO);
 	}
 
 	@Override

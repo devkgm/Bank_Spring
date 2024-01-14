@@ -12,7 +12,7 @@ public interface BoardService<T> {
 	
 	public T getDetail(T t) throws Exception;
 	
-	public int add(T t, MultipartFile[] file) throws Exception;
+	public int add(T t) throws Exception;
 	
 	public int update(T t, MultipartFile[] file) throws Exception;
 	

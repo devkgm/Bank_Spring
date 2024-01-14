@@ -48,7 +48,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/resources/upload/products/${thumbnail }" alt="..." /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/resources/upload/products/${dto.thumbnails[0] }" alt="..." /></div>
                     <div class="col-md-6">
                         <div class="small mb-1">SKU: BST-498</div>
                         <h1 class="display-5 fw-bolder">${dto.name }</h1>

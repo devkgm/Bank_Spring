@@ -31,29 +31,41 @@ public class ProductService implements BoardService<ProductDTO>{
 	}
 
 	@Override
-	public int add(ProductDTO productDTO, MultipartFile[] files) throws Exception {
+	public int add(ProductDTO productDTO) throws Exception {
 		int result = productDAO.add(productDTO);
 		
-		for(MultipartFile file: files) {
-			if(file.isEmpty()) continue;
-			ProductFileDTO productFileDTO = new ProductFileDTO();
-			String fileName = fileManager.saveFile("/resources/upload/products", file);
-			String originName = file.getOriginalFilename();
-			
-			productFileDTO.setProduct_id(productDTO.getId());
-			productFileDTO.setName(fileName);
-			productFileDTO.setOrigin_nm(originName);
-			
-			result = productDAO.addFile(productFileDTO);
-		}
+		
 		
 		return result;
 	}
+	public int addFile(ProductFileDTO productFileDTO, MultipartFile file) throws Exception {
+		String fileName = fileManager.saveFile("/resources/upload/products", file);
+		String originName = file.getOriginalFilename();
+		
+		productFileDTO.setName(fileName);
+		productFileDTO.setOrigin_nm(originName);
+		
+		int result = productDAO.addFile(productFileDTO);
 
+		return result;
+	}
+	public int addThumbnail(ProductDTO productDTO, MultipartFile file) throws Exception {
+		ProductFileDTO productFileDTO = new ProductFileDTO();
+		String fileName = fileManager.saveFile("/resources/upload/products", file);
+		String originName = file.getOriginalFilename();
+		
+		productFileDTO.setProduct_id(productDTO.getId());
+		productFileDTO.setName(fileName);
+		productFileDTO.setOrigin_nm(originName);
+		
+		int result = productDAO.addThumbnail(productFileDTO);
+		
+		return result;
+	}
 	@Override
 	public int update(ProductDTO productDTO, MultipartFile[] files) throws Exception {
 		int result = productDAO.update(productDTO);
-		
+		System.out.println(result);
 		for(MultipartFile file: files) {
 			if(file.isEmpty()) continue;
 			ProductFileDTO productFileDTO = new ProductFileDTO();
@@ -64,7 +76,8 @@ public class ProductService implements BoardService<ProductDTO>{
 			productFileDTO.setName(fileName);
 			productFileDTO.setOrigin_nm(originName);
 			
-			result = productDAO.addFile(productFileDTO);
+			result = productDAO.addThumbnail(productFileDTO);
+			System.out.println(result);
 		}
 		
 		return result;
@@ -73,6 +86,11 @@ public class ProductService implements BoardService<ProductDTO>{
 	public boolean deleteFile(ProductFileDTO productFileDTO) throws Exception {
 		boolean result = fileManager.deleteFile("/resources/upload/products", productFileDTO.getName());
 		if(result) productDAO.deleteFile(productFileDTO);
+		return result;
+	}
+	public boolean deleteThumbnail(ProductFileDTO productFileDTO) throws Exception {
+		boolean result = fileManager.deleteFile("/resources/upload/products", productFileDTO.getName());
+		if(result) productDAO.deleteThumbnail(productFileDTO);
 		return result;
 	}
 

@@ -35,21 +35,22 @@ public class ProductController {
 		productDTO.setId(id);
 		productDTO = productService.getDetail(productDTO);
 		model.addAttribute("dto", productDTO);
-		if(productDTO.getFileDTOs().size()!=0)model.addAttribute("thumbnail", productDTO.getFileDTOs().get(0).getName());
+
 
 		return "product/detail";
 	}
 	@RequestMapping(value = "add", method = RequestMethod.GET)
-	public void add() throws Exception{
-		
+	public void add(ProductDTO productDTO,Model model) throws Exception{
+		int result = productService.add(productDTO);
+		model.addAttribute("dto", productDTO);
 	}
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public String add(ProductDTO productDTO,MultipartFile[] attach, Model model) throws Exception{
-		int result = productService.add(productDTO, attach);
+		int result = productService.update(productDTO, attach);
 		String path = "product/list";
 		String message = "추가 실패.";
-		if(result == 1) {
+		if(result > 0) {
 			message = "추가 성공.";
 		}
 		model.addAttribute("message",message);
@@ -67,7 +68,7 @@ public class ProductController {
 		int result = productService.update(productDTO, attach);
 		String path = "product/list";
 		String message = "수정 실패.";
-		if(result == 1) {
+		if(result > 0) {
 			message = "수정 성공.";
 		}
 		model.addAttribute("message",message);
@@ -75,10 +76,26 @@ public class ProductController {
 		return "commons/result";
 	}
 	
+	@RequestMapping(value="addFile", method = RequestMethod.POST)
+	@ResponseBody
+	public ProductFileDTO addFile(ProductFileDTO productFileDTO, MultipartFile attach) throws Exception{
+		int result = productService.addFile(productFileDTO,attach);
+		return productFileDTO;
+	}
+	@RequestMapping(value="addTumbnail", method = RequestMethod.POST)
+	@ResponseBody
+	public void addTumbnail(ProductDTO productDTO, MultipartFile attach) throws Exception{
+		int result = productService.addThumbnail(productDTO,attach);
+	}
+	@RequestMapping(value="deleteThumbnail", method = RequestMethod.POST)
+	@ResponseBody
+	public void deleteThumbnail(ProductFileDTO productFileDTO) throws Exception{
+		boolean result = productService.deleteThumbnail(productFileDTO);
+	}
+	
 	@RequestMapping(value="deleteFile", method = RequestMethod.POST)
 	@ResponseBody
-	public void update(ProductFileDTO productFileDTO) throws Exception{
-		System.out.println(productFileDTO.getName());
+	public void deleteFile(ProductFileDTO productFileDTO) throws Exception{
 		boolean result = productService.deleteFile(productFileDTO);
 	}
 }

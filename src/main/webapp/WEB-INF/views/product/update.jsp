@@ -120,17 +120,17 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                     
                                     <div class="mb-3">
 									  <label for="formFileMultiple" class="form-label">썸네일</label>
-									  	<c:forEach items="${dto.fileDTOs }" var="file" >
-										  <div id="${file.name }" class="card" style="width: 8rem;">
+									  	<c:forEach items="${dto.thumbnails }" var="file" >
+										  <div id="${file }" class="card" style="width: 8rem;">
 										   	<div class="image-container" style="width: 100%;">
 										       	
-									       		<img class="card-img-top img-fluid" style="object-fit: cover; width: 100%; height: 100%;" src="/resources/upload/products/${file.name }" alt="..." />
+									       		<img class="card-img-top img-fluid" style="object-fit: cover; width: 100%; height: 100%;" src="/resources/upload/products/${file }" alt="..." />
 									   
 							       			</div>
 										  <div class="card-body">
-										    <h5 class="card-title" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">${file.origin_nm }</h5>
+										    <h5 class="card-title" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;"></h5>
 										    
-										    	 <button type="button" onclick="deleteFile(`${file.name }`)" class="btn btn-danger">삭제하기</button>
+										    	 <button type="button" onclick="deleteFile(`${file }`)" class="btn btn-danger">삭제하기</button>
 										   
 										  </div>
 									 
@@ -193,7 +193,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				if(confirm("삭제하시면 되돌릴수 없습니다.")){
 					const formData = new FormData()
 					formData.append('name', fileName);
-					fetch("./deleteFile",{
+					fetch("./deleteThumbnail",{
 						method:"POST",
 						headers: {
 						
@@ -206,6 +206,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			}
 			
 			 $('#summernote').summernote('code', `${dto.content}`);
+			 
 		</script>
     </body>
 </html>

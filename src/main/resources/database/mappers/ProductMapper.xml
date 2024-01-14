@@ -6,7 +6,7 @@
     
 <mapper namespace="com.devkgm.app.board.product.ProductDAO">
 	<select id="getList" resultMap="getListResult" parameterType="BoardPager">
-		SELECT origin.*, pf.name as fileName
+		SELECT origin.*, pf.name as fileName, pf.id as file_id
 		FROM
 		(
 			SELECT ROWNUM AS R,  p.*
@@ -14,12 +14,14 @@
 			(
 				SELECT *
 				FROM PRODUCT p
+				WHERE IS_TEMP = 0
 				ORDER BY ID DESC
 			) p
 		) origin
-		LEFT JOIN PRODUCT_FILE pf 
+		LEFT JOIN PRODUCT_THUMBNAIL pf 
 		ON pf.PRODUCT_ID = origin.ID
 		WHERE R BETWEEN #{startPage} AND #{lastPage}
+		ORDER BY origin.R ASC
 	</select>
 	<resultMap type="ProductDTO" id="getListResult">
 		<id property="id" column="ID"/>
@@ -34,11 +36,14 @@
 	</resultMap>
 	
 	<select id="getDetail" resultMap="getDetailResult" parameterType="ProductDTO">
-		SELECT  p.*, pf.NAME as fileName, pf.ORIGIN_NM
+		SELECT  p.*, pf.NAME as fileName, pf.ORIGIN_NM, pt.name as THUMBNAIL
 		FROM PRODUCT p
-		LEFT JOIN PRODUCT_FILE pf 
-		ON pf.PRODUCT_ID = p.ID 
+		LEFT JOIN PRODUCT_THUMBNAIL pt
+		ON pt.PRODUCT_ID = p.ID
+			LEFT JOIN PRODUCT_FILE pf 
+			ON pf.PRODUCT_ID = p.ID
 		WHERE P.ID = #{id}
+		ORDER BY pf.id ASC
 	</select>
 	<resultMap type="ProductDTO" id="getDetailResult">
 		<id property="id" column="ID"/>
@@ -52,25 +57,34 @@
 			<result column="fileName" property="name"/>
 			<result column="ORIGIN_NM" property="origin_nm"/>
 		</collection>
+		<collection property="thumbnails" javaType="List" ofType="String">
+			<result column="THUMBNAIL" property="thumbnails"/>
+		</collection>
 	</resultMap>
 	<insert id="add" parameterType="ProductDTO">
 		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
 			SELECT PRODUCT_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO PRODUCT (ID,NAME,CONTENT,RATE,IS_SALE) VALUES (#{id}, #{name}, #{content}, #{rate}, #{is_sale})
+		INSERT INTO PRODUCT (ID,NAME,CONTENT,RATE,IS_SALE) VALUES (#{id}, ' ', ' ', 0, 0)
 	</insert>
 	<insert id="addFile" parameterType="ProductFileDTO">
 		INSERT INTO PRODUCT_FILE (ID, NAME,ORIGIN_NM, PRODUCT_ID) VALUES (PRODUCT_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm}, #{product_id})
 	</insert>
+	<insert id="addThumbnail" parameterType="ProductFileDTO">
+		INSERT INTO PRODUCT_THUMBNAIL (ID, NAME,ORIGIN_NM, PRODUCT_ID) VALUES (PRODUCT_THUMBNAIL_SEQ.NEXTVAL, #{name}, #{origin_nm}, #{product_id})
+	</insert>
 	
 	<update id="update" parameterType="ProductDTO">
-		UPDATE PRODUCT SET NAME=#{name},CONTENT=#{content},RATE=#{rate},IS_SALE=#{is_sale}
+		UPDATE PRODUCT SET NAME=#{name},CONTENT=#{content},RATE=#{rate},IS_SALE=#{is_sale},IS_TEMP=0,CREATE_DT=SYSDATE WHERE ID = #{id}
 	</update>
 	<delete id="deleteFile" parameterType="ProductFileDTO">
 		DELETE FROM PRODUCT_FILE WHERE NAME = #{name}
 	</delete>
+	<delete id="deleteThumbnail" parameterType="ProductFileDTO">
+		DELETE FROM PRODUCT_THUMBNAIL WHERE NAME = #{name}
+	</delete>
 	
 	<select id="getTotalPage" resultType="Long">
-		SELECT COUNT(*) FROM PRODUCT
+		SELECT COUNT(*) FROM PRODUCT WHERE IS_TEMP = 0
 	</select>
 </mapper>
