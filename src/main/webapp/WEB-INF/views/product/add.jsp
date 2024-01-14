@@ -109,7 +109,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                     </div>
                                     <div class="mb-3">
 									  <label for="formFileMultiple" class="form-label">썸네일</label>
-									  <input class="form-control" type="file" id="formFileMultiple" name="attach" multiple>
+									  <input class="form-control" type="file" id="formFileMultiple" name="attach" accept="image/png, image/jpeg" multiple>
 									</div>
                                     <!-- Rate input-->
                                     <div class="form-floating mb-3">
@@ -152,6 +152,19 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			        hiddenInput.value = 0;
 			    }
 			}
+			document.getElementById('formFileMultiple').addEventListener('change', function(event) {
+			    var files = event.target.files;
+			    var maxSize = 2 * 1024 * 1024;
+			   	if(files.length > 5) alert("최대 5개의 파일만 등록할 수 있습니다.");
+			    for(let i = 0; i < files.length; i++ ){
+			    	if (files[i].size > maxSize) {
+				        alert("파일 크기가 너무 큽니다. 2MB 이하의 파일을 선택해주세요.");
+				        this.value = ''; 
+				    }
+			    }
+				
+			});
+
 			$('#summernote').summernote({
 		        placeholder: '상세페이지를 작성해주세요.',
 		        tabsize: 2,
