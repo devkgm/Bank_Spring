@@ -32,6 +32,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/resources/css/styles.css" rel="stylesheet" />
+        <style>
+        	.carousel-img {
+			    width: 100%; 
+			    height: 500px; 
+			    object-fit: cover; 
+			}
+        	
+        </style>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
@@ -45,10 +53,29 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 </div>
             </div>
          <!-- Product section-->
-        <section class="py-5">
+        <section class="py-5 mb-3">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="/resources/upload/products/${dto.thumbnails[0] }" alt="..." /></div>
+                <%-- <img class="card-img-top mb-5 mb-md-0" src="/resources/upload/products/${dto.thumbnails[0] }" alt="..." /> --%>
+                    <div class="col-md-6">
+	                    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+						  <div class="carousel-inner">
+						  	<c:forEach items="${dto.thumbnails }" var="thumbnail" varStatus="status" >
+						  		<div class="carousel-item ${status.index == 0 ? 'active' : '' }">
+							      <img class="card-img-top mb-5 mb-md-0 carousel-img" src="/resources/upload/products/${thumbnail}" class="d-block w-100" alt="...">
+							    </div>
+						  	</c:forEach>
+						  </div>
+						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						    <span class="visually-hidden">Previous</span>
+						  </button>
+						  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    <span class="visually-hidden">Next</span>
+						  </button>
+						</div>
+                    </div>
                     <div class="col-md-6">
                         <div class="small mb-1">SKU: BST-498</div>
                         <h1 class="display-5 fw-bolder">${dto.name }</h1>
@@ -63,13 +90,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>
+                            <a type="button" class="btn btn-primary mr-3" href="../update?id=${dto.id }">수정하기</a>
+        					<a type="button" class="btn btn-danger" href="../delete?id=${dto.id }">삭제하기</a>
                         </div>
                     </div>
                 </div>
-                <a type="button" class="btn btn-primary" href="../update?id=${dto.id }">수정하기</a>
-                <a type="button" class="btn btn-danger" href="../delete?id=${dto.id }">삭제하기</a>
+                
             </div>
         </section>
+        
         <!-- 컨텐 -->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
