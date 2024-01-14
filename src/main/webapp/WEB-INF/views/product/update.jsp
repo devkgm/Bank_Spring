@@ -205,8 +205,58 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				}
 			}
 			
-			 $('#summernote').summernote('code', `${dto.content}`);
-			 
+
+			 $('#summernote').summernote({
+			        placeholder: '상세페이지를 작성해주세요.',
+			        tabsize: 2,
+			        height: 500,
+			        backgroundColor:'white',
+			        toolbar: [
+			          ['style', ['style']],
+			          ['font', ['bold', 'underline', 'clear']],
+			          ['color', ['color']],
+			          ['para', ['ul', 'ol', 'paragraph']],
+			          ['table', ['table']],
+			          ['insert', ['link', 'picture', 'video']],
+			          ['view', ['fullscreen', 'codeview', 'help']]
+			        ],
+			        callbacks: {
+					    onChange: function(contents, $editable) {
+					      $('#content').val($('#summernote').summernote('code'));
+					  
+					    },
+					    onImageUpload: function(files) {
+					        console.log("imageUpload")
+					        const formData = new FormData();
+					        formData.append("product_id", ${dto.id });
+					        formData.append("attach", files[0])
+					        console.log(files)
+					        fetch("./addFile", {
+					        	method:"POST",
+					        	"Content-type": "multipart/form-data",
+					        	body: formData,
+					        }).then(response => response.json())
+					        .then(data => {
+					        	console.log(data)
+					        	//$('#summernote').summernote('insertImage', "/resources/upload/products/"+data.name, data.name);
+					        	$img = $('<img>').attr({ src: "/resources/upload/products/"+data.name })
+					            $('#summernote').summernote('insertNode', $img[0]);
+					        })
+				      },
+				      onMediaDelete: function($target, editor, $editable) {
+				            // 이미지 삭제 시 실행할 콜백 함수
+			            var deletedImageSrc = $target.attr('src');
+			            console.log('이미지 삭제됨:', deletedImageSrc);
+
+			            // 이곳에서 삭제된 이미지에 대한 추가 작업을 수행할 수 있습니다.
+			            // 예를 들어, 서버에서 해당 이미지를 삭제하거나 다른 동작을 수행할 수 있습니다.
+			          },
+			         
+
+				  }
+			        
+			  });
+			  $('#summernote').summernote('code', `${dto.content}`); 
 		</script>
     </body>
 </html>

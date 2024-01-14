@@ -47,7 +47,9 @@ public class ProductController {
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public String add(ProductDTO productDTO,MultipartFile[] attach, Model model) throws Exception{
+		System.out.println(productDTO.getContent());
 		int result = productService.update(productDTO, attach);
+		
 		String path = "product/list";
 		String message = "추가 실패.";
 		if(result > 0) {

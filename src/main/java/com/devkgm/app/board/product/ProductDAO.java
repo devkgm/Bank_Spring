@@ -40,6 +40,7 @@ public class ProductDAO implements BoardDAO<ProductDTO, ProductFileDTO>{
 
 	@Override
 	public int update(ProductDTO productDTO) throws Exception {
+		System.out.println(productDTO.getContent());
 		return sqlSession.update(namespace+"update", productDTO);
 	}	
 	

@@ -169,7 +169,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		        callbacks: {
 				    onChange: function(contents, $editable) {
 				      $('#content').val($('#summernote').summernote('code'));
-				      console.log(contents, $editable)
+				  
 				    },
 				    onImageUpload: function(files) {
 				        console.log("imageUpload")
