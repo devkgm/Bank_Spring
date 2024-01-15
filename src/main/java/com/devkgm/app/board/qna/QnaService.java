@@ -16,31 +16,28 @@ public class QnaService implements BoardService<QnaDTO>{
 
 	@Override
 	public List<QnaDTO> getList(BoardPager boardPager) throws Exception {
+		boardPager.setTotalPage(qnaDAO.getTotalPage());
 		return qnaDAO.getList(boardPager);
 	}
 
 	@Override
-	public QnaDTO getDetail(QnaDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public QnaDTO getDetail(QnaDTO qnaDTO) throws Exception {
+		return qnaDAO.getDetail(qnaDTO);
 	}
 
 	@Override
-	public int add(QnaDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int add(QnaDTO qnaDTO) throws Exception {
+		return qnaDAO.add(qnaDTO);
 	}
 
 	@Override
-	public int update(QnaDTO t, MultipartFile[] file) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(QnaDTO qnaDTO, MultipartFile[] file) throws Exception {
+		return qnaDAO.update(qnaDTO);
 	}
 
 	@Override
-	public int delete(QnaDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(QnaDTO qnaDTO) throws Exception {
+		return qnaDAO.delete(qnaDTO);
 	}
 
 	@Override

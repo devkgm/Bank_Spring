@@ -21,33 +21,28 @@ public class QnaDAO implements BoardDAO<QnaDTO>{
 	}
 
 	@Override
-	public QnaDTO getDetail(QnaDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public QnaDTO getDetail(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.selectOne(namespace+"getDetail", qnaDTO);
 	}
 
 	@Override
-	public int add(QnaDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int add(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.insert(namespace+"add", qnaDTO);
 	}
 
 	@Override
-	public int update(QnaDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.update(namespace+"update", qnaDTO);
 	}
 
 	@Override
-	public int delete(QnaDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.delete(namespace+"delete", qnaDTO);
 	}
 
 	@Override
 	public Long getTotalPage() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(namespace+"getTotalPage");
 	}
 
 }

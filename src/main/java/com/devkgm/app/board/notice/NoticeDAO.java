@@ -26,21 +26,18 @@ public class NoticeDAO implements BoardDAO<NoticeDTO>{
 	}
 
 	@Override
-	public int add(NoticeDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int add(NoticeDTO noticeDTO) throws Exception {
+		return sqlSession.insert(namespace+"add", noticeDTO);
 	}
 
 	@Override
-	public int update(NoticeDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(NoticeDTO noticeDTO) throws Exception {
+		return sqlSession.update(namespace+"update", noticeDTO);
 	}
 
 	@Override
-	public int delete(NoticeDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(NoticeDTO noticeDTO) throws Exception {
+		return sqlSession.delete(namespace+"delete",noticeDTO);
 	}
 
 	@Override

@@ -61,7 +61,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         <div class="small mb-1">SKU: BST-498</div>
                         <h1 class="display-5 fw-bolder">${dto.title }</h1>
                         <div class="fs-5 mb-5">
-                        	<span>이율</span>
+    						<span>작성자</span>
                             <span>${dto.writer }</span>
                         </div>
                         

@@ -3,7 +3,6 @@ package com.devkgm.app.board;
 import java.sql.Date;
 import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
 
 public class BoardDTO<T> {
 	private Long id;

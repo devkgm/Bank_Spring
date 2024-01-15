@@ -27,21 +27,18 @@ public class NoticeService implements BoardService<NoticeDTO>{
 	}
 
 	@Override
-	public int add(NoticeDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int add(NoticeDTO noticeDTO) throws Exception {
+		return noticeDAO.add(noticeDTO);
 	}
 
 	@Override
-	public int update(NoticeDTO t, MultipartFile[] file) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int update(NoticeDTO noticeDTO, MultipartFile[] file) throws Exception {
+		return noticeDAO.update(noticeDTO);
 	}
 
 	@Override
 	public int delete(NoticeDTO t) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return noticeDAO.delete(t);
 	}
 
 	@Override

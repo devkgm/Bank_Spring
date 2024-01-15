@@ -15,6 +15,7 @@
 			(
 				SELECT *
 				FROM NOTICE
+				WHERE IS_TEMP = 0
 				ORDER BY ID DESC
 			) n
 		)
@@ -42,4 +43,16 @@
 			<result column="ORIGIN_NM" property="origin_nm"/>
 		</collection>
 	</resultMap>
+	<insert id="add" parameterType="NoticeDTO">
+		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
+			SELECT NOTICE_SEQ.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+		INSERT INTO NOTICE (ID, TITLE, WRITER, CONTENT) VALUES (#{id}, ' ', ' ', ' ')
+	</insert>
+	<update id="update" parameterType="NoticeDTO">
+		UPDATE NOTICE SET TITLE=#{title} , WRITER=#{writer} , CONTENT=#{content}, IS_TEMP=0 WHERE ID = #{id}
+	</update>
+	<delete id="delete" parameterType="NoticeDTO">
+		DELETE FROM NOTICE WHERE ID = #{id}
+	</delete>
 </mapper>

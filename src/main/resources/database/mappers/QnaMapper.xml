@@ -4,8 +4,55 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
+    
 <mapper namespace="com.devkgm.app.board.qna.QnaDAO">
-	<select id="getList" resultType="QnaDTO">
-		SELECT * FROM QNA
+	<select id="getList" resultType="QnaDTO" parameterType="BoardPager">
+		SELECT *
+		FROM
+		(
+			SELECT ROWNUM, n.*
+			FROM
+			(
+				SELECT *
+				FROM QNA
+				WHERE IS_TEMP = 0
+				ORDER BY ID DESC
+			) n
+		)
+		WHERE ROWNUM BETWEEN #{startPage} AND #{lastPage}
 	</select>
+	<select id="getTotalPage" resultType="Long">
+		SELECT COUNT(*) FROM QNA
+	</select>
+	<select id="getDetail" parameterType="QnaDTO" resultMap="getQnaResult">
+		SELECT n.*, nf.NAME, nf.ORIGIN_NM
+		FROM QNA n 
+			LEFT JOIN QNA_FILE nf 
+			ON n.ID = nf.QNA_ID
+		WHERE n.ID = #{id}
+	</select>
+	<resultMap type="QnaDTO" id="getQnaResult">
+		<id column="ID" property="id"/>
+		<result column="TITLE" property="title"/>
+		<result column="WRITER" property="writer"/>
+		<result column="CONTENT" property="content"/>
+		<result column="CREATE_DT" property="create_dt"/>
+		<result column="VIEWS" property="views"/>
+		<collection property="fileDTOs" javaType="List" ofType="QnaFileDTO">
+			<result column="NAME" property="name"/>
+			<result column="ORIGIN_NM" property="origin_nm"/>
+		</collection>
+	</resultMap>
+	<insert id="add" parameterType="QnaDTO">
+		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
+			SELECT QNA_SEQ.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+		INSERT INTO QNA (ID, TITLE, WRITER, CONTENT) VALUES (#{id}, ' ', ' ', ' ')
+	</insert>
+	<update id="update" parameterType="QnaDTO">
+		UPDATE QNA SET TITLE=#{title} , WRITER=#{writer} , CONTENT=#{content}, IS_TEMP=0 WHERE ID = #{id}
+	</update>
+	<delete id="delete" parameterType="QnaDTO">
+		DELETE FROM QNA WHERE ID = #{id}
+	</delete>
 </mapper>
