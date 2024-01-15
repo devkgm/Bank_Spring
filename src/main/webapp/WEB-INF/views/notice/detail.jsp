@@ -41,11 +41,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <div class="col-md-6">
 	                    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
 						  <div class="carousel-inner">
-						  	<c:forEach items="${dto.thumbnails }" var="thumbnail" varStatus="status" >
+						  	<%-- <c:forEach items="${dto.thumbnails }" var="thumbnail" varStatus="status" >
 						  		<div class="carousel-item ${status.index == 0 ? 'active' : '' }">
 							      <img class="card-img-top mb-5 mb-md-0 carousel-img" src="/resources/upload/products/${thumbnail}" class="d-block w-100" alt="...">
 							    </div>
-						  	</c:forEach>
+						  	</c:forEach> --%>
 						  </div>
 						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
 						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -59,18 +59,15 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     </div>
                     <div class="col-md-6">
                         <div class="small mb-1">SKU: BST-498</div>
-                        <h1 class="display-5 fw-bolder">${dto.name }</h1>
+                        <h1 class="display-5 fw-bolder">${dto.title }</h1>
                         <div class="fs-5 mb-5">
                         	<span>이율</span>
-                            <span>${dto.rate }</span>
+                            <span>${dto.writer }</span>
                         </div>
                         
                         <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="${dto.counts }" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
+                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="${dto.views }" style="max-width: 3rem" />
+                           
                             <a type="button" class="btn btn-primary mr-3" href="../update?id=${dto.id }">수정하기</a>
         					<a type="button" class="btn btn-danger" href="../delete?id=${dto.id }">삭제하기</a>
                         </div>

@@ -14,6 +14,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <meta name="author" content="" />
         <title>Personal - Start Bootstrap Theme</title>
         <c:import url="../templete/templeteHeader.jsp"></c:import>
+        <style>
+        	tr:hover {
+        		cursor: pointer;
+        	}
+        </style>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
@@ -22,7 +27,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <div class="container px-5 mb-5">
                 <div class="text-center mb-5">
                     <h1 class="display-5 fw-bolder mb-0">
-                        <span class="text-gradient d-inline">상품</span>
+                        <span class="text-gradient d-inline">공지사항</span>
                     </h1>
                 </div>
             </div>
@@ -31,14 +36,25 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                     <div
                         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
                     >
-                        <c:forEach items="${list }" var="item">
-                            <div
-                                onclick="location.href = './detail/${item.id }'"
-                            >
-                                <%@ include file="../templete/contentCard.jsp"
-                                %>
-                            </div>
-                        </c:forEach>
+                    	<table class="table table-hover">
+                    		<tr>
+                    			<th>번호</th>
+                    			<th>제목</th>
+                    			<th>글쓴이</th>
+                    			<th>날짜</th>
+                    			<th>조회수</th>
+                    		</tr>
+	                    	<c:forEach items="${list }" var="item" varStatus="status">
+	                            <tr onclick="location.href='./detail/${item.id}'">
+	                            	<td>${status.index+1 }</td>
+	                            	<td>${item.title }</td>
+	                            	<td>${item.writer }</td>
+	                            	<td>${item.create_dt }</td>
+	                            	<td>${item.views }</td>
+	                            <tr>
+	                        </c:forEach>
+						</table>
+                        
                     </div>
                     <div
                         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"

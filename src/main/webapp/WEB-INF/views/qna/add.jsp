@@ -14,14 +14,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <title>Personal - Start Bootstrap Theme</title>
         <c:import url="../templete/templeteHeader.jsp"></c:import>
         <c:import url="../commons/summernote.jsp"></c:import>
-        <style>
-        	.image-container {
-        	
-		        height: 100px; 
-		        overflow: hidden;
-		    }
-		    
-        </style>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
@@ -38,7 +30,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             >
                                 <i class="bi bi-envelope"></i>
                             </div>
-                            <h1 class="fw-bolder">상품 추가</h1>
+                            <h1 class="fw-bolder">질문 추가</h1>
                             
                         </div>
                         <div class="row gx-5 justify-content-center">
@@ -46,27 +38,43 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                 
                                 <form
                                     id="productForm"
-                                    action="./update"
+                                    action="./add"
                                     method="POST"
 									enctype="multipart/form-data"                                 
                                 >
-                                	<input type="hidden" name="id" value="${dto.id }">
                                     <!-- Name input-->
                                     <div class="form-floating mb-3">
+                                    	<input type="hidden" name="id" value="${dto.id }">
                                         <input
                                             class="form-control"
                                             id="name"
                                             type="text"
                                             name="name"
-                                            value="${dto.name }"
                                             data-sb-validations="required"
                                         />
-                                        <label for="name">상품명 입력</label>
+                                        <label for="name">제목 입력</label>
                                         <div
                                             class="invalid-feedback"
                                             data-sb-feedback="name:required"
                                         >
-                                            상품명을 입력해주세요.
+                                            제목을 입력해주세요.
+                                        </div>
+                                    </div>
+                                    <!-- Rate input-->
+                                    <div class="form-floating mb-3">
+                                        <input
+                                            class="form-control"
+                                            id="rate"
+                                            type="text"
+                                            name="rate"
+                                            data-sb-validations="required"
+                                        ></input>
+                                        <label for="rate">작성자</label>
+                                        <div
+                                            class="invalid-feedback"
+                                            data-sb-feedback="message:required"
+                                        >
+                                            이름을 기입해주세요.
                                         </div>
                                     </div>
                                     <!-- 컨텐츠 -->
@@ -80,52 +88,16 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                         <div id="summernote"></div>
                                     </div>
                                     
-                                    <!-- Rate input-->
-                                    <div class="form-floating mb-3">
-                                        <input
-                                            class="form-control"
-                                            id="rate"
-                                            type="text"
-                                            name="rate"
-                                            value="${dto.rate }"
-                                            data-sb-validations="required"
-                                        ></input>
-                                        <label for="rate">이율</label>
-                                        <div
-                                            class="invalid-feedback"
-                                            data-sb-feedback="message:required"
-                                        >
-                                            이율을 기입해주세요.
-                                        </div>
-                                    </div>
                                     
                                     <div class="mb-3">
 									  <label for="formFileMultiple" class="form-label">썸네일</label>
-									  	<c:forEach items="${dto.thumbnails }" var="file" >
-										  <div id="${file }" class="card" style="width: 8rem;">
-										   	<div class="image-container" style="width: 100%;">
-										       	
-									       		<img class="card-img-top img-fluid" style="object-fit: cover; width: 100%; height: 100%;" src="/resources/upload/products/${file }" alt="..." />
-									   
-							       			</div>
-										  <div class="card-body">
-										    <h5 class="card-title" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;"></h5>
-										    
-										    	 <button type="button" onclick="deleteFile(`${file }`)" class="btn btn-danger">삭제하기</button>
-										   
-										  </div>
-									 
-									  
-									  
-										</div>
-									  </c:forEach>
-									  <input class="form-control" type="file" id="formFileMultiple" name="attach" multiple>
+									  <input class="form-control" type="file" id="formFileMultiple" name="attach" accept="image/png, image/jpeg" multiple>
 									</div>
                                     <!-- Rate input-->
                                     <div class="form-floating mb-3">
                                         <div class="form-check form-switch">
-										  <input class="form-check-input" id="saleCheckBox" type="checkbox" role="switch" onchange="updateValue(this)" checked>
-										  <input type="hidden" name="is_sale" id="is_sale" value="${dto.is_sale }">
+										  <input class="form-check-input" type="checkbox" role="switch" onchange="updateValue(this)" checked>
+										  <input type="hidden" name="is_sale" id="is_sale" value="1">
 										  <label class="form-check-label" for="flexSwitchCheckChecked">판매</label>
 										</div>
                                     </div>
@@ -146,7 +118,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 </div>
             </section>
         </main>
-
         <!-- Footer-->
         <c:import url="../templete/footer.jsp"></c:import>
         <!-- Bootstrap core JS-->
@@ -155,89 +126,78 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <script src="/resources/js/scripts.js"></script>
         <script src="/resources/js/summernote.js"></script>
         <script>
-        	var hiddenInput = document.getElementById("is_sale");
 			function updateValue(checkbox) {
-			    
+			    var hiddenInput = document.getElementById("is_sale");
 			    if (checkbox.checked) {
 			        hiddenInput.value = 1;
 			    } else {
 			        hiddenInput.value = 0;
 			    }
 			}
-			if(hiddenInput.value == 1 ){
-				$('#saleCheckBox').attr("checked", true);
-			} else {
-				$('#saleCheckBox').attr("checked", false);
-			}
+			document.getElementById('formFileMultiple').addEventListener('change', function(event) {
+			    var files = event.target.files;
+			    var maxSize = 2 * 1024 * 1024;
+			   	if(files.length > 5) alert("최대 5개의 파일만 등록할 수 있습니다.");
+			    for(let i = 0; i < files.length; i++ ){
+			    	if (files[i].size > maxSize) {
+				        alert("파일 크기가 너무 큽니다. 2MB 이하의 파일을 선택해주세요.");
+				        this.value = ''; 
+				    }
+			    }
+				
+			});
+
+			$('#summernote').summernote({
+		        placeholder: '상세페이지를 작성해주세요.',
+		        tabsize: 2,
+		        height: 500,
+		        backgroundColor:'white',
+		        toolbar: [
+		          ['style', ['style']],
+		          ['font', ['bold', 'underline', 'clear']],
+		          ['color', ['color']],
+		          ['para', ['ul', 'ol', 'paragraph']],
+		          ['table', ['table']],
+		          ['insert', ['link', 'picture', 'video']],
+		          ['view', ['fullscreen', 'codeview', 'help']]
+		        ],
+		        callbacks: {
+				    onChange: function(contents, $editable) {
+				      $('#content').val($('#summernote').summernote('code'));
+				  
+				    },
+				    onImageUpload: function(files) {
+				        console.log("imageUpload")
+				        const formData = new FormData();
+				        formData.append("product_id", ${dto.id });
+				        formData.append("attach", files[0])
+				        console.log(files)
+				        fetch("./addFile", {
+				        	method:"POST",
+				        	"Content-type": "multipart/form-data",
+				        	body: formData,
+				        }).then(response => response.json())
+				        .then(data => {
+				        	console.log(data)
+				        	//$('#summernote').summernote('insertImage', "/resources/upload/products/"+data.name, data.name);
+				        	$img = $('<img>').attr({ src: "/resources/upload/products/"+data.name })
+				            $('#summernote').summernote('insertNode', $img[0]);
+				        })
+			      },
+			      onMediaDelete: function($target, editor, $editable) {
+			            // 이미지 삭제 시 실행할 콜백 함수
+		            var deletedImageSrc = $target.attr('src');
+		            console.log('이미지 삭제됨:', deletedImageSrc);
+
+		            // 이곳에서 삭제된 이미지에 대한 추가 작업을 수행할 수 있습니다.
+		            // 예를 들어, 서버에서 해당 이미지를 삭제하거나 다른 동작을 수행할 수 있습니다.
+		          },
+		         
+
+			  }
+		        
+		  });
 			
-			function deleteFile (fileName) {
-				if(confirm("삭제하시면 되돌릴수 없습니다.")){
-					const formData = new FormData()
-					formData.append('name', fileName);
-					fetch("./deleteThumbnail",{
-						method:"POST",
-						headers: {
-						
-					  	},
-						body: formData
-					})
-					const card = document.getElementById(fileName);
-					card.remove();
-				}
-			}
-			
-
-			 $('#summernote').summernote({
-			        placeholder: '상세페이지를 작성해주세요.',
-			        tabsize: 2,
-			        height: 500,
-			        backgroundColor:'white',
-			        toolbar: [
-			          ['style', ['style']],
-			          ['font', ['bold', 'underline', 'clear']],
-			          ['color', ['color']],
-			          ['para', ['ul', 'ol', 'paragraph']],
-			          ['table', ['table']],
-			          ['insert', ['link', 'picture', 'video']],
-			          ['view', ['fullscreen', 'codeview', 'help']]
-			        ],
-			        callbacks: {
-					    onChange: function(contents, $editable) {
-					      $('#content').val($('#summernote').summernote('code'));
-					  
-					    },
-					    onImageUpload: function(files) {
-					        console.log("imageUpload")
-					        const formData = new FormData();
-					        formData.append("product_id", ${dto.id });
-					        formData.append("attach", files[0])
-					        console.log(files)
-					        fetch("./addFile", {
-					        	method:"POST",
-					        	"Content-type": "multipart/form-data",
-					        	body: formData,
-					        }).then(response => response.json())
-					        .then(data => {
-					        	console.log(data)
-					        	//$('#summernote').summernote('insertImage', "/resources/upload/products/"+data.name, data.name);
-					        	$img = $('<img>').attr({ src: "/resources/upload/products/"+data.name })
-					            $('#summernote').summernote('insertNode', $img[0]);
-					        })
-				      },
-				      onMediaDelete: function($target, editor, $editable) {
-				            // 이미지 삭제 시 실행할 콜백 함수
-			            var deletedImageSrc = $target.attr('src');
-			            console.log('이미지 삭제됨:', deletedImageSrc);
-
-			            // 이곳에서 삭제된 이미지에 대한 추가 작업을 수행할 수 있습니다.
-			            // 예를 들어, 서버에서 해당 이미지를 삭제하거나 다른 동작을 수행할 수 있습니다.
-			          },
-			         
-
-				  }
-			        
-			  });
-			  $('#summernote').summernote('code', `${dto.content}`); 
 		</script>
     </body>
 </html>

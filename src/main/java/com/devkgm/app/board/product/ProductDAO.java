@@ -11,7 +11,7 @@ import com.devkgm.app.board.BoardPager;
 
 
 @Repository
-public class ProductDAO implements BoardDAO<ProductDTO, ProductFileDTO>{
+public class ProductDAO implements BoardDAO<ProductDTO>{
 	@Autowired
 	private SqlSession sqlSession;
 	private String namespace = "com.devkgm.app.board.product.ProductDAO.";
@@ -30,30 +30,13 @@ public class ProductDAO implements BoardDAO<ProductDTO, ProductFileDTO>{
 	public int add(ProductDTO productDTO) throws Exception {
 		return sqlSession.insert(namespace+"add", productDTO);
 	}
-	@Override
-	public int addFile(ProductFileDTO productFileDTO) throws Exception {
-		return sqlSession.insert(namespace+"addFile", productFileDTO);
-	}
-	public int addThumbnail(ProductFileDTO productFileDTO) throws Exception {
-		return sqlSession.insert(namespace+"addThumbnail", productFileDTO);
-	}
-
+	
 	@Override
 	public int update(ProductDTO productDTO) throws Exception {
 		System.out.println(productDTO.getContent());
 		return sqlSession.update(namespace+"update", productDTO);
 	}	
 	
-	public int deleteFile(ProductFileDTO productFileDTO) throws Exception {
-		return sqlSession.delete(namespace+"deleteFile", productFileDTO);
-	}
-	public int deleteThumbnail(ProductFileDTO productFileDTO) throws Exception {
-		return sqlSession.delete(namespace+"deleteThumbnail", productFileDTO);
-	}
-	public List<ProductFileDTO> getTotalImage(ProductDTO productDTO) throws Exception {
-		return sqlSession.selectList(namespace+"getTotalImage", productDTO);
-	}
-
 	@Override
 	public int delete(ProductDTO productDTO) throws Exception {
 		return sqlSession.delete(namespace+"delete",productDTO);
@@ -63,5 +46,27 @@ public class ProductDAO implements BoardDAO<ProductDTO, ProductFileDTO>{
 	public Long getTotalPage() throws Exception {
 		return sqlSession.selectOne(namespace+"getTotalPage");
 	}
+	
+	public int addFile(ProductFileDTO productFileDTO) throws Exception {
+		return sqlSession.insert(namespace+"addFile", productFileDTO);
+	}
+	
+	public int addThumbnail(ProductFileDTO productFileDTO) throws Exception {
+		return sqlSession.insert(namespace+"addThumbnail", productFileDTO);
+	}
+
+	public int deleteFile(ProductFileDTO productFileDTO) throws Exception {
+		return sqlSession.delete(namespace+"deleteFile", productFileDTO);
+	}
+	
+	public int deleteThumbnail(ProductFileDTO productFileDTO) throws Exception {
+		return sqlSession.delete(namespace+"deleteThumbnail", productFileDTO);
+	}
+	
+	public List<ProductFileDTO> getTotalImage(ProductDTO productDTO) throws Exception {
+		return sqlSession.selectList(namespace+"getTotalImage", productDTO);
+	}
+
+	
 
 }

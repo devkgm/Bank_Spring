@@ -10,5 +10,8 @@
 		<typeAlias type="com.devkgm.app.board.product.ProductDTO" alias="ProductDTO"/>
 		<typeAlias type="com.devkgm.app.board.product.ProductFileDTO" alias="ProductFileDTO"/>
 		<typeAlias type="com.devkgm.app.board.BoardPager" alias="BoardPager"/>
+		<typeAlias type="com.devkgm.app.board.qna.QnaDTO" alias="QnaDTO"/>
+		<typeAlias type="com.devkgm.app.board.notice.NoticeDTO" alias="NoticeDTO"/>
+		<typeAlias type="com.devkgm.app.board.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
 	</typeAliases>
 </configuration>

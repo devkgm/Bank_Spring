@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.devkgm.app.board.BoardDTO;
 import com.devkgm.app.board.BoardPager;
 import com.devkgm.app.board.BoardService;
 import com.devkgm.app.util.FileManager;
@@ -34,34 +33,9 @@ public class ProductService implements BoardService<ProductDTO>{
 	public int add(ProductDTO productDTO) throws Exception {
 		int result = productDAO.add(productDTO);
 		
-		
-		
 		return result;
 	}
-	public int addFile(ProductFileDTO productFileDTO, MultipartFile file) throws Exception {
-		String fileName = fileManager.saveFile("/resources/upload/products", file);
-		String originName = file.getOriginalFilename();
-		
-		productFileDTO.setName(fileName);
-		productFileDTO.setOrigin_nm(originName);
-		
-		int result = productDAO.addFile(productFileDTO);
-
-		return result;
-	}
-	public int addThumbnail(ProductDTO productDTO, MultipartFile file) throws Exception {
-		ProductFileDTO productFileDTO = new ProductFileDTO();
-		String fileName = fileManager.saveFile("/resources/upload/products", file);
-		String originName = file.getOriginalFilename();
-		
-		productFileDTO.setProduct_id(productDTO.getId());
-		productFileDTO.setName(fileName);
-		productFileDTO.setOrigin_nm(originName);
-		
-		int result = productDAO.addThumbnail(productFileDTO);
-		
-		return result;
-	}
+	
 	@Override
 	public int update(ProductDTO productDTO, MultipartFile[] files) throws Exception {
 		int result = productDAO.update(productDTO);
@@ -83,17 +57,6 @@ public class ProductService implements BoardService<ProductDTO>{
 		return result;
 	}
 	
-	public boolean deleteFile(ProductFileDTO productFileDTO) throws Exception {
-		boolean result = fileManager.deleteFile("/resources/upload/products", productFileDTO.getName());
-		if(result) productDAO.deleteFile(productFileDTO);
-		return result;
-	}
-	public boolean deleteThumbnail(ProductFileDTO productFileDTO) throws Exception {
-		boolean result = fileManager.deleteFile("/resources/upload/products", productFileDTO.getName());
-		if(result) productDAO.deleteThumbnail(productFileDTO);
-		return result;
-	}
-
 	@Override
 	public int delete(ProductDTO productDTO) throws Exception {
 		List<ProductFileDTO> fileList = productDAO.getTotalImage(productDTO);
@@ -107,7 +70,45 @@ public class ProductService implements BoardService<ProductDTO>{
 	public Long getTotalPage() throws Exception {
 		return productDAO.getTotalPage();
 	}
-
 	
+	public int addFile(ProductFileDTO productFileDTO, MultipartFile file) throws Exception {
+		String fileName = fileManager.saveFile("/resources/upload/products", file);
+		String originName = file.getOriginalFilename();
+		
+		productFileDTO.setName(fileName);
+		productFileDTO.setOrigin_nm(originName);
+		
+		int result = productDAO.addFile(productFileDTO);
+
+		return result;
+	}
+	
+	public int addThumbnail(ProductDTO productDTO, MultipartFile file) throws Exception {
+		ProductFileDTO productFileDTO = new ProductFileDTO();
+		String fileName = fileManager.saveFile("/resources/upload/products", file);
+		String originName = file.getOriginalFilename();
+		
+		productFileDTO.setProduct_id(productDTO.getId());
+		productFileDTO.setName(fileName);
+		productFileDTO.setOrigin_nm(originName);
+		
+		int result = productDAO.addThumbnail(productFileDTO);
+		
+		return result;
+	}
+	
+	
+	public boolean deleteFile(ProductFileDTO productFileDTO) throws Exception {
+		boolean result = fileManager.deleteFile("/resources/upload/products", productFileDTO.getName());
+		if(result) productDAO.deleteFile(productFileDTO);
+		return result;
+	}
+	
+	public boolean deleteThumbnail(ProductFileDTO productFileDTO) throws Exception {
+		boolean result = fileManager.deleteFile("/resources/upload/products", productFileDTO.getName());
+		if(result) productDAO.deleteThumbnail(productFileDTO);
+		return result;
+	}
+
 
 }

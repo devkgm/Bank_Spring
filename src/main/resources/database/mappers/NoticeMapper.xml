@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+<mapper namespace="com.devkgm.app.board.notice.NoticeDAO">
+	<select id="getList" resultType="NoticeDTO" parameterType="BoardPager">
+		SELECT *
+		FROM
+		(
+			SELECT ROWNUM, n.*
+			FROM
+			(
+				SELECT *
+				FROM NOTICE
+				ORDER BY ID DESC
+			) n
+		)
+		WHERE ROWNUM BETWEEN #{startPage} AND #{lastPage}
+	</select>
+	<select id="getTotalPage" resultType="Long">
+		SELECT COUNT(*) FROM NOTICE
+	</select>
+	<select id="getDetail" parameterType="NoticeDTO" resultMap="getNoticeResult">
+		SELECT n.*, nf.NAME, nf.ORIGIN_NM
+		FROM NOTICE n 
+			LEFT JOIN NOTICE_FILE nf 
+			ON n.ID = nf.NOTICE_ID
+		WHERE n.ID = #{id}
+	</select>
+	<resultMap type="NoticeDTO" id="getNoticeResult">
+		<id column="ID" property="id"/>
+		<result column="TITLE" property="title"/>
+		<result column="WRITER" property="writer"/>
+		<result column="CONTENT" property="content"/>
+		<result column="CREATE_DT" property="create_dt"/>
+		<result column="VIEWS" property="views"/>
+		<collection property="fileDTOs" javaType="List" ofType="NoticeFileDTO">
+			<result column="NAME" property="name"/>
+			<result column="ORIGIN_NM" property="origin_nm"/>
+		</collection>
+	</resultMap>
+</mapper>

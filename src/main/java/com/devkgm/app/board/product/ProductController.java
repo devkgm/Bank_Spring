@@ -1,6 +1,5 @@
 package com.devkgm.app.board.product;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.devkgm.app.board.BoardDTO;
 import com.devkgm.app.board.BoardPager;
-import com.devkgm.app.board.BoardService;
 
 
 @Controller
@@ -29,6 +26,7 @@ public class ProductController {
 		model.addAttribute("list", list);
 		model.addAttribute("pager", boardPager);
 	}
+	
 	@RequestMapping(value = "detail/{id}", method = RequestMethod.GET)
 	public String detail(Model model, @PathVariable Long id) throws Exception{
 		ProductDTO productDTO = new ProductDTO();
@@ -96,15 +94,11 @@ public class ProductController {
 		int result = productService.addFile(productFileDTO,attach);
 		return productFileDTO;
 	}
+	
 	@RequestMapping(value="addTumbnail", method = RequestMethod.POST)
 	@ResponseBody
 	public void addTumbnail(ProductDTO productDTO, MultipartFile attach) throws Exception{
 		int result = productService.addThumbnail(productDTO,attach);
-	}
-	@RequestMapping(value="deleteThumbnail", method = RequestMethod.POST)
-	@ResponseBody
-	public void deleteThumbnail(ProductFileDTO productFileDTO) throws Exception{
-		boolean result = productService.deleteThumbnail(productFileDTO);
 	}
 	
 	@RequestMapping(value="deleteFile", method = RequestMethod.POST)
@@ -112,4 +106,12 @@ public class ProductController {
 	public void deleteFile(ProductFileDTO productFileDTO) throws Exception{
 		boolean result = productService.deleteFile(productFileDTO);
 	}
+	
+	@RequestMapping(value="deleteThumbnail", method = RequestMethod.POST)
+	@ResponseBody
+	public void deleteThumbnail(ProductFileDTO productFileDTO) throws Exception{
+		boolean result = productService.deleteThumbnail(productFileDTO);
+	}
+	
+	
 }

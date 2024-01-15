@@ -22,7 +22,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <div class="container px-5 mb-5">
                 <div class="text-center mb-5">
                     <h1 class="display-5 fw-bolder mb-0">
-                        <span class="text-gradient d-inline">상품</span>
+                        <span class="text-gradient d-inline">Q&A</span>
                     </h1>
                 </div>
             </div>
