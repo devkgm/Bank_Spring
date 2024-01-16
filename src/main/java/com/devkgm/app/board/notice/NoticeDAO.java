@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.devkgm.app.board.BoardDAO;
 import com.devkgm.app.board.BoardPager;
+import com.devkgm.app.board.product.ProductFileDTO;
 
 @Repository
 public class NoticeDAO implements BoardDAO<NoticeDTO>{
@@ -44,5 +45,12 @@ public class NoticeDAO implements BoardDAO<NoticeDTO>{
 	public Long getTotalPage() throws Exception {
 		return sqlSession.selectOne(namespace+"getTotalPage");
 	}
-
+	
+	public int addFile(NoticeFileDTO noticeFileDTO) throws Exception {
+		return sqlSession.insert(namespace+"addFile", noticeFileDTO);
+	}
+	
+	public int deleteFile(NoticeFileDTO noticeFileDTO) throws Exception {
+		return sqlSession.delete(namespace+"deleteFile", noticeFileDTO);
+	}
 }

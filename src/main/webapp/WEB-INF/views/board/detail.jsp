@@ -34,29 +34,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                 </div>
             </div>
          <!-- Product section-->
-        <section class="py-5 mb-3">
+        <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                <%-- <img class="card-img-top mb-5 mb-md-0" src="/resources/upload/products/${dto.thumbnails[0] }" alt="..." /> --%>
-                    <div class="col-md-6">
-	                    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-						  <div class="carousel-inner">
-						  	<%-- <c:forEach items="${dto.thumbnails }" var="thumbnail" varStatus="status" >
-						  		<div class="carousel-item ${status.index == 0 ? 'active' : '' }">
-							      <img class="card-img-top mb-5 mb-md-0 carousel-img" src="/resources/upload/products/${thumbnail}" class="d-block w-100" alt="...">
-							    </div>
-						  	</c:forEach> --%>
-						  </div>
-						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						    <span class="visually-hidden">Previous</span>
-						  </button>
-						  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						    <span class="visually-hidden">Next</span>
-						  </button>
-						</div>
-                    </div>
+                   
                     <div class="col-md-6">
                         <div class="small mb-1">SKU: BST-498</div>
                         <h1 class="display-5 fw-bolder">${dto.title }</h1>
@@ -67,14 +48,21 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="${dto.views }" style="max-width: 3rem" />
-                           
+                           	<c:if test="${board eq 'QnA' }" >
+	                           	<a type="button" class="btn btn-primary mr-3" href="../reply?id=${dto.id }">답글</a>
+                           	
+                           	</c:if>
+                           	
+                           	
                             <a type="button" class="btn btn-primary mr-3" href="../update?id=${dto.id }">수정하기</a>
         					<a type="button" class="btn btn-danger" href="../delete?id=${dto.id }">삭제하기</a>
                         </div>
                     </div>
                 </div>
                 
+                 
             </div>
+         
         </section>
         
         <!-- 컨텐 -->
@@ -83,6 +71,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         	${dto.content }
         	</div>
         </section>
+        
+        <section class="py-5">
+        	<div class="container px-4 px-lg-5 my-5">
+        		<div class="row">
+                	<c:forEach items="${dto.fileDTOs }" var="f" varStatus="status" >
+			          	<div class="card" style="width: 10rem; height:20rem;">
+						  <img src="/resources/upload/${board }/${f.name}"  class="card-img-top" alt="...">
+						  <div class="card-body">
+						    <h5 class="card-title" style="white-space:nowrap; overflow:hidden;">${f.origin_nm}</h5>
+						    <a href="/resources/upload/${board }/${f.name}" class="btn btn-primary" download>다운로드</a>
+						  </div>
+						</div>
+			  		</c:forEach>
+                </div>
+           </div>
+        </section>
+        
         </main>
         <!-- Footer-->
         <c:import url="../templete/footer.jsp"></c:import>

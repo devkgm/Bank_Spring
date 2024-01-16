@@ -6,6 +6,25 @@
     
     
 <mapper namespace="com.devkgm.app.board.qna.QnaDAO">
+
+	<select id="getTotalFile" parameterType="QnaDTO" resultType="QnaFileDTO">
+		SELECT *
+		FROM QNA_FILE 
+		WHERE QNA_ID = #{id}
+	</select>
+
+	<insert id="replyAdd" parameterType="QnaDTO">
+		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
+			SELECT QNA_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO QNA (ID, TITLE, WRITER, CONTENT, REFS, STEP, DEPTHS, IS_TEMP) VALUES (#{id}, #{title}, #{writer}, #{content}, #{refs}, #{step}, #{depths}, 0)
+	</insert>
+
+	<update id="replyUpdate" parameterType="QnaDTO">
+		UPDATE QNA SET STEP=STEP+1
+		WHERE REFS=#{refs} AND STEP > #{step}
+	</update>
+
 	<select id="getList" resultType="QnaDTO" parameterType="BoardPager">
 		SELECT *
 		FROM
@@ -16,7 +35,7 @@
 				SELECT *
 				FROM QNA
 				WHERE IS_TEMP = 0
-				ORDER BY ID DESC
+				ORDER BY  REFS DESC, STEP ASC
 			) n
 		)
 		WHERE ROWNUM BETWEEN #{startPage} AND #{lastPage}
@@ -38,6 +57,9 @@
 		<result column="CONTENT" property="content"/>
 		<result column="CREATE_DT" property="create_dt"/>
 		<result column="VIEWS" property="views"/>
+		<result column="REFS" property="refs"/>
+		<result column="STEP" property="step"/>
+		<result column="DEPTHS" property="depths"/>
 		<collection property="fileDTOs" javaType="List" ofType="QnaFileDTO">
 			<result column="NAME" property="name"/>
 			<result column="ORIGIN_NM" property="origin_nm"/>
@@ -47,12 +69,23 @@
 		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
 			SELECT QNA_SEQ.NEXTVAL AS ID FROM DUAL
 		</selectKey>
-		INSERT INTO QNA (ID, TITLE, WRITER, CONTENT) VALUES (#{id}, ' ', ' ', ' ')
+		INSERT INTO QNA (ID, TITLE, WRITER, CONTENT, REFS, STEP, DEPTHS) VALUES (#{id}, ' ', ' ', ' ', #{id}, 0, 0)
 	</insert>
 	<update id="update" parameterType="QnaDTO">
 		UPDATE QNA SET TITLE=#{title} , WRITER=#{writer} , CONTENT=#{content}, IS_TEMP=0 WHERE ID = #{id}
 	</update>
-	<delete id="delete" parameterType="QnaDTO">
-		DELETE FROM QNA WHERE ID = #{id}
+	
+	<insert id="addFile" parameterType="QnaFileDTO">
+		INSERT INTO QNA_FILE (ID, NAME,ORIGIN_NM, QNA_ID) VALUES (QNA_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm}, #{qna_id})
+	</insert>
+	
+	<delete id="deleteFile" parameterType="QnaFileDTO">
+		DELETE FROM QNA_FILE WHERE NAME = #{name}
 	</delete>
+	<delete id="deleteAllFile" parameterType="QnaDTO">
+		DELETE FROM QNA_FILE WHERE QNA_ID = #{id}
+	</delete>
+	<update id="delete" parameterType="QnaDTO">
+		UPDATE QNA SET IS_DELETED=#{is_deleted} WHERE ID = #{id}
+	</update>
 </mapper>

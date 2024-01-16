@@ -8,12 +8,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.devkgm.app.board.BoardPager;
 import com.devkgm.app.board.BoardService;
+import com.devkgm.app.board.product.ProductFileDTO;
+import com.devkgm.app.util.FileManager;
 
 @Service
 public class NoticeService implements BoardService<NoticeDTO>{
 	
 	@Autowired
 	private NoticeDAO noticeDAO;
+	
+	@Autowired
+	private FileManager fileManager;
 		
 	@Override
 	public List<NoticeDTO> getList(BoardPager boardPager) throws Exception {
@@ -32,19 +37,47 @@ public class NoticeService implements BoardService<NoticeDTO>{
 	}
 
 	@Override
-	public int update(NoticeDTO noticeDTO, MultipartFile[] file) throws Exception {
-		return noticeDAO.update(noticeDTO);
+	public int update(NoticeDTO noticeDTO, MultipartFile[] files) throws Exception {
+		int result = noticeDAO.update(noticeDTO);
+
+		for(MultipartFile file: files) {
+			if(file.isEmpty()) continue;
+			NoticeFileDTO noticeFileDTO = new NoticeFileDTO();
+			String fileName = fileManager.saveFile("/resources/upload/notice", file);
+			String originName = file.getOriginalFilename();
+			
+			noticeFileDTO.setNotice_id(noticeDTO.getId());
+			noticeFileDTO.setName(fileName);
+			noticeFileDTO.setOrigin_nm(originName);
+			
+			result = noticeDAO.addFile(noticeFileDTO);
+			System.out.println(result);
+		}
+		return 	result;
+	}
+	
+	public int addFile(NoticeFileDTO noticeFileDTO, MultipartFile file) throws Exception {
+		String fileName = fileManager.saveFile("/resources/upload/notice", file);
+		String originName = file.getOriginalFilename();
+		
+		noticeFileDTO.setNotice_id(noticeFileDTO.getId());
+		noticeFileDTO.setName(fileName);
+		noticeFileDTO.setOrigin_nm(originName);
+		
+		int result = noticeDAO.addFile(noticeFileDTO);
+
+		return result;
 	}
 
 	@Override
 	public int delete(NoticeDTO t) throws Exception {
 		return noticeDAO.delete(t);
 	}
-
-	@Override
-	public Long getTotalPage() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public boolean deleteFile(NoticeFileDTO noticeFileDTO) throws Exception {
+		boolean result = fileManager.deleteFile("/resources/upload/notice", noticeFileDTO.getName());
+		if(result) noticeDAO.deleteFile(noticeFileDTO);
+		return result;
 	}
 
 }

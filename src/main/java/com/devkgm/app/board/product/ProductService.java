@@ -66,11 +66,6 @@ public class ProductService implements BoardService<ProductDTO>{
 		return productDAO.delete(productDTO);
 	}
 
-	@Override
-	public Long getTotalPage() throws Exception {
-		return productDAO.getTotalPage();
-	}
-	
 	public int addFile(ProductFileDTO productFileDTO, MultipartFile file) throws Exception {
 		String fileName = fileManager.saveFile("/resources/upload/products", file);
 		String originName = file.getOriginalFilename();

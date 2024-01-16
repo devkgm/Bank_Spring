@@ -55,4 +55,12 @@
 	<delete id="delete" parameterType="NoticeDTO">
 		DELETE FROM NOTICE WHERE ID = #{id}
 	</delete>
+	
+	<insert id="addFile" parameterType="NoticeFileDTO">
+		INSERT INTO NOTICE_FILE (ID, NAME,ORIGIN_NM, NOTICE_ID) VALUES (PRODUCT_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm}, #{notice_id})
+	</insert>
+	
+	<delete id="deleteFile" parameterType="NoticeFileDTO">
+		DELETE FROM NOTICE_FILE WHERE NAME = #{name}
+	</delete>
 </mapper>

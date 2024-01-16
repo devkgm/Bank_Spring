@@ -18,5 +18,4 @@ public interface BoardService<T> {
 	
 	public int delete(T t) throws Exception;
 	
-	public Long getTotalPage() throws Exception;
 }

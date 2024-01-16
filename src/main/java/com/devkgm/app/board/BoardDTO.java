@@ -14,11 +14,34 @@ public class BoardDTO<T> {
 	private BoardPager pager;
 	private List<T> fileDTOs;
 	
+	private Long refs;
+	private Long step;
+	private Long depths;
+	
+	
 	
 	
 	
 	
 
+	public Long getRefs() {
+		return refs;
+	}
+	public void setRefs(Long refs) {
+		this.refs = refs;
+	}
+	public Long getStep() {
+		return step;
+	}
+	public void setStep(Long step) {
+		this.step = step;
+	}
+	public Long getDepths() {
+		return depths;
+	}
+	public void setDepths(Long depths) {
+		this.depths = depths;
+	}
 	public List<T> getFileDTOs() {
 		return fileDTOs;
 	}

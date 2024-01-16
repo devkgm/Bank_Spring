@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.devkgm.app.board.BoardDAO;
 import com.devkgm.app.board.BoardPager;
+import com.devkgm.app.board.notice.NoticeFileDTO;
 
 @Repository
 public class QnaDAO implements BoardDAO<QnaDTO>{
@@ -37,12 +38,34 @@ public class QnaDAO implements BoardDAO<QnaDTO>{
 
 	@Override
 	public int delete(QnaDTO qnaDTO) throws Exception {
-		return sqlSession.delete(namespace+"delete", qnaDTO);
+		return sqlSession.update(namespace+"delete", qnaDTO);
 	}
 
 	@Override
 	public Long getTotalPage() throws Exception {
 		return sqlSession.selectOne(namespace+"getTotalPage");
+	}
+	
+	public int replyUpdate(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.update(namespace+"replyUpdate", qnaDTO);
+	}
+
+	public int replyAdd(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.insert(namespace+"replyAdd", qnaDTO);
+	}
+	
+	public int addFile(QnaFileDTO qnaFileDTO) throws Exception {
+		return sqlSession.insert(namespace+"addFile", qnaFileDTO);
+	}
+	
+	public int deleteFile(QnaFileDTO qnaFileDTO) throws Exception {
+		return sqlSession.delete(namespace+"deleteFile", qnaFileDTO);
+	}
+	public int deleteAllFile(QnaDTO qnaDTO) throws Exception {
+		return sqlSession.delete(namespace+"deleteAllFile", qnaDTO);
+	}
+	public List<QnaFileDTO> getTotalFile (QnaDTO qnaDTO) throws Exception {
+		return sqlSession.selectList(namespace+"getTotalFile", qnaDTO);
 	}
 
 }

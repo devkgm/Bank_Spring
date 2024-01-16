@@ -173,7 +173,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				        .then(data => {
 				        	console.log(data)
 				        	//$('#summernote').summernote('insertImage', "/resources/upload/products/"+data.name, data.name);
-				        	$img = $('<img>').attr({ src: "/resources/upload/products/"+data.name })
+				        	$img = $('<img>').attr({ src: "/resources/upload/${board}/"+data.name })
 				            $('#summernote').summernote('insertNode', $img[0]);
 				        })
 			      },
