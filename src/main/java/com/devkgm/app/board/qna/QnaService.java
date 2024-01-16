@@ -29,6 +29,7 @@ public class QnaService implements BoardService<QnaDTO>{
 
 	@Override
 	public QnaDTO getDetail(QnaDTO qnaDTO) throws Exception {
+		qnaDAO.addView(qnaDTO);
 		return qnaDAO.getDetail(qnaDTO);
 	}
 

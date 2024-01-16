@@ -67,5 +67,8 @@ public class QnaDAO implements BoardDAO<QnaDTO>{
 	public List<QnaFileDTO> getTotalFile (QnaDTO qnaDTO) throws Exception {
 		return sqlSession.selectList(namespace+"getTotalFile", qnaDTO);
 	}
+	public int addView (QnaDTO qnaDTO) throws Exception {
+		return sqlSession.update(namespace+"addView",qnaDTO);
+	}
 
 }

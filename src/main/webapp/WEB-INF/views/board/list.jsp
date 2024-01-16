@@ -49,7 +49,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 		                    	<c:catch>
 		                    			<c:set var="f" value="${item.is_deleted }"></c:set>
 	                    				<c:if test="${f eq 1 }">
-		                    				<tr onclick="location.href='./detail/${item.id}'">
+		                    				<tr>
 				                            	<td>${status.index+1 }</td>
 				                            	<td>
 				                            		<c:forEach begin="1" end="${item.depths }">

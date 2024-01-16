@@ -88,4 +88,7 @@
 	<update id="delete" parameterType="QnaDTO">
 		UPDATE QNA SET IS_DELETED=#{is_deleted} WHERE ID = #{id}
 	</update>
+	<update id="addView" parameterType="QnaDTO">
+		UPDATE QNA SET VIEWS=VIEWS+1 WHERE ID=#{id}
+	</update>
 </mapper>
