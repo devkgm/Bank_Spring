@@ -42,8 +42,8 @@ public class QnaDAO implements BoardDAO<QnaDTO>{
 	}
 
 	@Override
-	public Long getTotalPage() throws Exception {
-		return sqlSession.selectOne(namespace+"getTotalPage");
+	public Long getTotalPage(BoardPager boardPager) throws Exception {
+		return sqlSession.selectOne(namespace+"getTotalPage",boardPager);
 	}
 	
 	public int replyUpdate(QnaDTO qnaDTO) throws Exception {

@@ -23,7 +23,7 @@ public class QnaService implements BoardService<QnaDTO>{
 
 	@Override
 	public List<QnaDTO> getList(BoardPager boardPager) throws Exception {
-		boardPager.setTotalPage(qnaDAO.getTotalPage());
+		boardPager.setTotalPage(qnaDAO.getTotalPage(boardPager));
 		return qnaDAO.getList(boardPager);
 	}
 

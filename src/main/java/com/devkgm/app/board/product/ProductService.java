@@ -19,7 +19,7 @@ public class ProductService implements BoardService<ProductDTO>{
 
 	@Override
 	public List<ProductDTO> getList(BoardPager boardPager) throws Exception {
-		boardPager.setTotalPage(productDAO.getTotalPage());
+		boardPager.setTotalPage(productDAO.getTotalPage(boardPager));
 		System.out.println(boardPager);
 		return productDAO.getList(boardPager);
 	}

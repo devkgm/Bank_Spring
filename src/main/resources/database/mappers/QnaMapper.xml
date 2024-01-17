@@ -7,6 +7,18 @@
     
 <mapper namespace="com.devkgm.app.board.qna.QnaDAO">
 
+	<sql id="search" >
+		<if test='kind == "title"'>
+			WHERE TITLE LIKE '%'||#{search}||'%'
+		</if>
+		<if test='kind == "writer"'>
+			WHERE WRITER LIKE '%'||#{search}||'%'
+		</if>
+		<if test='kind == "content"'>
+			WHERE CONTENT LIKE '%'||#{search}||'%'
+		</if>
+	</sql>
+
 	<select id="getTotalFile" parameterType="QnaDTO" resultType="QnaFileDTO">
 		SELECT *
 		FROM QNA_FILE 
@@ -34,14 +46,15 @@
 			(
 				SELECT *
 				FROM QNA
-				WHERE IS_TEMP = 0
+				<include refid="search"></include> AND IS_TEMP = 0
 				ORDER BY  REFS DESC, STEP ASC
 			) n
 		)
 		WHERE ROWNUM BETWEEN #{startPage} AND #{lastPage}
 	</select>
-	<select id="getTotalPage" resultType="Long">
+	<select id="getTotalPage" resultType="Long" parameterType="BoardPager">
 		SELECT COUNT(*) FROM QNA
+		<include refid="search"></include>
 	</select>
 	<select id="getDetail" parameterType="QnaDTO" resultMap="getQnaResult">
 		SELECT n.*, nf.NAME, nf.ORIGIN_NM

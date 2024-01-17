@@ -6,9 +6,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <c:if test="${!pager.start }">
             <li class="page-item">
                 <a
-                    class="page-link"
-                    href="./list?page=${pager.startBlock-1 }"
+                    class="page-link pager"
+                    href="#"
                     aria-label="Previous"
+                    data-page="${pager.startBlock-1 }"
                 >
                     <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -21,16 +22,17 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             var="i"
         >
             <li class="page-item">
-                <a class="page-link" href="./list?page=${i }">${i }</a>
+                <a class="page-link pager" href="./list?page=${i }" data-page="${i}">${i }</a>
             </li>
         </c:forEach>
 
         <c:if test="${!pager.last }">
             <li class="page-item">
                 <a
-                    class="page-link"
-                    href="./list?page=${pager.lastBlock+1 }"
+                    class="page-link pager"
+                    href="#"
                     aria-label="Next"
+                    data-page="${pager.lastBlock+1 }"
                 >
                     <span aria-hidden="true">&raquo;</span>
                 </a>
@@ -38,3 +40,4 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </c:if>
     </ul>
 </nav>
+

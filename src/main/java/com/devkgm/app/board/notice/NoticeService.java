@@ -22,7 +22,7 @@ public class NoticeService implements BoardService<NoticeDTO>{
 		
 	@Override
 	public List<NoticeDTO> getList(BoardPager boardPager) throws Exception {
-		boardPager.setTotalPage(noticeDAO.getTotalPage());
+		boardPager.setTotalPage(noticeDAO.getTotalPage(boardPager));
 		return noticeDAO.getList(boardPager);	
 	}
 

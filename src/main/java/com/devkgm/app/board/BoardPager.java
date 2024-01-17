@@ -13,6 +13,23 @@ public class BoardPager {
 	private Long lastBlock;
 	private Long totalBock;
 	
+	private String kind="title";
+	private String search="";
+	
+	
+	
+	public Long getTotalBock() {
+		return totalBock;
+	}
+	public void setTotalBock(Long totalBock) {
+		this.totalBock = totalBock;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
 	public boolean isStart (){
 		return this.curBlock == 1;
 	}
