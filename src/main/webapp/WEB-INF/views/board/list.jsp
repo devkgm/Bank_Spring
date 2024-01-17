@@ -11,7 +11,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>${board }</title>
-<c:import url="../templete/templeteHeader.jsp"></c:import>
+<c:import url="../template/templateHeader.jsp"></c:import>
 <style>
 tr:hover {
 	cursor: pointer;
@@ -21,7 +21,7 @@ tr:hover {
 <body class="d-flex flex-column h-100">
 	<main class="flex-shrink-0">
 		<!-- Navigation-->
-		<c:import url="../templete/navigation.jsp"></c:import>
+		<c:import url="../template/navigation.jsp"></c:import>
 		<div class="container px-5 mb-5">
 			<div class="text-center mb-5">
 				<h1 class="display-5 fw-bolder mb-0">
@@ -79,7 +79,7 @@ tr:hover {
 			</div>
 			<div
 				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-				<jsp:include page="../templete/pagination.jsp"></jsp:include>
+				<jsp:include page="../template/pagination.jsp"></jsp:include>
 			</div>
 			<div
 				class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -105,7 +105,7 @@ tr:hover {
 		</section>
 	</main>
 	<!-- Footer-->
-	<c:import url="../templete/footer.jsp"></c:import>
+	<c:import url="../template/footer.jsp"></c:import>
 	<!-- Bootstrap core JS-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

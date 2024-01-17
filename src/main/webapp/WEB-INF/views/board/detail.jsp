@@ -12,7 +12,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Personal - Start Bootstrap Theme</title>
-        <c:import url="../templete/templeteHeader.jsp"></c:import>
+        <c:import url="../template/templateHeader.jsp"></c:import>
         <style>
         	.carousel-img {
 			    width: 100%; 
@@ -25,7 +25,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
             <!-- Navigation-->
-            <c:import url="../templete/navigation.jsp"></c:import>
+            <c:import url="../template/navigation.jsp"></c:import>
             <div class="container px-5 mb-5">
                 <div class="text-center mb-5">
                     <h1 class="display-5 fw-bolder mb-0">
@@ -90,7 +90,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         
         </main>
         <!-- Footer-->
-        <c:import url="../templete/footer.jsp"></c:import>
+        <c:import url="../template/footer.jsp"></c:import>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

@@ -12,7 +12,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Personal - Start Bootstrap Theme</title>
-        <c:import url="../templete/templeteHeader.jsp"></c:import>
+        <c:import url="../template/templateHeader.jsp"></c:import>
         <c:import url="../commons/summernote.jsp"></c:import>
         <style>
         	.image-container {
@@ -26,7 +26,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
             <!-- Navigation-->
-            <c:import url="../templete/navigation.jsp"></c:import>
+            <c:import url="../template/navigation.jsp"></c:import>
             <!-- Page content-->
             <section class="py-5">
                 <div class="container px-5">
@@ -43,92 +43,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
-                                
-                                <form
-                                    id="productForm"
-                                    action="./update"
-                                    method="POST"
-									enctype="multipart/form-data"                                 
-                                >
-                                	<input type="hidden" name="id" value="${dto.id }">
-                                    <!-- Name input-->
-                                    <div class="form-floating mb-3">
-                                        <input
-                                            class="form-control"
-                                            id="name"
-                                            type="text"
-                                            name="title"
-                                            value="${dto.title }"
-                                            data-sb-validations="required"
-                                        />
-                                        <label for="name">제목 입력</label>
-                                        <div
-                                            class="invalid-feedback"
-                                            data-sb-feedback="name:required"
-                                        >
-                                            제목을 입력해주세요.
-                                        </div>
-                                    </div>
-                                    <!-- Rate input-->
-                                    <div class="form-floating mb-3">
-                                        <input
-                                            class="form-control"
-                                            id="rate"
-                                            type="text"
-                                            name="writer"
-                                            value="${dto.writer }"
-                                            data-sb-validations="required"
-                                        ></input>
-                                        <label for="rate">이름</label>
-                                        <div
-                                            class="invalid-feedback"
-                                            data-sb-feedback="message:required"
-                                        >
-                                            이름을 기입해주세요.
-                                        </div>
-                                    </div>
-                                    <!-- 컨텐츠 -->
-                                    <div class="form-floating mb-3">
-                                        <input
-                                        	type="hidden"
-                                            class="form-control"
-                                            id="content"
-                                            name="content"
-                                        />
-                                        <div id="summernote"></div>
-                                    </div>
-                                    
-                                    
-                                    
-                                    <div class="mb-3">
-									  <label for="formFileMultiple" class="form-label">썸네일</label>
-									  <input class="form-control" type="file" id="formFileMultiple" name="attach" multiple>
-									</div>
-									<div class="container px-4 px-lg-5 my-5">
-        								<div class="row">
-											<c:forEach items="${dto.fileDTOs }" var="f" varStatus="status" >
-									          	<div id=${f.name } class="card" style="width: 10rem; height:20rem;">
-												  <img src="/resources/upload/${board }/${f.name}"  class="card-img-top" alt="...">
-												  <div class="card-body">
-												    <h5 class="card-title" style="white-space:nowrap; overflow:hidden;">${f.origin_nm}</h5>
-												    <button type="button" onclick="deleteFile(`${f.name}`)" class="btn btn-danger">삭제하기</button>
-												  </div>
-												</div>
-									  		</c:forEach>
-							  			</div>
-							  		</div>
-                                   
-                                    <!-- 제출 -->
-                                    <div class="d-grid">
-                                        <button
-                                            class="btn btn-primary btn-lg"
-                                            id="submitButton"
-                                            type="submit"
-                                        >
-                                            상품 등록
-                                        </button>
-                                    </div>
-                                </form>
+                                <c:import url="../template/editForm.jsp"></c:import>
                             </div>
                         </div>
                     </div>
@@ -137,7 +52,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </main>
 
         <!-- Footer-->
-        <c:import url="../templete/footer.jsp"></c:import>
+        <c:import url="../template/footer.jsp"></c:import>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

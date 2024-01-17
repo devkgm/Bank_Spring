@@ -12,13 +12,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Personal - Start Bootstrap Theme</title>
-        <c:import url="../templete/templeteHeader.jsp"></c:import>
+        <c:import url="../template/templateHeader.jsp"></c:import>
         <c:import url="../commons/summernote.jsp"></c:import>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
             <!-- Navigation-->
-            <c:import url="../templete/navigation.jsp"></c:import>
+            <c:import url="../template/navigation.jsp"></c:import>
             <!-- Page content-->
             <section class="py-5">
                 <div class="container px-5">
@@ -35,76 +35,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         </div>
                         <div class="row gx-5 justify-content-center">
                             <div class="col-lg-8 col-xl-6">
-                                
-                                <form
-                                    id="productForm"
-                                    action="./add"
-                                    method="POST"
-									enctype="multipart/form-data"                                 
-                                >
-                                    <!-- Name input-->
-                                    <div class="form-floating mb-3">
-                                    	<input type="hidden" name="id" value="${dto.id }">
-                                        <input
-                                            class="form-control"
-                                            id="name"
-                                            type="text"
-                                            name="title"
-                                            data-sb-validations="required"
-                                        />
-                                        <label for="name">제목 입력</label>
-                                        <div
-                                            class="invalid-feedback"
-                                            data-sb-feedback="name:required"
-                                        >
-                                            제목을 입력해주세요.
-                                        </div>
-                                    </div>
-                                    <!-- Rate input-->
-                                    <div class="form-floating mb-3">
-                                        <input
-                                            class="form-control"
-                                            id="rate"
-                                            type="text"
-                                            name="writer"
-                                            data-sb-validations="required"
-                                        ></input>
-                                        <label for="rate">이름</label>
-                                        <div
-                                            class="invalid-feedback"
-                                            data-sb-feedback="message:required"
-                                        >
-                                            이름을 기입해주세요.
-                                        </div>
-                                    </div>
-                                    <!-- 컨텐츠 -->
-                                    <div class="form-floating mb-3">
-                                        <input
-                                        	type="hidden"
-                                            class="form-control"
-                                            id="content"
-                                            name="content"
-                                        />
-                                        <div id="summernote"></div>
-                                    </div>
-                                    
-                                    
-                                    <div class="mb-3">
-									  <label for="formFileMultiple" class="form-label">썸네일</label>
-									  <input class="form-control" type="file" id="formFileMultiple" name="attach" accept="image/png, image/jpeg" multiple>
-									</div>
-                                    
-                                    <!-- 제출 -->
-                                    <div class="d-grid">
-                                        <button
-                                            class="btn btn-primary btn-lg"
-                                            id="submitButton"
-                                            type="submit"
-                                        >
-                                            상품 등록
-                                        </button>
-                                    </div>
-                                </form>
+                                <c:import url="../template/editForm.jsp"></c:import>
+
                             </div>
                         </div>
                     </div>
@@ -112,7 +44,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             </section>
         </main>
         <!-- Footer-->
-        <c:import url="../templete/footer.jsp"></c:import>
+        <c:import url="../template/footer.jsp"></c:import>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

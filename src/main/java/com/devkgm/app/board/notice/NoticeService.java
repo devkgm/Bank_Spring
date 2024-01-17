@@ -40,20 +40,20 @@ public class NoticeService implements BoardService<NoticeDTO>{
 	public int update(NoticeDTO noticeDTO, MultipartFile[] files) throws Exception {
 		int result = noticeDAO.update(noticeDTO);
 
-		for(MultipartFile file: files) {
-			if(file.isEmpty()) continue;
+		for (MultipartFile file : files) {
+			if (file.isEmpty()) continue;
 			NoticeFileDTO noticeFileDTO = new NoticeFileDTO();
 			String fileName = fileManager.saveFile("/resources/upload/notice", file);
 			String originName = file.getOriginalFilename();
-			
+
 			noticeFileDTO.setNotice_id(noticeDTO.getId());
 			noticeFileDTO.setName(fileName);
 			noticeFileDTO.setOrigin_nm(originName);
-			
+
 			result = noticeDAO.addFile(noticeFileDTO);
 			System.out.println(result);
 		}
-		return 	result;
+		return result;
 	}
 	
 	public int addFile(NoticeFileDTO noticeFileDTO, MultipartFile file) throws Exception {
