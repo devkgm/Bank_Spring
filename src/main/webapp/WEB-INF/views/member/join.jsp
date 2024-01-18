@@ -49,6 +49,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                   <div class="form-outline flex-fill mb-0">
                                     <label class="form-label" for="address">주소</label>
                                     <input type="text" id="address" class="form-control" name="address"/>
+                                    <label class="form-label" for="address">상세주소</label>
+                                    <input type="text" id="detailAddress" class="form-control mb-1" name="detailAddress"/>
+                                    <button type="button" class="form-outline btn btn-outline-primary btn-block" onclick="handleSearch()">주소 찾기</button>
                                   </div>
                                 </div>
 
@@ -122,5 +125,17 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script>
+            const handleSearch = () => {
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        const address = document.getElementById('address');
+                        const detailAddress = document.getElementById('detailAddress');
+                        address.value = data.address;
+                    }
+                }).open();
+            }
+        </script>
     </body>
 </html>
