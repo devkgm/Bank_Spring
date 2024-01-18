@@ -14,20 +14,7 @@
 	
 	<div class="container-sm">
 		<h1>공지추가</h1>
-		<form action="./add" method="POST" enctype="multipart/form-data">
-		  <div class="mb-3">
-		    <label for="title" class="form-label">제목</label>
-		    <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp">
-		  </div>
-		  <div class="mb-3">
-		    <label for="desciprtion" class="form-label">본문</label>
-		    <textarea class="form-control" id="summernote" name="description"></textarea>
-		  </div>
-		  <div class="mb-3">
-		  	<input class="form-control" type="file" id="formFile" name="photo">
-		  </div>
-		  <button class="btn btn-primary mb-3">업로드</button>
-		</form>
+		<c:import url="../template/editForm.jsp"></c:import>
 	</div>
 	
 	<c:import url="../commons/bootstrap_js.jsp"></c:import>

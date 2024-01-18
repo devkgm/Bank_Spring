@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <form
     id="productForm"
     action="./add"
     method="POST"
-    enc-type="multipart/form-data"
+    enctype="multipart/form-data"
 >
     <!-- Name input-->
     <div class="form-floating mb-3">
@@ -12,6 +14,7 @@
             id="name"
             type="text"
             name="title"
+            value="${dto.title }"
             data-sb-validations="required"
         />
         <label for="name">제목 입력</label>
@@ -29,6 +32,7 @@
             id="rate"
             type="text"
             name="writer"
+            value="${dto.writer }"
             data-sb-validations="required"
         ></input>
         <label for="rate">이름</label>

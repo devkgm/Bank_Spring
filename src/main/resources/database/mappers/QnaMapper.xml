@@ -1,107 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-    
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
 <mapper namespace="com.devkgm.app.board.qna.QnaDAO">
 
-	<sql id="search" >
-		<if test='kind == "title"'>
-			WHERE TITLE LIKE '%'||#{search}||'%'
-		</if>
-		<if test='kind == "writer"'>
-			WHERE WRITER LIKE '%'||#{search}||'%'
-		</if>
-		<if test='kind == "content"'>
-			WHERE CONTENT LIKE '%'||#{search}||'%'
-		</if>
-	</sql>
+    <sql id="search">
+        <where>
+            <if test="kind == 'title'">
+                TITLE LIKE '%'||#{search}||'%'
+            </if>
+            <if test="kind == 'writer'">
+                WRITER LIKE '%'||#{search}||'%'
+            </if>
+            <if test="kind == 'content'">
+                CONTENT LIKE '%'||#{search}||'%'
+            </if>
+        </where>
+    </sql>
 
-	<select id="getTotalFile" parameterType="QnaDTO" resultType="QnaFileDTO">
-		SELECT *
-		FROM QNA_FILE 
-		WHERE QNA_ID = #{id}
-	</select>
+    <select id="getTotalFile" parameterType="QnaDTO" resultType="QnaFileDTO">
+        SELECT *
+        FROM QNA_FILE
+        WHERE QNA_ID = #{id}
+    </select>
 
-	<insert id="replyAdd" parameterType="QnaDTO">
-		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
-			SELECT QNA_SEQ.NEXTVAL FROM DUAL
-		</selectKey>
-		INSERT INTO QNA (ID, TITLE, WRITER, CONTENT, REFS, STEP, DEPTHS, IS_TEMP) VALUES (#{id}, #{title}, #{writer}, #{content}, #{refs}, #{step}, #{depths}, 0)
-	</insert>
+    <insert id="replyAdd" parameterType="QnaDTO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="Long">
+            SELECT QNA_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO QNA (ID, TITLE, WRITER, CONTENT, REFS, STEP, DEPTHS, IS_TEMP) VALUES (#{id}, #{title}, #{writer},
+        #{content}, #{refs}, #{step}, #{depths}, 0)
+    </insert>
 
-	<update id="replyUpdate" parameterType="QnaDTO">
-		UPDATE QNA SET STEP=STEP+1
-		WHERE REFS=#{refs} AND STEP > #{step}
-	</update>
+    <update id="replyUpdate" parameterType="QnaDTO">
+        UPDATE QNA SET STEP=STEP+1
+        WHERE REFS=#{refs} AND STEP > #{step}
+    </update>
 
-	<select id="getList" resultType="QnaDTO" parameterType="BoardPager">
-		SELECT *
-		FROM
-		(
-			SELECT ROWNUM, n.*
-			FROM
-			(
-				SELECT *
-				FROM QNA
-				<include refid="search"></include> AND IS_TEMP = 0
-				ORDER BY  REFS DESC, STEP ASC
-			) n
-		)
-		WHERE ROWNUM BETWEEN #{startPage} AND #{lastPage}
-	</select>
-	<select id="getTotalPage" resultType="Long" parameterType="BoardPager">
-		SELECT COUNT(*) FROM QNA
-		<include refid="search"></include>
-	</select>
-	<select id="getDetail" parameterType="QnaDTO" resultMap="getQnaResult">
-		SELECT n.*, nf.NAME, nf.ORIGIN_NM
-		FROM QNA n 
-			LEFT JOIN QNA_FILE nf 
-			ON n.ID = nf.QNA_ID
-		WHERE n.ID = #{id}
-	</select>
-	<resultMap type="QnaDTO" id="getQnaResult">
-		<id column="ID" property="id"/>
-		<result column="TITLE" property="title"/>
-		<result column="WRITER" property="writer"/>
-		<result column="CONTENT" property="content"/>
-		<result column="CREATE_DT" property="create_dt"/>
-		<result column="VIEWS" property="views"/>
-		<result column="REFS" property="refs"/>
-		<result column="STEP" property="step"/>
-		<result column="DEPTHS" property="depths"/>
-		<collection property="fileDTOs" javaType="List" ofType="QnaFileDTO">
-			<result column="NAME" property="name"/>
-			<result column="ORIGIN_NM" property="origin_nm"/>
-		</collection>
-	</resultMap>
-	<insert id="add" parameterType="QnaDTO">
-		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
-			SELECT QNA_SEQ.NEXTVAL AS ID FROM DUAL
-		</selectKey>
-		INSERT INTO QNA (ID, TITLE, WRITER, CONTENT, REFS, STEP, DEPTHS) VALUES (#{id}, ' ', ' ', ' ', #{id}, 0, 0)
-	</insert>
-	<update id="update" parameterType="QnaDTO">
-		UPDATE QNA SET TITLE=#{title} , WRITER=#{writer} , CONTENT=#{content}, IS_TEMP=0 WHERE ID = #{id}
-	</update>
-	
-	<insert id="addFile" parameterType="QnaFileDTO">
-		INSERT INTO QNA_FILE (ID, NAME,ORIGIN_NM, QNA_ID) VALUES (QNA_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm}, #{qna_id})
-	</insert>
-	
-	<delete id="deleteFile" parameterType="QnaFileDTO">
-		DELETE FROM QNA_FILE WHERE NAME = #{name}
-	</delete>
-	<delete id="deleteAllFile" parameterType="QnaDTO">
-		DELETE FROM QNA_FILE WHERE QNA_ID = #{id}
-	</delete>
-	<update id="delete" parameterType="QnaDTO">
-		UPDATE QNA SET IS_DELETED=#{is_deleted} WHERE ID = #{id}
-	</update>
-	<update id="addView" parameterType="QnaDTO">
-		UPDATE QNA SET VIEWS=VIEWS+1 WHERE ID=#{id}
-	</update>
+    <select id="getList" resultType="QnaDTO" parameterType="BoardPager">
+        SELECT *
+        FROM
+        (
+        SELECT ROWNUM, n.*
+        FROM
+        (
+        SELECT *
+        FROM QNA
+        <include refid="search"></include>
+        AND IS_TEMP = 0
+        ORDER BY REFS DESC, STEP ASC
+        ) n
+        )
+        WHERE ROWNUM BETWEEN #{startPage} AND #{lastPage}
+    </select>
+    <select id="getTotalPage" resultType="Long" parameterType="BoardPager">
+        SELECT COUNT(*) FROM QNA
+        <include refid="search"></include>
+        AND IS_TEMP = 0
+    </select>
+    <select id="getDetail" parameterType="QnaDTO" resultMap="getQnaResult">
+        SELECT n.*, nf.NAME, nf.ORIGIN_NM
+        FROM QNA n
+        LEFT JOIN QNA_FILE nf
+        ON n.ID = nf.QNA_ID
+        WHERE n.ID = #{id}
+    </select>
+    <resultMap type="QnaDTO" id="getQnaResult">
+        <id column="ID" property="id"/>
+        <result column="TITLE" property="title"/>
+        <result column="WRITER" property="writer"/>
+        <result column="CONTENT" property="content"/>
+        <result column="CREATE_DT" property="create_dt"/>
+        <result column="VIEWS" property="views"/>
+        <result column="REFS" property="refs"/>
+        <result column="STEP" property="step"/>
+        <result column="DEPTHS" property="depths"/>
+        <collection property="fileDTOs" javaType="List" ofType="QnaFileDTO">
+            <result column="NAME" property="name"/>
+            <result column="ORIGIN_NM" property="origin_nm"/>
+        </collection>
+    </resultMap>
+    <insert id="add" parameterType="QnaDTO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="Long">
+            SELECT QNA_SEQ.NEXTVAL AS ID FROM DUAL
+        </selectKey>
+        INSERT INTO QNA (ID, TITLE, WRITER, CONTENT, REFS, STEP, DEPTHS) VALUES (#{id}, ' ', ' ', ' ', #{id}, 0, 0)
+    </insert>
+    <update id="update" parameterType="QnaDTO">
+        UPDATE QNA SET TITLE=#{title} , WRITER=#{writer} , CONTENT=#{content}, IS_TEMP=0 WHERE ID = #{id}
+    </update>
+
+    <insert id="addFile" parameterType="QnaFileDTO">
+        INSERT INTO QNA_FILE (ID, NAME,ORIGIN_NM, QNA_ID) VALUES (QNA_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm},
+        #{qna_id})
+    </insert>
+
+    <delete id="deleteFile" parameterType="QnaFileDTO">
+        DELETE FROM QNA_FILE WHERE NAME = #{name}
+    </delete>
+    <delete id="deleteAllFile" parameterType="QnaDTO">
+        DELETE FROM QNA_FILE WHERE QNA_ID = #{id}
+    </delete>
+    <update id="delete" parameterType="QnaDTO">
+        UPDATE QNA SET IS_DELETED=#{is_deleted} WHERE ID = #{id}
+    </update>
+    <update id="addView" parameterType="QnaDTO">
+        UPDATE QNA SET VIEWS=VIEWS+1 WHERE ID=#{id}
+    </update>
 </mapper>

@@ -14,18 +14,7 @@
 	
 	<div class="container-sm">
 		<h1>상품추가</h1>
-		<form action="./update" method="POST">
-		<input type="hidden" name="id" value="${dto.id }">
-		  <div class="mb-3">
-		    <label for="title" class="form-label">제목</label>
-		    <input type="text" class="form-control" id="title" name="title" value="${dto.title }" aria-describedby="titleHelp">
-		  </div>
-		  <div class="mb-3">
-		    <label for="desciprtion" class="form-label">본문</label>
-		    <textarea class="form-control" id="summernote" name="description"></textarea>
-		  </div>
-		  <button class="btn btn-primary">업로드</button>
-		</form>
+		<c:import url="../template/editForm.jsp"></c:import>
 		<c:if test="${dto.noticeFileDTOs != null }">
 	    	<c:forEach items="${dto.noticeFileDTOs }" var="f">
 	    	<div class="card" style="width: 10rem;">
