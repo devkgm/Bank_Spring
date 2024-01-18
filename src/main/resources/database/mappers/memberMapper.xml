@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkgm.app.board.member.MemberDAO">
+    <select id="getMemberInfo" resultType="MemberDTO">
+        SELECT * FROM MEMBER WHERE USERNAME = 'jip080620'
+    </select>
+    <insert id="join" parameterType="MemberDTO">
+        INSERT INTO MEMBER (ID,NAME,USERNAME,PASSWORD,EMAIL,PHONE,ADDRESS) VALUES
+        (MEMBER_SEQ.NEXTVAL,#{name},#{username},#{password},#{email},#{phone},#{password})
+    </insert>
+</mapper>

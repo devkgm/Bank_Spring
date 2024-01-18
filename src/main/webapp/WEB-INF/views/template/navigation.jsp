@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
     <div class="container px-5">
         <a class="navbar-brand" href="/"
@@ -25,6 +27,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/qna/list">Q&A</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                <li class="nav-item"><a class="nav-link" href="/member/login">로그인</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/member/join">회원가입</a>
                 </li>
             </ul>
         </div>

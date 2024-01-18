@@ -16,6 +16,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <c:import url="../template/templateHeader.jsp"></c:import>
     </head>
     <body class="d-flex flex-column h-100">
+        <c:import url="../template/navigation.jsp"></c:import>
         <main class="flex-shrink-0"></main>
         <!-- Footer-->
         <c:import url="../template/footer.jsp"></c:import>

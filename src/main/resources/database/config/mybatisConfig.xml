@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE configuration
-				  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-				  "http://mybatis.org/dtd/mybatis-3-config.dtd">
-				  
-				  
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
 <configuration>
-	<typeAliases>
-		<typeAlias type="com.devkgm.app.board.product.ProductDTO" alias="ProductDTO"/>
-		<typeAlias type="com.devkgm.app.board.product.ProductFileDTO" alias="ProductFileDTO"/>
-		<typeAlias type="com.devkgm.app.board.BoardPager" alias="BoardPager"/>
-		<typeAlias type="com.devkgm.app.board.qna.QnaDTO" alias="QnaDTO"/>
-		<typeAlias type="com.devkgm.app.board.qna.QnaFileDTO" alias="QnaFileDTO"/>
-		<typeAlias type="com.devkgm.app.board.notice.NoticeDTO" alias="NoticeDTO"/>
-		<typeAlias type="com.devkgm.app.board.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
-	</typeAliases>
+    <typeAliases>
+        <typeAlias type="com.devkgm.app.board.product.ProductDTO" alias="ProductDTO"/>
+        <typeAlias type="com.devkgm.app.board.product.ProductFileDTO" alias="ProductFileDTO"/>
+        <typeAlias type="com.devkgm.app.board.BoardPager" alias="BoardPager"/>
+        <typeAlias type="com.devkgm.app.board.qna.QnaDTO" alias="QnaDTO"/>
+        <typeAlias type="com.devkgm.app.board.qna.QnaFileDTO" alias="QnaFileDTO"/>
+        <typeAlias type="com.devkgm.app.board.notice.NoticeDTO" alias="NoticeDTO"/>
+        <typeAlias type="com.devkgm.app.board.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
+        <typeAlias type="com.devkgm.app.board.member.MemberDTO" alias="MemberDTO"/>
+    </typeAliases>
 </configuration>
