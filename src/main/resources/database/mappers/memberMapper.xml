@@ -6,10 +6,40 @@
 
 <mapper namespace="com.devkgm.app.board.member.MemberDAO">
     <select id="getMemberInfo" resultType="MemberDTO">
-        SELECT * FROM MEMBER WHERE USERNAME = 'jip080620'
+        SELECT * FROM (SELECT * FROM MEMBER ORDER BY ROWNUM DESC) WHERE ROWNUM = 1
     </select>
+    <select id="getDetail" resultMap="getResult" parameterType="MemberDTO">
+        SELECT m.*, a.NAME fileName, a.ORIGIN_NM origin_nm
+        FROM MEMBER m
+        LEFT JOIN AVATAR a
+        ON a.USER_ID = m.ID
+        WHERE m.USERNAME = #{username}
+    </select>
+    <resultMap id="getResult" type="MemberDTO">
+        <id column="ID" property="id"></id>
+        <result column="NAME" property="name"></result>
+        <result column="USERNAME" property="username"></result>
+        <result column="EMAIL" property="email"></result>
+        <result column="PHONE" property="phone"></result>
+        <result column="ADDRESS" property="address"></result>
+        <result column="PASSWORD" property="password"></result>
+        <association property="avatarDTO" javaType="AvatarDTO">
+            <result column="fileName" property="name"></result>
+            <result column="ORIGIN_NM" property="origin_nm"></result>
+        </association>
+    </resultMap>
     <insert id="join" parameterType="MemberDTO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="Long">
+            SELECT MEMBER_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
         INSERT INTO MEMBER (ID,NAME,USERNAME,PASSWORD,EMAIL,PHONE,ADDRESS) VALUES
-        (MEMBER_SEQ.NEXTVAL,#{name},#{username},#{password},#{email},#{phone},#{password})
+        (#{id},#{name},#{username},#{password},#{email},#{phone},#{address})
     </insert>
+    <insert id="addAvatar" parameterType="AvatarDTO">
+        INSERT INTO AVATAR VALUES (AVATAR_SEQ.NEXTVAL, #{name}, #{origin_nm}, #{member_id})
+    </insert>
+
+    <update id="update" parameterType="MemberDTO">
+        UPDATE MEMBER SET PHONE=#{phone}, ADDRESS=#{address} WHERE ID = #{id}
+    </update>
 </mapper>

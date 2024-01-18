@@ -1,5 +1,6 @@
 package com.devkgm.app.board.member;
 
+import com.devkgm.app.board.member.AvatarDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -10,11 +11,24 @@ public class MemberDAO {
     private SqlSession sqlSession;
     private String namespace = "com.devkgm.app.board.member.MemberDAO.";
 
+    public int update(MemberDTO memberDTO) throws Exception {
+        return sqlSession.update(namespace + "update", memberDTO);
+    }
+
+    public MemberDTO getDetail(MemberDTO memberDTO) throws Exception {
+        return sqlSession.selectOne(namespace + "getDetail", memberDTO);
+    }
+    
+
     public int join(MemberDTO memberDTO) throws Exception {
         return sqlSession.insert(namespace + "join", memberDTO);
     }
 
     public MemberDTO getMemberInfo() throws Exception {
         return sqlSession.selectOne(namespace + "getMemberInfo");
+    }
+
+    public int addAvatar(AvatarDTO avatarDTO) throws Exception {
+        return sqlSession.insert(namespace + "addAvatar", avatarDTO);
     }
 }

@@ -29,7 +29,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 
                             <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">회원가입</p>
 
-                            <form class="mx-1 mx-md-4" action="./join" method="POST">
+                            <form class="mx-1 mx-md-4" action="./join" method="POST" enctype="multipart/form-data">
 
                               <div class="d-flex flex-row align-items-center mb-2">
                                 <div class="form-outline flex-fill mb-0">
@@ -79,6 +79,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                   <input type="password" id="passwordCheck" class="form-control" />
                                 </div>
                               </div>
+                              <div class="d-flex flex-row align-items-center mb-2">
+                                  <div class="form-outline flex-fill mb-0">
+                                    <label class="form-label" for="avatar">아바타</label>
+                                    <input type="file" id="avatar" class="form-control" name="attach"/>
+                                  </div>
+                                </div>
 
                               <div class="form-check d-flex justify-content-center mb-5">
                                 <input class="form-check-input me-2" type="checkbox" value="" id="agree" />

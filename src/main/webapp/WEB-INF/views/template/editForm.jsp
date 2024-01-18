@@ -25,24 +25,7 @@ pageEncoding="UTF-8"%>
             제목을 입력해주세요.
         </div>
     </div>
-    <!-- Rate input-->
-    <div class="form-floating mb-3">
-        <input
-            class="form-control"
-            id="rate"
-            type="text"
-            name="writer"
-            value="${dto.writer }"
-            data-sb-validations="required"
-        ></input>
-        <label for="rate">이름</label>
-        <div
-            class="invalid-feedback"
-            data-sb-feedback="message:required"
-        >
-            이름을 기입해주세요.
-        </div>
-    </div>
+
     <!-- 컨텐츠 -->
     <div class="form-floating mb-3">
         <input

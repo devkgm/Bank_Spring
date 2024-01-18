@@ -51,14 +51,14 @@
         INSERT INTO NOTICE (ID, TITLE, WRITER, CONTENT) VALUES (#{id}, ' ', ' ', ' ')
     </insert>
     <update id="update" parameterType="NoticeDTO">
-        UPDATE NOTICE SET TITLE=#{title} , WRITER=#{writer} , CONTENT=#{content}, IS_TEMP=0 WHERE ID = #{id}
+        UPDATE NOTICE SET TITLE=#{title} , CONTENT=#{content}, IS_TEMP=0 WHERE ID = #{id}
     </update>
     <delete id="delete" parameterType="NoticeDTO">
         DELETE FROM NOTICE WHERE ID = #{id}
     </delete>
 
     <insert id="addFile" parameterType="NoticeFileDTO">
-        INSERT INTO NOTICE_FILE (ID, NAME,ORIGIN_NM, NOTICE_ID) VALUES (PRODUCT_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm},
+        INSERT INTO NOTICE_FILE (ID, NAME,ORIGIN_NM, NOTICE_ID) VALUES (NOTICE_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm},
         #{notice_id})
     </insert>
 

@@ -212,7 +212,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 					        formData.append("product_id", ${dto.id });
 					        formData.append("attach", files[0])
 					        console.log(files)
-					        fetch("./addFile", {
+					        fetch("./addAvatar", {
 					        	method:"POST",
 					        	"Content-type": "multipart/form-data",
 					        	body: formData,

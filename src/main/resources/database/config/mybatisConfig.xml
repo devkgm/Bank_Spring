@@ -15,5 +15,6 @@
         <typeAlias type="com.devkgm.app.board.notice.NoticeDTO" alias="NoticeDTO"/>
         <typeAlias type="com.devkgm.app.board.notice.NoticeFileDTO" alias="NoticeFileDTO"/>
         <typeAlias type="com.devkgm.app.board.member.MemberDTO" alias="MemberDTO"/>
+        <typeAlias type="com.devkgm.app.board.member.AvatarDTO" alias="AvatarDTO"/>
     </typeAliases>
 </configuration>

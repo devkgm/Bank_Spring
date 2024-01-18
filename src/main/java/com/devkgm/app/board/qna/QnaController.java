@@ -2,6 +2,7 @@ package com.devkgm.app.board.qna;
 
 import java.util.List;
 
+import com.devkgm.app.board.member.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.devkgm.app.board.BoardPager;
-import com.devkgm.app.board.notice.NoticeDTO;
-import com.devkgm.app.board.notice.NoticeFileDTO;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/qna/*")
@@ -67,21 +68,27 @@ public class QnaController {
     }
 
     @PostMapping("add")
-    public String add(Model model, QnaDTO qnaDTO, MultipartFile[] attach) throws Exception {
+    public String add(Model model, QnaDTO qnaDTO, MultipartFile[] attach, HttpSession session) throws Exception {
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+
+        qnaDTO.setWriter(memberDTO.getName());
         qnaService.update(qnaDTO, attach);
 
         return "redirect:./list";
     }
 
     @GetMapping("update")
-    public String update(Model model, QnaDTO qnaDTO) throws Exception {
+    public String update(Model model, QnaDTO qnaDTO, HttpSession session) throws Exception {
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+        qnaDTO.setWriter(memberDTO.getName());
         qnaDTO = qnaService.getDetail(qnaDTO);
         model.addAttribute("dto", qnaDTO);
         return "board/update";
     }
 
     @PostMapping("update")
-    public String update(Model model, QnaDTO qnaDTO, MultipartFile[] attach) throws Exception {
+    public String update(Model model, QnaDTO qnaDTO, MultipartFile[] attach, HttpSession session) throws Exception {
+
         qnaService.update(qnaDTO, attach);
 
         return "redirect:./list";

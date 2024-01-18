@@ -1,5 +1,7 @@
 package com.devkgm.app.board.member;
 
+import com.devkgm.app.board.member.AvatarDTO;
+
 public class MemberDTO {
     private Long id;
     private String name;
@@ -8,6 +10,29 @@ public class MemberDTO {
     private String email;
     private String phone;
     private String address;
+    private AvatarDTO avatarDTO;
+
+    @Override
+    public String toString() {
+        return "MemberDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", avatarDTO=" + avatarDTO +
+                '}';
+    }
+
+    public AvatarDTO getAvatarDTO() {
+        return avatarDTO;
+    }
+
+    public void setAvatarDTO(AvatarDTO avatarDTO) {
+        this.avatarDTO = avatarDTO;
+    }
 
     public Long getId() {
         return id;

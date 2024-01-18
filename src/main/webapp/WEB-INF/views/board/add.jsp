@@ -94,7 +94,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 				    onImageUpload: function(files) {
 				        console.log("imageUpload")
 				        const formData = new FormData();
-				        formData.append("product_id", ${dto.id });
+				        formData.append("id", ${dto.id });
 				        formData.append("attach", files[0])
 				        console.log(files)
 				        fetch("./addFile", {
