@@ -52,4 +52,8 @@ public class NoticeDAO implements BoardDAO<NoticeDTO> {
     public int deleteFile(NoticeFileDTO noticeFileDTO) throws Exception {
         return sqlSession.delete(namespace + "deleteFile", noticeFileDTO);
     }
+
+    public int addView(NoticeDTO noticeDTO) throws Exception {
+        return sqlSession.update(namespace + "addView", noticeDTO);
+    }
 }

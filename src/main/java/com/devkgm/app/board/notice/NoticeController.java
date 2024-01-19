@@ -58,7 +58,7 @@ public class NoticeController {
     @PostMapping("add")
     public String add(Model model, NoticeDTO noticeDTO, MultipartFile[] attach, HttpSession session) throws Exception {
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
-        
+
         noticeDTO.setWriter(memberDTO.getName());
         int result = noticeService.update(noticeDTO, attach);
 
@@ -75,7 +75,6 @@ public class NoticeController {
     @GetMapping("update")
     public String update(Model model, NoticeDTO noticeDTO) throws Exception {
         noticeDTO = noticeService.getDetail(noticeDTO);
-        System.out.println(noticeDTO);
         model.addAttribute("dto", noticeDTO);
         return "board/update";
     }

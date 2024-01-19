@@ -27,6 +27,7 @@ public class NoticeService implements BoardService<NoticeDTO> {
 
     @Override
     public NoticeDTO getDetail(NoticeDTO noticeDTO) throws Exception {
+        noticeDAO.addView(noticeDTO);
         return noticeDAO.getDetail(noticeDTO);
     }
 

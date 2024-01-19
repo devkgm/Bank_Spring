@@ -79,8 +79,6 @@ public class QnaController {
 
     @GetMapping("update")
     public String update(Model model, QnaDTO qnaDTO, HttpSession session) throws Exception {
-        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
-        qnaDTO.setWriter(memberDTO.getName());
         qnaDTO = qnaService.getDetail(qnaDTO);
         model.addAttribute("dto", qnaDTO);
         return "board/update";
