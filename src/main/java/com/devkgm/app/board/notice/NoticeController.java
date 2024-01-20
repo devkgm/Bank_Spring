@@ -40,10 +40,17 @@ public class NoticeController {
     }
 
     @GetMapping("detail/{id}")
-    public String detail(Model model, @PathVariable Long id) throws Exception {
+    public String detail(Model model, @PathVariable Long id, HttpSession session) throws Exception {
         NoticeDTO noticeDTO = new NoticeDTO();
         noticeDTO.setId(id);
         noticeDTO = noticeService.getDetail(noticeDTO);
+        MemberDTO m = (MemberDTO) session.getAttribute("member");
+        System.out.println(m);
+        if (m != null) {
+            System.out.println("notnull");
+            System.out.println(noticeDTO.getWriter());
+            model.addAttribute("owner", noticeDTO.getWriter().equals(m.getName()) ? "true" : "false");
+        }
         model.addAttribute("dto", noticeDTO);
         return "board/detail";
     }
