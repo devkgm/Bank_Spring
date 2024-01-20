@@ -48,8 +48,13 @@ public class MemberController {
             model.addAttribute("message", "아이디 또는 비밀번호를 확인하세요.");
             return "member/login";
         }
+        String prevPage = (String) session.getAttribute("prevPage");
+        session.removeAttribute("prevPage");
         session.setAttribute("member", memberDTO);
         model.addAttribute("member", memberDTO);
+        if (prevPage != null) {
+            return "redirect:" + prevPage;
+        }
         return "redirect:/";
     }
 

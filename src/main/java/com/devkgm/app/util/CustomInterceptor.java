@@ -13,7 +13,8 @@ public class CustomInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("member") == null) {
-            res
+            String url = request.getRequestURL().toString();
+            session.setAttribute("prevPage", url);
             response.sendRedirect("/member/login");
             return false;
         }
