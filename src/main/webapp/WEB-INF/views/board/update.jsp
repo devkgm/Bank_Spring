@@ -1,37 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@taglib
+prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Personal - Start Bootstrap Theme</title>
         <c:import url="../template/templateHeader.jsp"></c:import>
         <c:import url="../commons/summernote.jsp"></c:import>
         <style>
-        	.image-container {
-        	
-		        height: 100px; 
-		        overflow: hidden;
-		    }
-		    
+            .image-container {
+                height: 100px;
+                overflow: hidden;
+            }
         </style>
     </head>
-    <body class="d-flex flex-column h-100">
+    <body>
         <main class="flex-shrink-0">
             <!-- Navigation-->
-            <c:import url="../template/navigation.jsp"></c:import>
+            <div class="container">
+                <c:import url="../template/navigation.jsp"></c:import>
+            </div>
             <!-- Page content-->
             <section class="py-5">
                 <div class="container px-5">
                     <!-- Contact form-->
-                    <div class="bg-light rounded-4 py-5 px-4 px-md-5">
+                    <div class="border rounded-4 py-5 px-4 px-md-5">
                         <div class="text-center mb-5">
                             <div
                                 class="feature bg-primary bg-gradient-primary-to-secondary text-white rounded-3 mb-3"
@@ -39,10 +35,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                 <i class="bi bi-envelope"></i>
                             </div>
                             <h1 class="fw-bolder">공지 수정</h1>
-                            
                         </div>
                         <div class="row gx-5 justify-content-center">
-                            <div class="col-lg-8 col-xl-6">
+                            <div class="col-lg-10 col-xl-10">
                                 <c:import url="../template/editForm.jsp"></c:import>
                             </div>
                         </div>
@@ -59,76 +54,76 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <script src="/resources/js/scripts.js"></script>
         <script src="/resources/js/summernote.js"></script>
         <script>
-        	
-			
-			function deleteFile (fileName) {
-				if(confirm("삭제하시면 되돌릴수 없습니다.")){
-					const formData = new FormData()
-					formData.append('name', fileName);
-					fetch("./deleteFile",{
-						method:"POST",
-						headers: {
-						
-					  	},
-						body: formData
-					})
-					const card = document.getElementById(fileName);
-					card.remove();
-				}
-			}
-			
 
-			 $('#summernote').summernote({
-			        placeholder: '상세페이지를 작성해주세요.',
-			        tabsize: 2,
-			        height: 500,
-			        backgroundColor:'white',
-			        toolbar: [
-			          ['style', ['style']],
-			          ['font', ['bold', 'underline', 'clear']],
-			          ['color', ['color']],
-			          ['para', ['ul', 'ol', 'paragraph']],
-			          ['table', ['table']],
-			          ['insert', ['link', 'picture', 'video']],
-			          ['view', ['fullscreen', 'codeview', 'help']]
-			        ],
-			        callbacks: {
-					    onChange: function(contents, $editable) {
-					      $('#content').val($('#summernote').summernote('code'));
-					  
-					    },
-					    onImageUpload: function(files) {
-					        console.log("imageUpload")
-					        const formData = new FormData();
-					        formData.append("id", ${dto.id });
-					        formData.append("attach", files[0])
-					        console.log(files)
-					        fetch("./addFile", {
-					        	method:"POST",
-					        	"Content-type": "multipart/form-data",
-					        	body: formData,
-					        }).then(response => response.json())
-					        .then(data => {
-					        	console.log(data)
-					        	//$('#summernote').summernote('insertImage', "/resources/upload/products/"+data.name, data.name);
-					        	$img = $('<img>').attr({ src: "/resources/upload/${board}/"+data.name })
-					            $('#summernote').summernote('insertNode', $img[0]);
-					        })
-				      },
-				      onMediaDelete: function($target, editor, $editable) {
-				            // 이미지 삭제 시 실행할 콜백 함수
-			            var deletedImageSrc = $target.attr('src');
-			            console.log('이미지 삭제됨:', deletedImageSrc);
 
-			            // 이곳에서 삭제된 이미지에 대한 추가 작업을 수행할 수 있습니다.
-			            // 예를 들어, 서버에서 해당 이미지를 삭제하거나 다른 동작을 수행할 수 있습니다.
-			          },
-			         
+            function deleteFile (fileName) {
+            	if(confirm("삭제하시면 되돌릴수 없습니다.")){
+            		const formData = new FormData()
+            		formData.append('name', fileName);
+            		fetch("./deleteFile",{
+            			method:"POST",
+            			headers: {
 
-				  }
-			        
-			  });
-			  $('#summernote').summernote('code', `${dto.content}`); 
-		</script>
+            		  	},
+            			body: formData
+            		})
+            		const card = document.getElementById(fileName);
+            		card.remove();
+            	}
+            }
+
+
+             $('#summernote').summernote({
+                    placeholder: '상세페이지를 작성해주세요.',
+                    tabsize: 2,
+                    height: 500,
+                    backgroundColor:'white',
+                    toolbar: [
+                      ['style', ['style']],
+                      ['font', ['bold', 'underline', 'clear']],
+                      ['color', ['color']],
+                      ['para', ['ul', 'ol', 'paragraph']],
+                      ['table', ['table']],
+                      ['insert', ['link', 'picture', 'video']],
+                      ['view', ['fullscreen', 'codeview', 'help']]
+                    ],
+                    callbacks: {
+            		    onChange: function(contents, $editable) {
+            		      $('#content').val($('#summernote').summernote('code'));
+
+            		    },
+            		    onImageUpload: function(files) {
+            		        console.log("imageUpload")
+            		        const formData = new FormData();
+            		        formData.append("id", ${dto.id });
+            		        formData.append("attach", files[0])
+            		        console.log(files)
+            		        fetch("./addFile", {
+            		        	method:"POST",
+            		        	"Content-type": "multipart/form-data",
+            		        	body: formData,
+            		        }).then(response => response.json())
+            		        .then(data => {
+            		        	console.log(data)
+            		        	//$('#summernote').summernote('insertImage', "/resources/upload/products/"+data.name, data.name);
+            		        	$img = $('<img>').attr({ src: "/resources/upload/${board}/"+data.name })
+            		            $('#summernote').summernote('insertNode', $img[0]);
+            		        })
+            	      },
+            	      onMediaDelete: function($target, editor, $editable) {
+            	            // 이미지 삭제 시 실행할 콜백 함수
+                        var deletedImageSrc = $target.attr('src');
+                        console.log('이미지 삭제됨:', deletedImageSrc);
+
+                        // 이곳에서 삭제된 이미지에 대한 추가 작업을 수행할 수 있습니다.
+                        // 예를 들어, 서버에서 해당 이미지를 삭제하거나 다른 동작을 수행할 수 있습니다.
+                      },
+
+
+            	  }
+
+              });
+              $('#summernote').summernote('code', `${dto.content}`);
+        </script>
     </body>
 </html>

@@ -6,6 +6,19 @@
 
 
 <mapper namespace="com.devkgm.app.board.notice.NoticeDAO">
+    <sql id="search">
+        <where>
+            <if test="kind == 'title'">
+                TITLE LIKE '%'||#{search}||'%'
+            </if>
+            <if test="kind == 'writer'">
+                WRITER LIKE '%'||#{search}||'%'
+            </if>
+            <if test="kind == 'content'">
+                CONTENT LIKE '%'||#{search}||'%'
+            </if>
+        </where>
+    </sql>
     <select id="getList" resultType="NoticeDTO" parameterType="BoardPager">
         SELECT *
         FROM
@@ -15,7 +28,8 @@
         (
         SELECT *
         FROM NOTICE
-        WHERE IS_TEMP = 0
+        <include refid="search"></include>
+        AND IS_TEMP = 0
         ORDER BY ID DESC
         ) n
         )
@@ -23,7 +37,8 @@
     </select>
     <select id="getTotalPage" resultType="Long">
         SELECT COUNT(*) FROM NOTICE
-        WHERE IS_TEMP = 0
+        <include refid="search"></include>
+        AND IS_TEMP = 0
     </select>
     <select id="getDetail" parameterType="NoticeDTO" resultMap="getNoticeResult">
         SELECT n.*, nf.NAME, nf.ORIGIN_NM
