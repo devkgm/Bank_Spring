@@ -1,15 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@taglib
+prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Personal - Start Bootstrap Theme</title>
@@ -32,25 +28,21 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
                     >
                         <c:forEach items="${list }" var="item">
-                            <div
-                                onclick="location.href = './detail/${item.id }'"
-                            >
-                                <%@ include file="../template/contentCard.jsp"
-                                %>
+                            <div onclick="location.href = './detail/${item.id }'">
+                                <%@ include file="../template/contentCard.jsp" %>
                             </div>
                         </c:forEach>
                     </div>
                     <div
                         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
                     >
-                        <jsp:include
-                            page="../template/pagination.jsp"
-                        ></jsp:include>
+                        <jsp:include page="../template/pagination.jsp"></jsp:include>
                     </div>
-
-                    <a type="button" class="btn btn-success" href="./add"
-                        >글쓰기</a
-                    >
+                    <div class="row">
+                        <div class="col ml-auto">
+                            <a type="button" class="btn btn-success" href="./add">글쓰기</a>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
