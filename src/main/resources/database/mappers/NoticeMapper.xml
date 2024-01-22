@@ -1,66 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-    
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
 <mapper namespace="com.devkgm.app.board.notice.NoticeDAO">
-	<select id="getList" resultType="NoticeDTO" parameterType="BoardPager">
-		SELECT *
-		FROM
-		(
-			SELECT ROWNUM, n.*
-			FROM
-			(
-				SELECT *
-				FROM NOTICE
-				WHERE IS_TEMP = 0
-				ORDER BY ID DESC
-			) n
-		)
-		WHERE ROWNUM BETWEEN #{startPage} AND #{lastPage}
-	</select>
-	<select id="getTotalPage" resultType="Long">
-		SELECT COUNT(*) FROM NOTICE
-	</select>
-	<select id="getDetail" parameterType="NoticeDTO" resultMap="getNoticeResult">
-		SELECT n.*, nf.NAME, nf.ORIGIN_NM
-		FROM NOTICE n 
-			LEFT JOIN NOTICE_FILE nf 
-			ON n.ID = nf.NOTICE_ID
-		WHERE n.ID = #{id}
-	</select>
-	<resultMap type="NoticeDTO" id="getNoticeResult">
-		<id column="ID" property="id"/>
-		<result column="TITLE" property="title"/>
-		<result column="WRITER" property="writer"/>
-		<result column="CONTENT" property="content"/>
-		<result column="CREATE_DT" property="create_dt"/>
-		<result column="VIEWS" property="views"/>
-		<collection property="fileDTOs" javaType="List" ofType="NoticeFileDTO">
-			<result column="NAME" property="name"/>
-			<result column="ORIGIN_NM" property="origin_nm"/>
-		</collection>
-	</resultMap>
-	<insert id="add" parameterType="NoticeDTO">
-		<selectKey keyProperty="id" order="BEFORE" resultType="Long">
-			SELECT NOTICE_SEQ.NEXTVAL AS ID FROM DUAL
-		</selectKey>
-		INSERT INTO NOTICE (ID, TITLE, WRITER, CONTENT) VALUES (#{id}, ' ', ' ', ' ')
-	</insert>
-	<update id="update" parameterType="NoticeDTO">
-		UPDATE NOTICE SET TITLE=#{title} , WRITER=#{writer} , CONTENT=#{content}, IS_TEMP=0 WHERE ID = #{id}
-	</update>
-	<delete id="delete" parameterType="NoticeDTO">
-		DELETE FROM NOTICE WHERE ID = #{id}
-	</delete>
-	
-	<insert id="addFile" parameterType="NoticeFileDTO">
-		INSERT INTO NOTICE_FILE (ID, NAME,ORIGIN_NM, NOTICE_ID) VALUES (PRODUCT_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm}, #{notice_id})
-	</insert>
-	
-	<delete id="deleteFile" parameterType="NoticeFileDTO">
-		DELETE FROM NOTICE_FILE WHERE NAME = #{name}
-	</delete>
+    <sql id="search">
+        <where>
+            <if test="kind == 'title'">
+                TITLE LIKE '%'||#{search}||'%'
+            </if>
+            <if test="kind == 'writer'">
+                WRITER LIKE '%'||#{search}||'%'
+            </if>
+            <if test="kind == 'content'">
+                CONTENT LIKE '%'||#{search}||'%'
+            </if>
+        </where>
+    </sql>
+    <select id="getList" resultType="NoticeDTO" parameterType="BoardPager">
+        SELECT *
+        FROM
+        (
+        SELECT ROWNUM, n.*
+        FROM
+        (
+        SELECT *
+        FROM NOTICE
+        <include refid="search"></include>
+        AND IS_TEMP = 0
+        ORDER BY ID DESC
+        ) n
+        )
+        WHERE ROWNUM BETWEEN #{startPage} AND #{lastPage}
+    </select>
+    <select id="getTotalPage" resultType="Long">
+        SELECT COUNT(*) FROM NOTICE
+        <include refid="search"></include>
+        AND IS_TEMP = 0
+    </select>
+    <select id="getDetail" parameterType="NoticeDTO" resultMap="getNoticeResult">
+        SELECT n.*, nf.NAME, nf.ORIGIN_NM
+        FROM NOTICE n
+        LEFT JOIN NOTICE_FILE nf
+        ON n.ID = nf.NOTICE_ID
+        WHERE n.ID = #{id}
+    </select>
+    <resultMap type="NoticeDTO" id="getNoticeResult">
+        <id column="ID" property="id"/>
+        <result column="TITLE" property="title"/>
+        <result column="WRITER" property="writer"/>
+        <result column="CONTENT" property="content"/>
+        <result column="CREATE_DT" property="create_dt"/>
+        <result column="VIEWS" property="views"/>
+        <collection property="fileDTOs" javaType="List" ofType="NoticeFileDTO">
+            <result column="NAME" property="name"/>
+            <result column="ORIGIN_NM" property="origin_nm"/>
+        </collection>
+    </resultMap>
+    <insert id="add" parameterType="NoticeDTO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="Long">
+            SELECT NOTICE_SEQ.NEXTVAL AS ID FROM DUAL
+        </selectKey>
+        INSERT INTO NOTICE (ID, TITLE, WRITER, CONTENT) VALUES (#{id}, ' ', ' ', ' ')
+    </insert>
+    <update id="update" parameterType="NoticeDTO">
+        UPDATE NOTICE SET TITLE=#{title} , WRITER=#{writer} ,CONTENT=#{content}, IS_TEMP=0 WHERE ID = #{id}
+    </update>
+    <delete id="delete" parameterType="NoticeDTO">
+        DELETE FROM NOTICE WHERE ID = #{id}
+    </delete>
+
+    <insert id="addFile" parameterType="NoticeFileDTO">
+        INSERT INTO NOTICE_FILE (ID, NAME,ORIGIN_NM, NOTICE_ID) VALUES (NOTICE_FILE_SEQ.NEXTVAL, #{name}, #{origin_nm},
+        #{notice_id})
+    </insert>
+
+    <delete id="deleteFile" parameterType="NoticeFileDTO">
+        DELETE FROM NOTICE_FILE WHERE NAME = #{name}
+    </delete>
+    <update id="addView" parameterType="NoticeDTO">
+        UPDATE NOTICE SET VIEWS=VIEWS+1 WHERE ID=#{id}
+    </update>
 </mapper>
