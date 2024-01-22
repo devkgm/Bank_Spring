@@ -25,19 +25,19 @@
 
     <interceptors>
         <interceptor>
-            <mapping path="/notice/add"/>
-            <mapping path="/notice/update"/>
-            <mapping path="/notice/reply"/>
-            <mapping path="/qna/detail/*"/>
-            <mapping path="/qna/add"/>
-            <mapping path="/qna/update"/>
-            <mapping path="/qna/reply"/>
-            <beans:bean id="commonInterceptor" class="com.devkgm.app.util.CustomInterceptor"/>
+            <mapping path="/qna/**"/>
+            <mapping path="/member/*"/>
+            <exclude-mapping path="/member/join"/>
+            <exclude-mapping path="/member/login"/>
+            <exclude-mapping path="/qna/list"/>
+            <beans:bean id="authenticationInterceptor"
+                        class="com.devkgm.app.interceptors.AuthenticationInterceptor"></beans:bean>
         </interceptor>
         <interceptor>
-            <mapping path="/**/*"/>
-
-            <beans:bean id="publicInterceptor" class="com.devkgm.app.util.PublicInterceptor"/>
+            <mapping path="/qna/update"/>
+            <mapping path="/notice/update"/>
+            <beans:bean id="writerCheckInterceptor"
+                        class="com.devkgm.app.interceptors.WriterCheckInterceptor"></beans:bean>
         </interceptor>
     </interceptors>
 
