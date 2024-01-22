@@ -11,10 +11,11 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <title>Personal - Start Bootstrap Theme</title>
         <c:import url="../template/templateHeader.jsp"></c:import>
     </head>
-    <body class="d-flex flex-column h-100">
+    <body>
         <main class="flex-shrink-0">
-            <!-- Navigation-->
-            <c:import url="../template/navigation.jsp"></c:import>
+            <div class="container">
+                <c:import url="../template/navigation.jsp"></c:import>
+            </div>
             <div class="container px-5 mb-5">
                 <div class="text-center mb-5">
                     <h1 class="display-5 fw-bolder mb-0">
@@ -33,14 +34,21 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                             </div>
                         </c:forEach>
                     </div>
-                    <div
-                        class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-                    >
-                        <jsp:include page="../template/pagination.jsp"></jsp:include>
-                    </div>
+                </div>
+                <div class="container">
                     <div class="row">
-                        <div class="col ml-auto">
+                        <div class="col-md-8 offset-md-2">
+                            <c:import url="../template/searchBar.jsp"></c:import>
+                        </div>
+                        <div class="col-md-2 text-end">
                             <a type="button" class="btn btn-success" href="./add">글쓰기</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="d-flex justify-content-center">
+                            <jsp:include page="../template/pagination.jsp"></jsp:include>
                         </div>
                     </div>
                 </div>

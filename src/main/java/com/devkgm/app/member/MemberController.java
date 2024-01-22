@@ -16,6 +16,11 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    @GetMapping("agreement")
+    public String agreement() throws Exception {
+        return "member/agreement";
+    }
+
     @GetMapping("update")
     public void update(MemberDTO memberDTO, Model model, HttpSession session) throws Exception {
         model.addAttribute("member", (MemberDTO) session.getAttribute("member"));

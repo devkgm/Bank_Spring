@@ -36,7 +36,7 @@ pageEncoding="UTF-8"%>
                 <c:if test="${sessionScope.member == null}">
                     <li class="nav-item"><a class="nav-link" href="/member/login">로그인</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/member/join">회원가입</a>
+                        <a class="nav-link" href="/member/agreement">회원가입</a>
                     </li>
                 </c:if>
                 <c:if test="${sessionScope.member!= null}">
