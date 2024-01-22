@@ -1,4 +1,4 @@
-package com.devkgm.app.board.member;
+package com.devkgm.app.member;
 
 import com.devkgm.app.board.FileDTO;
 

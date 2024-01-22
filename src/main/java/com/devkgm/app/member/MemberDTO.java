@@ -1,6 +1,4 @@
-package com.devkgm.app.board.member;
-
-import com.devkgm.app.board.member.AvatarDTO;
+package com.devkgm.app.member;
 
 public class MemberDTO {
     private Long id;

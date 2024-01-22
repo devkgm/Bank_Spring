@@ -118,9 +118,11 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
                             </form>
                         </div>
                         <div class="col-md-2 text-end">
+                            <c:if test="${member != null}">
                             <a type="button" class="btn btn-success float-right" href="./add"
                                 >글쓰기</a
                             >
+                            </c:if>
                         </div>
                     </div>
                 </div>

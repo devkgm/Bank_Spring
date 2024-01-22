@@ -4,7 +4,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.devkgm.app.board.member.MemberDAO">
+<mapper namespace="com.devkgm.app.member.MemberDAO">
     <select id="getMemberInfo" resultType="MemberDTO">
         SELECT * FROM (SELECT * FROM MEMBER ORDER BY ROWNUM DESC) WHERE ROWNUM = 1
     </select>
@@ -40,6 +40,15 @@
     </insert>
 
     <update id="update" parameterType="MemberDTO">
-        UPDATE MEMBER SET PHONE=#{phone}, ADDRESS=#{address} WHERE ID = #{id}
+        UPDATE MEMBER
+        <set>
+            <if test="phone != null AND phone != ''">
+                PHONE = #{phone}
+            </if>
+            <if test="address != null AND address != ''">
+                ADDRESS=#{address}
+            </if>
+        </set>
+        WHERE ID = #{id}
     </update>
 </mapper>

@@ -1,6 +1,5 @@
-package com.devkgm.app.board.member;
+package com.devkgm.app.member;
 
-import com.devkgm.app.board.member.AvatarDTO;
 import com.devkgm.app.util.FileManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

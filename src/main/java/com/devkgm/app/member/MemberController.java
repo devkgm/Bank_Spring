@@ -1,6 +1,5 @@
-package com.devkgm.app.board.member;
+package com.devkgm.app.member;
 
-import oracle.ucp.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Member;
 
 @Controller
 @RequestMapping("/member/*")
@@ -32,7 +29,12 @@ public class MemberController {
 
     @GetMapping("logout")
     public String logout(HttpSession session) throws Exception {
+        String prevPage = (String) session.getAttribute("prevPage");
+        session.removeAttribute("prevPage");
         session.invalidate();
+        if (prevPage != null) {
+            return "redirect:" + prevPage;
+        }
         return "redirect:/";
     }
 
