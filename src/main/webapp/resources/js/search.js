@@ -2,6 +2,8 @@
 const pager = document.getElementsByClassName("pager");
 const frm = document.getElementById("frm");
 const pageInput = document.getElementById("page");
+const kind = document.getElementById("kind");
+const options = document.getElementsByTagName("option");
 
 for(p of pager){
 	p.addEventListener("click", function(e) {
@@ -10,4 +12,12 @@ for(p of pager){
 		pageInput.value = page;
 		frm.submit();
 	})
-}	
+}
+
+for(option of options){
+    console.log(kind.value);
+    console.log(option.value);
+    if(option.value == kind.getAttribute("data-kind")){
+        option.selected = true;
+    }
+}

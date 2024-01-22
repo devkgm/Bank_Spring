@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <form action="./list" id="frm" class="w-100">
     <input type="hidden" name="page" value="1" id="page" />
     <div class="input-group mb-3">
-        <select class="form-select w-10" name="kind" aria-label="Default select example">
+        <select class="form-select w-10" data-kind="${pager.kind}" id="kind" name="kind" aria-label="Default select example">
             <option value="title">제목</option>
             <option value="writer">글쓴이</option>
             <option value="content">내용</option>
