@@ -71,8 +71,12 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>
-                            <a type="button" class="btn btn-primary mr-3" href="../update?id=${dto.id }">수정하기</a>
-        					<a type="button" class="btn btn-danger" href="../delete?id=${dto.id }">삭제하기</a>
+                            <c:catch>
+                           	    <c:if test="${member != null}">
+                                    <a type="button" class="btn btn-primary mr-3" href="../update?id=${dto.id }">수정하기</a>
+                                    <a type="button" class="btn btn-danger" href="../delete?id=${dto.id }">삭제하기</a>
+                                </c:if>
+                           	</c:catch>
                         </div>
                     </div>
                 </div>
