@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkgm.app.account.AccountDAO">
+    <select id="getList" parameterType="MemberDTO" resultMap="getListResult">
+        SELECT a.*, p.NAME AS PRODUCT_NAME, p.RATE AS PRODUCT_RATE
+        FROM ACCOUNT a
+        LEFT JOIN PRODUCT p
+        ON a.PRODUCT_ID = p.id
+        WHERE MEMBER_ID = #{id}
+    </select>
+    <resultMap id="getListResult" type="AccountDTO">
+        <id column="ID" property="id"/>
+        <result column="ACCOUNT_NUM" property="account_num"/>
+        <result column="BALANCE" property="balance"/>
+        <association property="productDTO" javaType="ProductDTO">
+            <result property="name" column="PRODUCT_NAME"/>
+            <result property="rate" column="PRODUCT_RATE"/>
+        </association>
+
+    </resultMap>
+
+    <insert id="doAdd" parameterType="AccountDTO">
+        INSERT INTO ACCOUNT (ID, PRODUCT_ID, MEMBER_ID, ACCOUNT_NUM, PASSWORD, BALANCE)
+        VALUES (ACCOUNT_SEQ.NEXTVAL, #{product_id}, #{member_id}, #{account_num}, #{password}, 0)
+    </insert>
+</mapper>

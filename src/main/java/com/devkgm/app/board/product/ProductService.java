@@ -61,6 +61,7 @@ public class ProductService implements BoardService<ProductDTO> {
     public int delete(ProductDTO productDTO) throws Exception {
         List<ProductFileDTO> fileList = productDAO.getTotalImage(productDTO);
         for (ProductFileDTO fileDTO : fileList) {
+            if (fileDTO == null) continue;
             fileManager.deleteFile("/resources/upload/products", fileDTO.getName());
         }
         return productDAO.delete(productDTO);

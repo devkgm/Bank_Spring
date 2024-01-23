@@ -15,8 +15,6 @@ for(p of pager){
 }
 
 for(option of options){
-    console.log(kind.value);
-    console.log(option.value);
     if(option.value == kind.getAttribute("data-kind")){
         option.selected = true;
     }

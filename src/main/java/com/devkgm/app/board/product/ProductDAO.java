@@ -14,7 +14,7 @@ import com.devkgm.app.board.BoardPager;
 public class ProductDAO implements BoardDAO<ProductDTO> {
     @Autowired
     private SqlSession sqlSession;
-    private String namespace = "com.devkgm.app.board.product.ProductDAO.";
+    private final String namespace = "com.devkgm.app.board.product.ProductDAO.";
 
     @Override
     public List<ProductDTO> getList(BoardPager boardPager) throws Exception {
@@ -23,6 +23,7 @@ public class ProductDAO implements BoardDAO<ProductDTO> {
 
     @Override
     public ProductDTO getDetail(ProductDTO productDTO) throws Exception {
+        System.out.println(sqlSession);
         return sqlSession.selectOne(namespace + "getDetail", productDTO);
     }
 

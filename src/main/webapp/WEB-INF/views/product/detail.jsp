@@ -67,7 +67,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="${dto.counts }" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="location.href='/account/add?id=${dto.id}'">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>

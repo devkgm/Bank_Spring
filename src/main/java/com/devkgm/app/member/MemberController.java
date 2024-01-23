@@ -59,9 +59,9 @@ public class MemberController {
         session.removeAttribute("prevPage");
         session.setAttribute("member", memberDTO);
         model.addAttribute("member", memberDTO);
-        if (prevPage != null) {
-            return "redirect:" + prevPage;
-        }
+//        if (prevPage != null) {
+//            return "redirect:" + prevPage;
+//        }
         return "redirect:/";
     }
 
