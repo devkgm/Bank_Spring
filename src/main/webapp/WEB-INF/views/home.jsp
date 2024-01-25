@@ -31,6 +31,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             rel="stylesheet"
         />
         <!-- Core theme CSS (includes Bootstrap)-->
+        <c:import url="./commons/bootstrap_css.jsp"></c:import>
         <link href="/resources/css/styles.css" rel="stylesheet" />
     </head>
     <body class="d-flex flex-column h-100">
@@ -470,8 +471,10 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <!-- Footer-->
         <c:import url="./template/footer.jsp"></c:import>
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <c:import url="./commons/bootstrap_js.jsp"></c:import>
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
+        <script src="/resources/js/tooltip.js"></script>
+        <c:import url="/resources/js/jquery.js"></c:import>
     </body>
 </html>

@@ -49,7 +49,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
                             <c:forEach items="${list }" var="item" varStatus="status">
                                 <tr>
                                     <td>
-                                        <input class="checkbox" type="checkbox" name="product_id" value="${item.id}" />
+                                        <input class="checkbox" type="checkbox" name="product_id" value="${item.id}" id="product_id${item.id}"/>
                                     </td>
                                     <td onclick="location.href='/product/detail/${item.id}'">
                                         ${item.name }
@@ -113,7 +113,9 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
                         product_id: product_id
                     },
                     success: function(data) {
-                        console.log(data);
+                        for(id of product_id) {
+                            $("#product_id" + id).parent().parent().remove();
+                        }
                     }
                 })
             })

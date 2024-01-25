@@ -15,9 +15,14 @@ for (b of button) {
                 if (data == 0) {
                     alert('로그인이 필요합니다.');
                 } else if (data > 0) {
-                    if (confirm('위시리스트로 이동하시겠습니까?')) {
-                        location.href = '/wishlist/list';
-                    }
+                    const wishlistBtn = bootstrap.Tooltip.getInstance("#wishlistBtn");
+                    wishlistBtn.setContent({ '.tooltip-inner': '상품을 위시리스트에 추가했어요.' });
+                    wishlistBtn.show();
+                    setTimeout(()=>{
+                        wishlistBtn.hide();
+                        wishlistBtn.setContent({ '.tooltip-inner': '위시리스트' });
+                    },3000)
+
                 }
             });
     });

@@ -55,9 +55,10 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!-- Footer-->
         <c:import url="../template/footer.jsp"></c:import>
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <c:import url="../commons/bootstrap_js.jsp"></c:import>
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
+        <script src="/resources/js/tooltip.js"></script>
         <script src="/resources/js/wishlist.js"></script>
     </body>
 </html>
