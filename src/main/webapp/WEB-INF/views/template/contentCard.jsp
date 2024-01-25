@@ -60,7 +60,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <!-- Product actions-->
         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
-                <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+                <button class="btn btn-outline-dark mt-auto wishlist" data-product-id="${item.id}">Add to cart</button>
             </div>
         </div>
     </div>

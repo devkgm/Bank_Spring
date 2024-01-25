@@ -17,5 +17,6 @@
         <typeAlias type="com.devkgm.app.member.MemberDTO" alias="MemberDTO"/>
         <typeAlias type="com.devkgm.app.member.AvatarDTO" alias="AvatarDTO"/>
         <typeAlias type="com.devkgm.app.account.AccountDTO" alias="AccountDTO"/>
+        <typeAlias type="com.devkgm.app.wishlist.WishlistDTO" alias="WishlistDTO"/>
     </typeAliases>
 </configuration>

@@ -29,9 +29,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-start"
                     >
                         <c:forEach items="${list }" var="item">
-                            <div onclick="location.href = './detail/${item.id }'">
-                                <%@ include file="../template/contentCard.jsp" %>
-                            </div>
+                            <%@ include file="../template/contentCard.jsp" %>
                         </c:forEach>
                     </div>
                 </div>
@@ -60,5 +58,6 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
+        <script src="/resources/js/wishlist.js"></script>
     </body>
 </html>
