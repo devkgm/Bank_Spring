@@ -9,11 +9,20 @@
         INSERT INTO COMMENTS (ID, CONTENT, RATE, PRODUCT_ID, MEMBER_ID) VALUES (COMMENTS_SEQ.NEXTVAL, #{content},
         #{rate}, #{product_id}, #{member_id})
     </insert>
-    <select id="getList" parameterType="CommentDTO" resultType="CommentDTO">
-        SELECT c.*, m.NAME
+    <select id="getList" parameterType="Map" resultType="CommentDTO">
+        SELECT R.*
+        FROM
+        (
+        SELECT ROWNUM RN, c.*, m.NAME
         FROM COMMENTS c
         LEFT JOIN MEMBER m
         ON c.MEMBER_ID = m.id
-        WHERE PRODUCT_ID = #{product_id}
+        WHERE PRODUCT_ID = #{commentDTO.product_id}
+        ORDER BY CREATE_DT DESC
+        )R
+        WHERE R.RN BETWEEN #{pager.startPage} AND ${pager.lastPage}
+    </select>
+    <select id="getTotalPage" parameterType="CommentDTO" resultType="Long">
+        SELECT COUNT(*) FROM COMMENTS WHERE PRODUCT_ID = #{product_id}
     </select>
 </mapper>

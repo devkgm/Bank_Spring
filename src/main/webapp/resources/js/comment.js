@@ -1,8 +1,19 @@
 const commentSubmitButton = document.getElementById('commentSubmitButton');
 const commentForm = document.getElementById('commentForm');
-const commentTable = document.getElementById('commentTable');
+const commentTable = document.getElementsByTagName('tbody')[0];
 const product_id = document.getElementById('product_id').value;
 const replyContents = document.getElementById('replyContents');
+
+$(document).on('click',"#more",function(){
+    const page = $("#more").attr("data-bs-commentPage")
+    fetch('/comment/getList?product_id='+product_id+"&page="+(page*1+1))
+        .then((response)=>response.text())
+        .then((data)=>{
+            commentTable.innerHTML += data;
+        })
+})
+const btn = `<button id="more" data-bs-commentPage="1" class="btn btn-primary">더보기(${start}/${end})</button>`
+
 commentSubmitButton.addEventListener('click', (e)=>{
     fetch('/comment/doAdd', {
         method: 'POST',

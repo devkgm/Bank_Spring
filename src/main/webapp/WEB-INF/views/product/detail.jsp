@@ -125,8 +125,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
             <div class="container px-4 px-lg-5 my-5">
             <h1>댓글</h1>
                 <table class="table table-hover" id="commentTable">
-
+                    <thead>
+                        <tr>
+                            <th>내용</th>
+                            <th>점수</th>
+                            <th>작성자</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
                 </table>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 d-flex text-end" id="buttonContainer">
+
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -134,7 +149,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <!-- Footer-->
         <c:import url="../template/footer.jsp"></c:import>
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <c:import url="../commons/jquery.jsp"></c:import>
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
         <script src="/resources/js/comment.js"></script>

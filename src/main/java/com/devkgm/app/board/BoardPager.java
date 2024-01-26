@@ -11,18 +11,18 @@ public class BoardPager {
     private Long curBlock;
     private Long startBlock;
     private Long lastBlock;
-    private Long totalBock;
+    private Long totalBlock;
 
     private String kind = "title";
     private String search = "";
 
 
-    public Long getTotalBock() {
-        return totalBock;
+    public Long gettotalBlock() {
+        return totalBlock;
     }
 
-    public void setTotalBock(Long totalBock) {
-        this.totalBock = totalBock;
+    public void settotalBlock(Long totalBlock) {
+        this.totalBlock = totalBlock;
     }
 
     public String getSearch() {
@@ -38,7 +38,7 @@ public class BoardPager {
     }
 
     public boolean isLast() {
-        return this.curBlock == this.totalBock / this.perBlock + 1;
+        return this.curBlock == this.totalBlock / this.perBlock + 1;
     }
 
     public Long getTotalPage() {
@@ -47,21 +47,25 @@ public class BoardPager {
 
     public void setTotalPage(Long totalPage) {
         this.totalPage = totalPage;
-        this.lastPage = this.page * this.perPage;
-        this.startPage = this.lastPage - this.perPage + 1;
 
-        this.totalBock = this.totalPage / this.perPage + (this.totalPage % this.perPage > 0 ? 1 : 0);
+
+        this.totalBlock = this.totalPage / this.perPage + (this.totalPage % this.perPage > 0 ? 1 : 0);
         this.curBlock = this.page / this.perPage + (this.page % this.perPage > 0 ? 1 : 0);
         this.startBlock = this.page / this.perBlock * (this.page % this.perBlock > 0 ? this.perBlock : 0) + 1;
-        this.lastBlock = this.startBlock + (this.totalBock - this.startBlock < 10 ? this.totalBock - this.startBlock : this.perBlock - 1);
+        this.lastBlock = this.startBlock + (this.totalBlock - this.startBlock < 10 ? this.totalBlock - this.startBlock : this.perBlock - 1);
         System.out.println(this.toString());
+    }
+
+    public void makeRow() {
+        this.lastPage = this.page * this.perPage;
+        this.startPage = this.lastPage - this.perPage + 1;
     }
 
     @Override
     public String toString() {
         return "BoardPager [totalPage=" + totalPage + ", page=" + page + ", perPage=" + perPage + ", startPage="
                 + startPage + ", lastPage=" + lastPage + ", perBlock=" + perBlock + ", curBlock=" + curBlock
-                + ", startBlock=" + startBlock + ", lastBlock=" + lastBlock + ", totalBock=" + totalBock + "]";
+                + ", startBlock=" + startBlock + ", lastBlock=" + lastBlock + ", totalBlock=" + totalBlock + "]";
     }
 
     public Long getPage() {

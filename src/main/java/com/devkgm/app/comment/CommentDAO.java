@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CommentDAO {
@@ -16,7 +17,11 @@ public class CommentDAO {
         return sqlSession.insert(namespace + "doAdd", commentDTO);
     }
 
-    public List<CommentDTO> getList(CommentDTO commentDTO) {
-        return sqlSession.selectList(namespace + "getList", commentDTO);
+    public List<CommentDTO> getList(Map<String, Object> map) {
+        return sqlSession.selectList(namespace + "getList", map);
+    }
+
+    public Long getTotalPage(CommentDTO commentDTO) {
+        return sqlSession.selectOne(namespace + "getTotalPage", commentDTO);
     }
 }
