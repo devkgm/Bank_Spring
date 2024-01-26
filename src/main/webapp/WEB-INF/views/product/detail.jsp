@@ -65,18 +65,23 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             <span>${dto.rate }</span>
                         </div>
                         
-                        <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="${dto.counts }" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="location.href='/account/add?id=${dto.id}'">
+                        <div class="d-flex mb-3">
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="location.href='/wishlist/doAdd?product_id=${dto.id}'">
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="location.href='/account/add?id=${dto.id}'">
+                                <i class="bi-cart-fill me-1"></i>
+                                상품 가입
+                            </button>
+                        </div>
+                        <div class="d-flex">
                             <c:catch>
-                           	    <c:if test="${member != null}">
+                                <c:if test="${member != null}">
                                     <a type="button" class="btn btn-primary mr-3" href="../update?id=${dto.id }">수정하기</a>
                                     <a type="button" class="btn btn-danger" href="../delete?id=${dto.id }">삭제하기</a>
                                 </c:if>
-                           	</c:catch>
+                            </c:catch>
                         </div>
                     </div>
                 </div>
@@ -86,13 +91,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         
         <!-- 컨텐 -->
         <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
+            <div class="d-flex container px-4 px-lg-5 my-5 justify-content-center">
         	${dto.content }
         	</div>
         </section>
         <!-- 댓글 -->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
+                <h1>리뷰 작성</h1>
                 <form id="commentForm">
                     <input type="hidden" class="form-control" value="${dto.id}" name="product_id" id="product_id">
                       <div class="mb-3">
@@ -108,7 +114,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       </select>
                       </div>
 
-                      <div>
+                      <div class="d-flex text-end">
                         <button id="commentSubmitButton" type="button" class="btn btn-primary">댓글달기</button>
                       </div>
                 </form>

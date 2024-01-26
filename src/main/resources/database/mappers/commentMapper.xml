@@ -10,6 +10,10 @@
         #{rate}, #{product_id}, #{member_id})
     </insert>
     <select id="getList" parameterType="CommentDTO" resultType="CommentDTO">
-        SELECT * FROM COMMENTS WHERE PRODUCT_ID = #{product_id}
+        SELECT c.*, m.NAME
+        FROM COMMENTS c
+        LEFT JOIN MEMBER m
+        ON c.MEMBER_ID = m.id
+        WHERE PRODUCT_ID = #{product_id}
     </select>
 </mapper>

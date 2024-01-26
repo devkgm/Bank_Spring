@@ -20,6 +20,10 @@ public class CommentController {
     @PostMapping("doAdd")
     public String doAdd(CommentDTO commentDTO, Model model, HttpSession session) {
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+        if (memberDTO == null) {
+            model.addAttribute("result", "login");
+            return "commons/ajaxResult";
+        }
         commentDTO.setMember_id(memberDTO.getId());
         System.out.println(commentDTO.getContent());
         int result = commentService.doAdd(commentDTO);

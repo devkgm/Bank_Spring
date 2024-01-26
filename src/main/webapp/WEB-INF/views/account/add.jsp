@@ -94,7 +94,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
                                         <button
                                             class="btn btn-primary btn-lg"
                                             id="submitButton"
-                                            type="submit"
+                                            type="button"
                                         >
                                             상품 가입
                                         </button>
@@ -113,5 +113,6 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
         <script src="/resources/js/summernote.js"></script>
+        <script src="/resources/js/account.js"></script>
     </body>
 </html>
