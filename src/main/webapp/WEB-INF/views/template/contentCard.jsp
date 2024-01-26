@@ -41,7 +41,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         </div>
         <!-- Product details-->
         <div class="card-body p-4">
-            <div class="text-center">
+            <div class="text-center" onclick="location.href='./detail/${item.id}'">
                 <!-- Product name-->
                 <h5 class="fw-bolder">${item.name }</h5>
                 <!-- Product reviews-->

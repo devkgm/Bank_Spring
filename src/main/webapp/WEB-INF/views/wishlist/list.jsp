@@ -38,12 +38,14 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
                     <div
                         class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
                     >
+
+
                         <table class="table table-hover">
                             <tr>
                                 <th>
                                     <input type="checkbox" name="check" id="checkAll" /> 전체선택
                                 </th>
-                                <th>상품명</th>
+                                <th>내용</th>
                                 <th>이율</th>
                             </tr>
                             <c:forEach items="${list }" var="item" varStatus="status">

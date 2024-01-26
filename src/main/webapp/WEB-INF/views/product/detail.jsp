@@ -90,6 +90,40 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         	${dto.content }
         	</div>
         </section>
+        <!-- 댓글 -->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <form id="commentForm">
+                    <input type="hidden" class="form-control" value="${dto.id}" name="product_id" id="product_id">
+                      <div class="mb-3">
+                        <textarea class="form-control" name="content" id="replyContents" rows="3" ></textarea>
+                      </div>
+                      <div class="mb-3">
+                      <select class="form-select" name="rate" aria-label="Default select example">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                      </select>
+                      </div>
+
+                      <div>
+                        <button id="commentSubmitButton" type="button" class="btn btn-primary">댓글달기</button>
+                      </div>
+                </form>
+            </div>
+        </section>
+        <!-- 댓글 리스트 -->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5 my-5">
+            <h1>댓글</h1>
+                <table class="table table-hover" id="commentTable">
+
+                </table>
+            </div>
+        </section>
+
         </main>
         <!-- Footer-->
         <c:import url="../template/footer.jsp"></c:import>
@@ -97,5 +131,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="/resources/js/scripts.js"></script>
+        <script src="/resources/js/comment.js"></script>
     </body>
 </html>

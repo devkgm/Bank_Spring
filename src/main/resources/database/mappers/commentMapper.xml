@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.devkgm.app.comment.CommentDAO">
+    <insert id="doAdd" parameterType="CommentDTO">
+        INSERT INTO COMMENTS (ID, CONTENT, RATE, PRODUCT_ID, MEMBER_ID) VALUES (COMMENTS_SEQ.NEXTVAL, #{content},
+        #{rate}, #{product_id}, #{member_id})
+    </insert>
+    <select id="getList" parameterType="CommentDTO" resultType="CommentDTO">
+        SELECT * FROM COMMENTS WHERE PRODUCT_ID = #{product_id}
+    </select>
+</mapper>
