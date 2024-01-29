@@ -16,7 +16,7 @@ local.properties
 *.properties
 # External tool builders
 .externalToolBuilders/
-target
+target/
 # Locally stored "Eclipse launch configurations"
 *.launch
 
@@ -353,4 +353,6 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/intellij+all
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,eclipse,visualstudiocode,intellij
+target
+/target/
 target

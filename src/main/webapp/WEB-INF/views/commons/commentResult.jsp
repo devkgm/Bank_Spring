@@ -9,6 +9,7 @@ pageEncoding="UTF-8"%>
         </td>
         <td>${item.rate }</td>
         <td>${item.name }</td>
+        <td>${item.create_dt }</td>
     </tr>
 </c:forEach>
 

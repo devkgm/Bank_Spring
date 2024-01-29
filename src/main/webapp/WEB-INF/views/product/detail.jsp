@@ -130,6 +130,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             <th>내용</th>
                             <th>점수</th>
                             <th>작성자</th>
+                            <th>작성일</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -53,6 +53,7 @@ public class BoardPager {
         this.curBlock = this.page / this.perPage + (this.page % this.perPage > 0 ? 1 : 0);
         this.startBlock = this.page / this.perBlock * (this.page % this.perBlock > 0 ? this.perBlock : 0) + 1;
         this.lastBlock = this.startBlock + (this.totalBlock - this.startBlock < 10 ? this.totalBlock - this.startBlock : this.perBlock - 1);
+        makeRow();
         System.out.println(this.toString());
     }
 
