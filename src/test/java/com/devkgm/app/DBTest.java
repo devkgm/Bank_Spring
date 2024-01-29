@@ -13,7 +13,7 @@ public class DBTest extends MyTest {
 
     @Test
     public void test() throws Exception {
-
+        assert (true);
     }
 
 }
