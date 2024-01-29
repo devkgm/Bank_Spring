@@ -12,8 +12,8 @@ public class DBTest extends MyTest {
     private String namespace = "com.devkgm.app.board.product.ProductDAO.";
 
     @Test
-    void test() throws Exception {
-        
+    public void test() throws Exception {
+
     }
 
 }
