@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class CommentController {
 
     @PostMapping("doAdd")
     public String doAdd(CommentDTO commentDTO, Model model, HttpSession session, BoardPager pager) throws Exception {
-        pager.setPerPage(5l);
+        pager.setPerPage(10l);
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
         if (memberDTO == null) {
             model.addAttribute("result", "login");
@@ -37,13 +38,17 @@ public class CommentController {
     }
 
     @GetMapping("getList")
-    public String getList(CommentDTO commentDTO, Model model, BoardPager pager) throws Exception {
-        pager.setPerPage(5l);
+    @ResponseBody
+    public Map<String, Object> getList(CommentDTO commentDTO, Model model, BoardPager pager) throws Exception {
+        pager.setPerPage(10l);
 
         List<CommentDTO> list = commentService.getList(commentDTO, pager);
-        
+
         model.addAttribute("pager", pager);
         model.addAttribute("list", list);
-        return "commons/commentResult";
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("list", list);
+        map.put("pager", pager);
+        return map;
     }
 }

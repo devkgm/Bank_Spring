@@ -114,8 +114,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                       </select>
                       </div>
 
-                      <div class="d-flex text-end">
-                        <button id="commentSubmitButton" type="button" class="btn btn-primary">댓글달기</button>
+                      <div class="d-flex text-end justify-content-end">
+                        <button id="commentSubmitButton" type="button" class="btn btn-primary">리뷰달기</button>
                       </div>
                 </form>
             </div>
@@ -124,7 +124,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
             <h1>댓글</h1>
-                <table class="table table-hover" id="commentTable">
+                <table class="table table-hover text-center" >
                     <thead>
                         <tr>
                             <th>내용</th>
@@ -133,14 +133,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                             <th>작성일</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="commentBody">
                     </tbody>
                 </table>
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-12 d-flex text-end" id="buttonContainer">
-
+                    <div class="col-12 d-flex text-end justify-content-center" id="buttonContainer">
+                        <button id="more" data-bs-commentPage="1" class="btn btn-primary"></button>
                     </div>
                 </div>
             </div>
